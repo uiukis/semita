@@ -4,7 +4,8 @@ A community-driven hub that shows how to use AI to **leverage — not replace** 
 
 MVP focus: **Choose** — compare LLMs by cost per token, context window, benchmarks and an editorial Semita score.
 
-- Live locally: [http://localhost:3100](http://localhost:3100)
+- Production: [https://semita-nu.vercel.app](https://semita-nu.vercel.app)
+- Repo: [https://github.com/uiukis/semita](https://github.com/uiukis/semita)
 - Locales: `/en`, `/pt-br`
 - License: [MIT](LICENSE)
 - Contribute: [CONTRIBUTING.md](CONTRIBUTING.md) · [docs/adding-a-model.md](docs/adding-a-model.md)
