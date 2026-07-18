@@ -58,7 +58,8 @@ export function MotionCardLink({
 
   return (
     <motion.div
-      whileHover={{ y: -4 }}
+      whileHover={{ y: -6, scale: 1.012 }}
+      whileTap={{ scale: 0.992 }}
       transition={{ type: "spring", stiffness: 380, damping: 28 }}
       className="h-full"
     >

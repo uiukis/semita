@@ -6,11 +6,14 @@
   "nav": {
     "home": "Semita home",
     "models": "Models",
-    "compare": "Compare"
+    "compare": "Compare",
+    "score": "Score"
   },
   "footer": {
     "tagline": "Semita — open source, community-driven. AI that leverages you, not replaces you.",
-    "disclaimer": "Prices and benchmarks are references — always verify the official source."
+    "disclaimer": "Prices and benchmarks are references — always verify the official source.",
+    "score": "Semita score methodology",
+    "contribute": "Contribute data"
   },
   "language": {
     "label": "Language",
@@ -39,6 +42,7 @@
     "roadmapTitle": "The road ahead",
     "roadmapSubtitle": "Semita grows one pillar at a time — each phase ships only when the previous one is solid.",
     "statusInProgress": "in progress",
+    "statusLive": "live",
     "statusPlanned": "planned",
     "phases": {
       "chooseName": "Choose",
@@ -82,6 +86,7 @@
     "back": "← Back to models",
     "releasedOn": "{provider} · released {date}",
     "community": "{score} ★ Semita score",
+    "scoreLink": "How the score works",
     "compare": "Compare",
     "input": "Input / 1M",
     "output": "Output / 1M",
@@ -113,6 +118,30 @@
     "maxOutput": "Max output",
     "useCases": "Use cases",
     "community": "Semita score"
+  },
+  "score": {
+    "eyebrow": "Transparency",
+    "title": "Semita score methodology",
+    "subtitle": "The Semita score is an editorial 1.0–5.0 rating for the Phase 1 MVP. It helps you scan the catalog quickly — it is not a live community vote.",
+    "editorial": "Until Phase 4 (community validates), maintainers set each score by reading public docs, pricing and known strengths. Every score can be challenged via a data-update issue with sources.",
+    "scaleTitle": "Scale",
+    "scaleBody": "5.0 = exceptional fit for its intended use cases at the listed price. 4.0–4.9 = strong default pick. 3.0–3.9 = solid with clear trade-offs. Below 3.0 = niche or outdated for most Semita users.",
+    "factors": {
+      "qualityTitle": "Capability",
+      "qualityBody": "Public benchmarks and documented strengths for coding, writing, reasoning or multimodal work — never invented numbers.",
+      "valueTitle": "Cost vs quality",
+      "valueBody": "List price per million tokens relative to peers in the same capability band.",
+      "fitTitle": "Practical fit",
+      "fitBody": "How often the model is a sensible default for the tagged use cases, not just a leaderboard winner.",
+      "trustTitle": "Sources & freshness",
+      "trustBody": "Official pricing/docs links and a recent lastUpdated date. Stale or weakly sourced entries score lower until refreshed."
+    },
+    "notTitle": "What it is not",
+    "notVotes": "Not live community votes (that lands in Phase 4).",
+    "notBenchmark": "Not a single benchmark score — those stay listed separately with sources.",
+    "notGuarantee": "Not a purchase recommendation or SLA — always verify the official provider page.",
+    "browseModels": "Browse models",
+    "compare": "Compare side by side"
   },
   "useCases": {
     "coding": "Coding",

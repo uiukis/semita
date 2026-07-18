@@ -27,8 +27,9 @@ export default async function Home({
     {
       phase: "Phase 1",
       name: t("phases.chooseName"),
-      status: t("statusInProgress"),
-      inProgress: true,
+      status: t("statusLive"),
+      inProgress: false,
+      live: true,
       body: t("phases.chooseBody"),
     },
     {
@@ -36,6 +37,7 @@ export default async function Home({
       name: t("phases.applyName"),
       status: t("statusPlanned"),
       inProgress: false,
+      live: false,
       body: t("phases.applyBody"),
     },
     {
@@ -43,6 +45,7 @@ export default async function Home({
       name: t("phases.learnName"),
       status: t("statusPlanned"),
       inProgress: false,
+      live: false,
       body: t("phases.learnBody"),
     },
     {
@@ -50,6 +53,7 @@ export default async function Home({
       name: t("phases.validateName"),
       status: t("statusPlanned"),
       inProgress: false,
+      live: false,
       body: t("phases.validateBody"),
     },
   ];
@@ -65,14 +69,14 @@ export default async function Home({
       <section className="relative flex flex-col items-start gap-7 overflow-hidden py-20 sm:py-28 lg:py-36">
         <TrailBackdrop />
 
-        <FadeIn delay={0}>
+        <FadeIn delay={0} className="relative z-10">
           <span className="inline-flex items-center gap-2 rounded-full border border-line bg-surface px-3.5 py-1.5 text-xs font-medium text-muted">
-            <span className="h-1.5 w-1.5 rounded-full bg-accent" />
+            <span className="h-1.5 w-1.5 animate-pulse rounded-full bg-accent" />
             {t("badge")}
           </span>
         </FadeIn>
 
-        <FadeIn delay={0.08}>
+        <FadeIn delay={0.08} className="relative z-10">
           <h1 className="max-w-3xl text-4xl font-semibold leading-[1.1] tracking-tight sm:text-5xl lg:text-6xl">
             {t("titleLead")}{" "}
             <span className="bg-gradient-to-r from-accent to-emerald-200 bg-clip-text text-transparent">
@@ -82,13 +86,13 @@ export default async function Home({
           </h1>
         </FadeIn>
 
-        <FadeIn delay={0.16}>
+        <FadeIn delay={0.16} className="relative z-10">
           <p className="max-w-2xl text-base leading-relaxed text-muted sm:text-lg">
             {t("subtitle")}
           </p>
         </FadeIn>
 
-        <FadeIn delay={0.24} className="flex flex-wrap gap-3">
+        <FadeIn delay={0.24} className="relative z-10 flex flex-wrap gap-3">
           <MotionLink
             href="/models"
             className="rounded-full bg-accent px-6 py-3 text-sm font-semibold text-[#06130a] transition-colors hover:bg-accent-dim hover:shadow-lg hover:shadow-accent/20"
@@ -103,7 +107,7 @@ export default async function Home({
           </MotionLink>
         </FadeIn>
 
-        <FadeIn delay={0.32}>
+        <FadeIn delay={0.32} className="relative z-10">
           <dl className="mt-4 flex flex-wrap gap-x-10 gap-y-4">
             {stats.map((stat) => (
               <div key={stat.label}>
@@ -154,7 +158,7 @@ export default async function Home({
               <span
                 className={[
                   "absolute -left-[31px] top-1 flex h-3 w-3 rounded-full sm:-left-[39px]",
-                  step.inProgress
+                  step.live || step.inProgress
                     ? "bg-accent shadow-[0_0_12px_var(--accent)]"
                     : "border border-line bg-surface",
                 ].join(" ")}
@@ -166,7 +170,7 @@ export default async function Home({
                 <span
                   className={[
                     "rounded-full px-2.5 py-0.5 text-[11px] font-medium",
-                    step.inProgress
+                    step.live || step.inProgress
                       ? "bg-accent-soft text-accent"
                       : "border border-line text-muted",
                   ].join(" ")}

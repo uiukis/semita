@@ -4,8 +4,8 @@ Thanks for helping build a clearer path through AI.
 
 ## Ways to contribute
 
+- **Model data (easiest)** — open a [Data update issue](https://github.com/uiukis/semita/issues/new?template=data_update.md); no code required
 - **Code** — UI, filters, i18n, SEO, tooling
-- **Model data** — pricing, context, benchmarks, sources
 - **Copy** — English / Portuguese (Brazil) strings in `messages/`
 - **Issues** — bugs, outdated prices, missing models
 
@@ -25,10 +25,14 @@ pnpm build
 
 ## Adding or updating a model
 
-1. Edit `src/data/models.ts` (or follow [docs/adding-a-model.md](docs/adding-a-model.md)).
+**Prefer the issue template** if you only need a price/benchmark fix.
+
+For a full PR:
+
+1. Edit `src/data/models.ts` (see [docs/adding-a-model.md](docs/adding-a-model.md) and [docs/keeping-data-fresh.md](docs/keeping-data-fresh.md)).
 2. Fill **both** `en` and `pt-br` content blocks.
 3. Set `pricing`, `sources` and `lastUpdated` from official docs.
-4. Keep `communityScore` as an **editorial Semita score** for the MVP (not live votes).
+4. Keep `communityScore` as an **editorial Semita score** (methodology: `/score`) — not live votes.
 5. Run `pnpm lint && pnpm build`.
 
 ## Pull requests

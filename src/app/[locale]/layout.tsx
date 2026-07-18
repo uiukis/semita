@@ -4,7 +4,12 @@ import { Geist, Geist_Mono } from "next/font/google";
 import { notFound } from "next/navigation";
 import { hasLocale, NextIntlClientProvider } from "next-intl";
 import { getTranslations, setRequestLocale } from "next-intl/server";
+import { Analytics } from "@vercel/analytics/next";
+import { SpeedInsights } from "@vercel/speed-insights/next";
+import { AmbientBackground } from "@/components/ambient-background";
 import { LanguageSwitcher } from "@/components/language-switcher";
+import { PageTransition } from "@/components/page-transition";
+import { ScrollProgress } from "@/components/scroll-progress";
 import { Link } from "@/i18n/navigation";
 import { routing } from "@/i18n/routing";
 import "../globals.css";
@@ -42,16 +47,12 @@ export async function generateMetadata({
     },
     description: t("description"),
     alternates: {
-      canonical: `/${locale}`,
-      languages: {
-        en: "/en",
-        "pt-BR": "/pt-br",
-      },
+      canonical: "/",
     },
     openGraph: {
       type: "website",
       locale: locale === "pt-br" ? "pt_BR" : "en_US",
-      url: `/${locale}`,
+      url: "/",
       siteName: "Semita",
       title: t("title"),
       description: t("description"),
@@ -112,8 +113,10 @@ export default async function LocaleLayout({
       lang={locale}
       className={`${geistSans.variable} ${geistMono.variable} h-full antialiased`}
     >
-      <body className="flex min-h-full flex-col">
+      <body className="relative isolate flex min-h-full flex-col overflow-x-hidden">
         <NextIntlClientProvider>
+          <AmbientBackground />
+          <ScrollProgress />
           <header className="sticky top-0 z-20 border-b border-line bg-background/75 backdrop-blur-md">
             <nav className="mx-auto flex w-full max-w-6xl items-center justify-between gap-4 px-4 py-3.5 sm:px-6">
               <Link href="/" aria-label={t("home")}>
@@ -132,6 +135,12 @@ export default async function LocaleLayout({
                 >
                   {t("compare")}
                 </Link>
+                <Link
+                  href="/score"
+                  className="hidden rounded-full px-3 py-1.5 text-muted transition-colors hover:bg-surface-raised hover:text-foreground sm:inline-flex"
+                >
+                  {t("score")}
+                </Link>
                 <span className="ml-1">
                   <Suspense fallback={null}>
                     <LanguageSwitcher />
@@ -141,15 +150,37 @@ export default async function LocaleLayout({
             </nav>
           </header>
 
-          <main className="flex-1">{children}</main>
+          <main className="flex-1">
+            <PageTransition>{children}</PageTransition>
+          </main>
 
           <footer className="border-t border-line py-10">
-            <div className="mx-auto flex w-full max-w-6xl flex-col gap-3 px-4 text-sm text-muted sm:flex-row sm:items-center sm:justify-between sm:px-6">
-              <span>{tf("tagline")}</span>
-              <span className="text-xs">{tf("disclaimer")}</span>
+            <div className="mx-auto flex w-full max-w-6xl flex-col gap-4 px-4 text-sm text-muted sm:px-6">
+              <div className="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
+                <span>{tf("tagline")}</span>
+                <span className="text-xs">{tf("disclaimer")}</span>
+              </div>
+              <div className="flex flex-wrap gap-x-5 gap-y-2 text-xs">
+                <Link
+                  href="/score"
+                  className="underline-offset-4 transition-colors hover:text-accent hover:underline"
+                >
+                  {tf("score")}
+                </Link>
+                <a
+                  href="https://github.com/uiukis/semita/issues/new?template=data_update.md"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="underline-offset-4 transition-colors hover:text-accent hover:underline"
+                >
+                  {tf("contribute")}
+                </a>
+              </div>
             </div>
           </footer>
         </NextIntlClientProvider>
+        <Analytics />
+        <SpeedInsights />
       </body>
     </html>
   );

@@ -6,11 +6,14 @@
   "nav": {
     "home": "Início Semita",
     "models": "Modelos",
-    "compare": "Comparar"
+    "compare": "Comparar",
+    "score": "Score"
   },
   "footer": {
     "tagline": "Semita — open source, mantido pela comunidade. IA que te alavanca, não te substitui.",
-    "disclaimer": "Preços e benchmarks são referências — sempre confirme na fonte oficial."
+    "disclaimer": "Preços e benchmarks são referências — sempre confirme na fonte oficial.",
+    "score": "Metodologia do Semita score",
+    "contribute": "Contribuir dados"
   },
   "language": {
     "label": "Idioma",
@@ -39,6 +42,7 @@
     "roadmapTitle": "O caminho à frente",
     "roadmapSubtitle": "O Semita cresce um pilar por vez — cada fase entra no ar só quando a anterior está sólida.",
     "statusInProgress": "em andamento",
+    "statusLive": "no ar",
     "statusPlanned": "planejado",
     "phases": {
       "chooseName": "Escolher",
@@ -82,6 +86,7 @@
     "back": "← Voltar aos modelos",
     "releasedOn": "{provider} · lançado em {date}",
     "community": "{score} ★ score Semita",
+    "scoreLink": "Como o score funciona",
     "compare": "Comparar",
     "input": "Entrada / 1M",
     "output": "Saída / 1M",
@@ -113,6 +118,30 @@
     "maxOutput": "Saída máx.",
     "useCases": "Casos de uso",
     "community": "Score Semita"
+  },
+  "score": {
+    "eyebrow": "Transparência",
+    "title": "Metodologia do Semita score",
+    "subtitle": "O Semita score é uma nota editorial de 1.0–5.0 no MVP da Fase 1. Serve para escanear o catálogo rápido — não é voto ao vivo da comunidade.",
+    "editorial": "Até a Fase 4 (comunidade valida), os maintainers definem cada nota lendo docs públicos, preços e pontos fortes conhecidos. Qualquer score pode ser contestado via issue de atualização de dados com fontes.",
+    "scaleTitle": "Escala",
+    "scaleBody": "5.0 = encaixe excepcional para os casos de uso pretendidos no preço listado. 4.0–4.9 = escolha forte por padrão. 3.0–3.9 = sólido com trade-offs claros. Abaixo de 3.0 = nicho ou desatualizado para a maioria dos usuários Semita.",
+    "factors": {
+      "qualityTitle": "Capacidade",
+      "qualityBody": "Benchmarks públicos e pontos fortes documentados para código, escrita, raciocínio ou multimodal — nunca números inventados.",
+      "valueTitle": "Custo vs qualidade",
+      "valueBody": "Preço de lista por milhão de tokens relativo a pares na mesma faixa de capacidade.",
+      "fitTitle": "Encaixe prático",
+      "fitBody": "Com que frequência o modelo é um default sensato para os casos de uso marcados, não só um vencedor de leaderboard.",
+      "trustTitle": "Fontes e frescor",
+      "trustBody": "Links oficiais de preço/docs e um lastUpdated recente. Entradas velhas ou mal referenciadas pontuam menos até serem atualizadas."
+    },
+    "notTitle": "O que não é",
+    "notVotes": "Não são votos ao vivo da comunidade (isso chega na Fase 4).",
+    "notBenchmark": "Não é um único benchmark — esses ficam listados à parte com fontes.",
+    "notGuarantee": "Não é recomendação de compra nem SLA — sempre confira a página oficial do provedor.",
+    "browseModels": "Ver modelos",
+    "compare": "Comparar lado a lado"
   },
   "useCases": {
     "coding": "Programação",

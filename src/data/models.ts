@@ -2,45 +2,96 @@ import type { LlmModel, Locale, LocalizedModelContent, ModelProvider, UseCase } 
 
 export const models: LlmModel[] = [
   {
-    slug: "gpt-4o",
-    name: "GPT-4o",
+    slug: "gpt-5",
+    name: "GPT-5",
     provider: "OpenAI",
-    releaseDate: "2024-05-13",
-    contextWindow: 128000,
-    maxOutputTokens: 16384,
-    pricing: { inputPerMillion: 2.5, outputPerMillion: 10, currency: "USD" },
-    modalities: ["text", "vision", "audio", "code"],
-    useCases: ["coding", "writing", "reasoning", "vision"],
-    communityScore: 4.6,
+    releaseDate: "2025-08-07",
+    contextWindow: 400000,
+    maxOutputTokens: 128000,
+    pricing: { inputPerMillion: 1.25, outputPerMillion: 10, currency: "USD" },
+    modalities: ["text", "vision", "code"],
+    useCases: ["coding", "writing", "reasoning", "research"],
+    communityScore: 4.8,
     benchmarks: [
-      { name: "MMLU", score: "~88.7%", sourceUrl: "https://openai.com/index/hello-gpt-4o/" },
+      {
+        name: "Frontier generalist",
+        score: "Flagship tier",
+        sourceUrl: "https://openai.com/index/introducing-gpt-5/",
+      },
     ],
     sources: [{ kind: "pricing", url: "https://developers.openai.com/api/docs/pricing" }],
     lastUpdated: "2026-07-18",
     content: {
       en: {
         summary:
-          "OpenAI's multimodal generalist, balancing quality, speed and native support for text, image and audio.",
+          "OpenAI's current flagship generalist — strong coding, agents and long-form reasoning at competitive frontier pricing.",
         goodFor:
-          "Applications that need a versatile, multimodal model with a good balance between cost and capability.",
+          "Production apps that need a single default model for coding, writing and complex multi-step work.",
         strengths: [
-          "Natively multimodal (text, image and audio)",
-          "Strong all-around reasoning and coding performance",
-          "Mature ecosystem and tooling",
+          "Strong all-around frontier quality",
+          "Competitive input pricing for a flagship",
+          "Mature tooling and API ecosystem",
         ],
-        communityNotes: "A safe pick for general-purpose and multimodal workloads.",
+        communityNotes: "Default OpenAI pick when you want the current flagship without overpaying for pro tiers.",
       },
       "pt-br": {
         summary:
-          "Generalista multimodal da OpenAI, equilibrando qualidade, velocidade e suporte nativo a texto, imagem e áudio.",
+          "Carro-chefe atual da OpenAI — forte em código, agents e raciocínio longo com preço frontier competitivo.",
         goodFor:
-          "Aplicações que precisam de um modelo versátil e multimodal com bom equilíbrio entre custo e capacidade.",
+          "Apps em produção que precisam de um modelo padrão para código, escrita e trabalho multi-etapa.",
         strengths: [
-          "Multimodal nativo (texto, imagem e áudio)",
-          "Boa performance geral em raciocínio e código",
-          "Ecossistema e ferramentas maduras",
+          "Qualidade frontier versátil",
+          "Preço de input competitivo para flagship",
+          "Ecossistema e APIs maduros",
         ],
-        communityNotes: "Escolha segura para uso geral e multimodal.",
+        communityNotes: "Escolha padrão OpenAI quando você quer o flagship atual sem pagar tiers pro.",
+      },
+    },
+  },
+  {
+    slug: "gpt-4.1",
+    name: "GPT-4.1",
+    provider: "OpenAI",
+    releaseDate: "2025-04-14",
+    contextWindow: 1048576,
+    maxOutputTokens: 32768,
+    pricing: { inputPerMillion: 2, outputPerMillion: 8, currency: "USD" },
+    modalities: ["text", "vision", "code"],
+    useCases: ["coding", "writing", "reasoning", "vision"],
+    communityScore: 4.6,
+    benchmarks: [
+      {
+        name: "SWE-bench Verified",
+        score: "~54.6%",
+        sourceUrl: "https://openai.com/index/gpt-4-1/",
+      },
+    ],
+    sources: [{ kind: "pricing", url: "https://developers.openai.com/api/docs/pricing" }],
+    lastUpdated: "2026-07-18",
+    content: {
+      en: {
+        summary:
+          "OpenAI's long-context workhorse — 1M tokens, strong instruction following and coding without a reasoning-model tax.",
+        goodFor:
+          "Agents, IDE tooling and large-document work where latency and instruction precision matter.",
+        strengths: [
+          "1M-token context window",
+          "Excellent instruction following and tool use",
+          "Cheaper than GPT-4o on list price",
+        ],
+        communityNotes: "Best OpenAI pick for long-context coding and agents before jumping to GPT-5.",
+      },
+      "pt-br": {
+        summary:
+          "Cavalo de batalha de contexto longo da OpenAI — 1M tokens, forte em instruções e código sem o custo de reasoning models.",
+        goodFor:
+          "Agents, ferramentas de IDE e documentos grandes onde latência e precisão de instrução importam.",
+        strengths: [
+          "Janela de contexto de 1M tokens",
+          "Excelente seguimento de instruções e tool use",
+          "Mais barato que o GPT-4o no preço de lista",
+        ],
+        communityNotes: "Melhor escolha OpenAI para código e agents de contexto longo antes do GPT-5.",
       },
     },
   },
@@ -68,89 +119,93 @@ export const models: LlmModel[] = [
     content: {
       en: {
         summary:
-          "The budget version of GPT-4o, built for high-volume workloads at very low cost while keeping solid quality.",
+          "Still one of the cheapest solid multimodal options in the OpenAI lineup for high-volume workloads.",
         goodFor:
-          "Simple tasks at scale: classification, extraction and cheap prototyping.",
+          "Classification, extraction, routing and cheap prototyping at scale.",
         strengths: [
           "Very low cost per token",
           "Fast for high-volume tasks",
-          "Same ecosystem and APIs as GPT-4o",
+          "Same ecosystem and APIs as larger OpenAI models",
         ],
-        communityNotes: "Best value in the OpenAI lineup for volume workloads.",
+        communityNotes: "Best OpenAI value for volume when GPT-5 quality is overkill.",
       },
       "pt-br": {
         summary:
-          "A versão econômica do GPT-4o, feita para alto volume a custo muito baixo mantendo boa qualidade.",
+          "Ainda uma das opções multimodais sólidas mais baratas da linha OpenAI para alto volume.",
         goodFor:
-          "Tarefas simples em escala: classificação, extração e prototipagem barata.",
+          "Classificação, extração, roteamento e prototipagem barata em escala.",
         strengths: [
           "Custo por token muito baixo",
           "Rápido para tarefas de alto volume",
-          "Mesmo ecossistema e APIs do GPT-4o",
+          "Mesmo ecossistema e APIs dos modelos maiores",
         ],
-        communityNotes: "Melhor custo-benefício da linha OpenAI para volume.",
+        communityNotes: "Melhor custo-benefício OpenAI para volume quando GPT-5 é overkill.",
       },
     },
   },
   {
-    slug: "claude-3-5-sonnet",
-    name: "Claude 3.5 Sonnet",
+    slug: "claude-sonnet-5",
+    name: "Claude Sonnet 5",
     provider: "Anthropic",
-    releaseDate: "2024-06-20",
+    releaseDate: "2026-05-22",
     contextWindow: 200000,
-    maxOutputTokens: 8192,
-    pricing: { inputPerMillion: 3, outputPerMillion: 15, currency: "USD" },
+    maxOutputTokens: 64000,
+    pricing: { inputPerMillion: 2, outputPerMillion: 10, currency: "USD" },
     modalities: ["text", "vision", "code"],
     useCases: ["coding", "writing", "reasoning"],
-    communityScore: 4.7,
+    communityScore: 4.8,
     benchmarks: [
-      { name: "HumanEval", score: "~92%", sourceUrl: "https://www.anthropic.com/news/claude-3-5-sonnet" },
+      {
+        name: "Coding / agents",
+        score: "High-performance tier",
+        sourceUrl: "https://www.anthropic.com/news/claude-sonnet-5",
+      },
     ],
     sources: [{ kind: "pricing", url: "https://www.anthropic.com/pricing" }],
     lastUpdated: "2026-07-18",
     content: {
       en: {
         summary:
-          "Anthropic's flagship for coding, instruction following and high-quality writing.",
+          "Anthropic's current high-performance Sonnet for coding and agents. Introductory API pricing $2/$10 through Aug 31, 2026 ($3/$15 thereafter).",
         goodFor:
-          "Coding assistants, long-document analysis and tasks that demand careful reasoning.",
+          "Coding assistants, agent loops and instruction-heavy writing that benefit from Claude's careful style.",
         strengths: [
-          "Excellent at coding and refactoring",
-          "200k-token context window",
-          "Strong adherence to complex instructions",
+          "Strong coding and agent performance",
+          "Introductory pricing undercuts prior Sonnet list rates",
+          "200k context with solid instruction adherence",
         ],
-        communityNotes: "The dev community favorite for code.",
+        communityNotes: "Top Anthropic pick for day-to-day coding while intro pricing lasts.",
       },
       "pt-br": {
         summary:
-          "O carro-chefe da Anthropic para programação, seguimento de instruções e escrita de alta qualidade.",
+          "Sonnet de alta performance da Anthropic para código e agents. Preço introdutório de API $2/$10 até 31/ago/2026 ($3/$15 depois).",
         goodFor:
-          "Assistentes de código, análise de documentos longos e tarefas que exigem raciocínio cuidadoso.",
+          "Assistentes de código, loops de agents e escrita com instruções complexas no estilo cuidadoso do Claude.",
         strengths: [
-          "Excelente em programação e refatoração",
-          "Janela de contexto de 200k tokens",
-          "Ótima aderência a instruções complexas",
+          "Forte em código e agents",
+          "Preço introdutório abaixo do Sonnet anterior",
+          "Contexto de 200k com boa aderência a instruções",
         ],
-        communityNotes: "O favorito da comunidade dev para código.",
+        communityNotes: "Melhor escolha Anthropic para código do dia a dia enquanto o preço intro durar.",
       },
     },
   },
   {
-    slug: "claude-3-5-haiku",
-    name: "Claude 3.5 Haiku",
+    slug: "claude-haiku-4.5",
+    name: "Claude Haiku 4.5",
     provider: "Anthropic",
-    releaseDate: "2024-11-04",
+    releaseDate: "2025-10-15",
     contextWindow: 200000,
-    maxOutputTokens: 8192,
-    pricing: { inputPerMillion: 0.8, outputPerMillion: 4, currency: "USD" },
-    modalities: ["text", "code"],
+    maxOutputTokens: 64000,
+    pricing: { inputPerMillion: 1, outputPerMillion: 5, currency: "USD" },
+    modalities: ["text", "vision", "code"],
     useCases: ["cost-effective", "coding", "writing"],
-    communityScore: 4.3,
+    communityScore: 4.4,
     benchmarks: [
       {
-        name: "HumanEval",
-        score: "~88%",
-        sourceUrl: "https://www.anthropic.com/news/3-5-models-and-computer-use",
+        name: "Latency / cost",
+        score: "Fastest Claude tier",
+        sourceUrl: "https://www.anthropic.com/pricing",
       },
     ],
     sources: [{ kind: "pricing", url: "https://www.anthropic.com/pricing" }],
@@ -158,27 +213,27 @@ export const models: LlmModel[] = [
     content: {
       en: {
         summary:
-          "Anthropic's fast and affordable model, with solid quality for low-latency tasks.",
+          "Anthropic's fastest, most cost-efficient Claude — solid quality for low-latency and high-volume paths.",
         goodFor:
-          "Pipelines that need fast, cheap responses while keeping decent quality.",
+          "Pipelines that need fast Claude-quality responses without Sonnet pricing.",
         strengths: [
-          "Low latency",
-          "200k-token context window",
-          "Good value for straightforward coding",
+          "Lowest latency in the Claude family",
+          "200k context at Haiku pricing",
+          "Good value for straightforward coding and chat",
         ],
-        communityNotes: "The fast and affordable option in the Claude family.",
+        communityNotes: "The affordable Claude when Sonnet 5 is more than you need.",
       },
       "pt-br": {
         summary:
-          "O modelo rápido e acessível da Anthropic, com boa qualidade para tarefas de baixa latência.",
+          "Claude mais rápido e econômico da Anthropic — boa qualidade para baixa latência e alto volume.",
         goodFor:
-          "Fluxos que precisam de respostas rápidas e baratas mantendo qualidade decente.",
+          "Fluxos que precisam de respostas rápidas no estilo Claude sem o preço do Sonnet.",
         strengths: [
-          "Baixa latência",
-          "Janela de contexto de 200k tokens",
-          "Bom custo para programação direta",
+          "Menor latência da família Claude",
+          "Contexto de 200k no preço Haiku",
+          "Bom custo para código e chat diretos",
         ],
-        communityNotes: "A opção rápida e acessível da família Claude.",
+        communityNotes: "O Claude acessível quando Sonnet 5 é mais do que você precisa.",
       },
     },
   },
@@ -276,23 +331,22 @@ export const models: LlmModel[] = [
       },
     },
   },
-
   {
-    slug: "o1-mini",
-    name: "o1-mini",
+    slug: "o4-mini",
+    name: "o4-mini",
     provider: "OpenAI",
-    releaseDate: "2024-09-12",
-    contextWindow: 128000,
-    maxOutputTokens: 65536,
+    releaseDate: "2025-04-16",
+    contextWindow: 200000,
+    maxOutputTokens: 100000,
     pricing: { inputPerMillion: 1.1, outputPerMillion: 4.4, currency: "USD" },
     modalities: ["text", "code"],
     useCases: ["reasoning", "coding"],
-    communityScore: 4.5,
+    communityScore: 4.6,
     benchmarks: [
       {
-        name: "AIME",
-        score: "~70%",
-        sourceUrl: "https://openai.com/index/openai-o1-mini-advancing-cost-efficient-reasoning/",
+        name: "AIME / STEM",
+        score: "Strong reasoning tier",
+        sourceUrl: "https://openai.com/index/introducing-o3-and-o4-mini/",
       },
     ],
     sources: [{ kind: "pricing", url: "https://developers.openai.com/api/docs/pricing" }],
@@ -300,27 +354,27 @@ export const models: LlmModel[] = [
     content: {
       en: {
         summary:
-          "OpenAI's cost-efficient reasoning model — strong at math, coding and multi-step problem solving.",
+          "OpenAI's cost-efficient reasoning model — successor spirit to o1-mini for math, coding and multi-step problem solving.",
         goodFor:
           "Hard reasoning tasks, STEM problems and coding challenges where chain-of-thought quality matters.",
         strengths: [
           "Strong multi-step reasoning",
           "Excellent at math and coding contests",
-          "Cheaper than full o1 for many workloads",
+          "Cheaper than full o-series flagships",
         ],
-        communityNotes: "Go-to when you need reasoning without full o1 cost.",
+        communityNotes: "Go-to when you need reasoning without full o3/o1 cost.",
       },
       "pt-br": {
         summary:
-          "Modelo de raciocínio econômico da OpenAI — forte em matemática, código e resolução multi-etapa.",
+          "Modelo de raciocínio econômico da OpenAI — sucessor do espírito do o1-mini para matemática, código e multi-etapa.",
         goodFor:
           "Tarefas difíceis de raciocínio, STEM e desafios de código onde a qualidade do raciocínio importa.",
         strengths: [
           "Raciocínio multi-etapa forte",
           "Excelente em matemática e contests de código",
-          "Mais barato que o o1 completo em muitos casos",
+          "Mais barato que os flagships da série o",
         ],
-        communityNotes: "Escolha quando precisa de raciocínio sem o custo do o1 full.",
+        communityNotes: "Escolha quando precisa de raciocínio sem o custo do o3/o1 full.",
       },
     },
   },
@@ -509,53 +563,6 @@ export const models: LlmModel[] = [
           "Personalidade conversacional distinta",
         ],
         communityNotes: "Alternativa interessante se você quer um estilo de casa diferente.",
-      },
-    },
-  },
-  {
-    slug: "claude-3-opus",
-    name: "Claude 3 Opus",
-    provider: "Anthropic",
-    releaseDate: "2024-03-04",
-    contextWindow: 200000,
-    maxOutputTokens: 4096,
-    pricing: { inputPerMillion: 15, outputPerMillion: 75, currency: "USD" },
-    modalities: ["text", "vision", "code"],
-    useCases: ["reasoning", "writing", "research"],
-    communityScore: 4.3,
-    benchmarks: [
-      {
-        name: "MMLU",
-        score: "~86.8%",
-        sourceUrl: "https://www.anthropic.com/news/claude-3-family",
-      },
-    ],
-    sources: [{ kind: "pricing", url: "https://www.anthropic.com/pricing" }],
-    lastUpdated: "2026-07-18",
-    content: {
-      en: {
-        summary:
-          "Anthropic's earlier flagship — still preferred for deep analysis, careful writing and complex research briefs.",
-        goodFor:
-          "High-stakes writing, research synthesis and tasks where nuance and reliability beat raw speed.",
-        strengths: [
-          "Excellent long-form writing quality",
-          "Careful, nuanced reasoning",
-          "200k context for large briefs",
-        ],
-        communityNotes: "Still loved for quality writing even after Sonnet 3.5 took the coding crown.",
-      },
-      "pt-br": {
-        summary:
-          "Ex-carro-chefe da Anthropic — ainda preferido para análise profunda, escrita cuidadosa e briefs de pesquisa complexos.",
-        goodFor:
-          "Escrita de alto risco, síntese de pesquisa e tarefas em que nuance e confiabilidade batem velocidade.",
-        strengths: [
-          "Excelente qualidade de escrita longa",
-          "Raciocínio cuidadoso e nuançado",
-          "Contexto de 200k para briefs grandes",
-        ],
-        communityNotes: "Ainda amado para escrita de qualidade mesmo após o Sonnet 3.5 dominar código.",
       },
     },
   },

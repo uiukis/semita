@@ -99,16 +99,24 @@ export default async function ModelDetailPage({ params }: { params: Params }) {
             })}
           </p>
         </div>
-        <div className="flex items-center gap-3">
+        <div className="flex flex-col items-start gap-3 sm:items-end">
           <span className="rounded-full bg-accent-soft px-3.5 py-1.5 text-sm font-semibold text-accent">
             {t("community", { score: model.communityScore.toFixed(1) })}
           </span>
-          <MotionLink
-            href={`/compare?models=${model.slug}`}
-            className="rounded-full border border-line bg-surface px-4 py-1.5 text-sm font-medium transition-colors hover:border-accent/40"
-          >
-            {t("compare")}
-          </MotionLink>
+          <div className="flex items-center gap-3">
+            <Link
+              href="/score"
+              className="text-xs text-muted underline-offset-4 transition-colors hover:text-accent hover:underline"
+            >
+              {t("scoreLink")}
+            </Link>
+            <MotionLink
+              href={`/compare?models=${model.slug}`}
+              className="rounded-full border border-line bg-surface px-4 py-1.5 text-sm font-medium transition-colors hover:border-accent/40"
+            >
+              {t("compare")}
+            </MotionLink>
+          </div>
         </div>
       </FadeIn>
 

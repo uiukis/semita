@@ -12,7 +12,7 @@ Models live in [`src/data/models.ts`](../src/data/models.ts).
 - [ ] At least one benchmark with `sourceUrl`
 - [ ] `content.en` and `content.pt-br` (summary, goodFor, strengths, communityNotes)
 - [ ] `lastUpdated` set to the verification date (`YYYY-MM-DD`)
-- [ ] `communityScore` is editorial for MVP (1.0–5.0)
+- [ ] `communityScore` is editorial for MVP (1.0–5.0) — see public `/score` methodology page
 
 ## Example skeleton
 
