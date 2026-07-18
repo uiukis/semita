@@ -1,9 +1,11 @@
 import { getTranslations, setRequestLocale } from "next-intl/server";
+import { CountUp } from "@/components/count-up";
+import { HeroTitle } from "@/components/hero-title";
 import { FadeIn, Stagger, StaggerItem } from "@/components/motion";
 import { MotionLink } from "@/components/motion-link";
+import { TiltCard } from "@/components/tilt-card";
 import { TrailBackdrop } from "@/components/trail-backdrop";
 import { getAllModels, getProviders } from "@/data/models";
-import { Link } from "@/i18n/navigation";
 
 export default async function Home({
   params,
@@ -59,9 +61,9 @@ export default async function Home({
   ];
 
   const stats = [
-    { value: String(models.length), label: t("statModels") },
-    { value: String(providers.length), label: t("statProviders") },
-    { value: "100%", label: t("statOpenSource") },
+    { value: models.length, suffix: "", label: t("statModels") },
+    { value: providers.length, suffix: "", label: t("statProviders") },
+    { value: 100, suffix: "%", label: t("statOpenSource") },
   ];
 
   return (
@@ -76,15 +78,14 @@ export default async function Home({
           </span>
         </FadeIn>
 
-        <FadeIn delay={0.08} className="relative z-10">
-          <h1 className="max-w-3xl text-4xl font-semibold leading-[1.1] tracking-tight sm:text-5xl lg:text-6xl">
-            {t("titleLead")}{" "}
-            <span className="bg-gradient-to-r from-accent to-emerald-200 bg-clip-text text-transparent">
-              {t("titleAccent")}
-            </span>
-            {t("titleTail")}
-          </h1>
-        </FadeIn>
+        <div className="relative z-10">
+          <HeroTitle
+            lead={t("titleLead")}
+            accent={t("titleAccent")}
+            tail={t("titleTail")}
+            className="max-w-3xl text-4xl font-semibold leading-[1.1] tracking-tight sm:text-5xl lg:text-6xl"
+          />
+        </div>
 
         <FadeIn delay={0.16} className="relative z-10">
           <p className="max-w-2xl text-base leading-relaxed text-muted sm:text-lg">
@@ -95,7 +96,7 @@ export default async function Home({
         <FadeIn delay={0.24} className="relative z-10 flex flex-wrap gap-3">
           <MotionLink
             href="/models"
-            className="rounded-full bg-accent px-6 py-3 text-sm font-semibold text-[#06130a] transition-colors hover:bg-accent-dim hover:shadow-lg hover:shadow-accent/20"
+            className="btn-shimmer rounded-full bg-accent px-6 py-3 text-sm font-semibold text-[#06130a] transition-colors hover:bg-accent-dim hover:shadow-lg hover:shadow-accent/20"
           >
             {t("exploreCta")}
           </MotionLink>
@@ -112,7 +113,7 @@ export default async function Home({
             {stats.map((stat) => (
               <div key={stat.label}>
                 <dt className="text-2xl font-semibold text-foreground">
-                  {stat.value}
+                  <CountUp to={stat.value} suffix={stat.suffix} />
                 </dt>
                 <dd className="text-xs uppercase tracking-wider text-muted">
                   {stat.label}
@@ -125,16 +126,16 @@ export default async function Home({
 
       <Stagger className="grid gap-4 pb-20 sm:grid-cols-2 lg:grid-cols-3">
         {features.map((card, index) => (
-          <StaggerItem key={card.title}>
-            <div className="group h-full rounded-2xl border border-line bg-surface p-6 transition-colors hover:border-accent/40 hover:bg-surface-raised">
-              <div className="mb-4 flex h-9 w-9 items-center justify-center rounded-lg bg-accent-soft text-accent transition-transform group-hover:scale-110">
+          <StaggerItem key={card.title} className="h-full">
+            <TiltCard className="group relative h-full rounded-2xl border border-line bg-surface p-6 transition-colors hover:border-accent/40 hover:bg-surface-raised">
+              <div className="mb-4 flex h-9 w-9 items-center justify-center rounded-lg bg-accent-soft text-accent transition-transform duration-300 group-hover:rotate-6 group-hover:scale-110">
                 <span className="text-sm font-bold">{index + 1}</span>
               </div>
               <h2 className="text-base font-semibold">{card.title}</h2>
               <p className="mt-2 text-sm leading-relaxed text-muted">
                 {card.body}
               </p>
-            </div>
+            </TiltCard>
           </StaggerItem>
         ))}
       </Stagger>
@@ -162,7 +163,11 @@ export default async function Home({
                     ? "bg-accent shadow-[0_0_12px_var(--accent)]"
                     : "border border-line bg-surface",
                 ].join(" ")}
-              />
+              >
+                {(step.live || step.inProgress) && (
+                  <span className="absolute inset-0 animate-ping rounded-full bg-accent/60" />
+                )}
+              </span>
               <div className="flex flex-wrap items-center gap-3">
                 <span className="font-mono text-xs uppercase tracking-wider text-muted">
                   {step.phase}
@@ -198,12 +203,12 @@ export default async function Home({
             </h2>
             <p className="mt-2 text-sm text-muted">{t("subtitle")}</p>
           </div>
-          <Link
+          <MotionLink
             href="/models"
-            className="mt-5 inline-flex rounded-full bg-accent px-5 py-2.5 text-sm font-semibold text-[#06130a] transition-colors hover:bg-accent-dim sm:mt-0"
+            className="btn-shimmer mt-5 inline-flex rounded-full bg-accent px-5 py-2.5 text-sm font-semibold text-[#06130a] transition-colors hover:bg-accent-dim sm:mt-0"
           >
             {t("exploreCta")} →
-          </Link>
+          </MotionLink>
         </div>
       </FadeIn>
     </div>
