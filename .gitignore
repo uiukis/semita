@@ -37,6 +37,9 @@ yarn-error.log*
 # vercel
 .vercel
 
+# local benchmark staging (never commit raw runs)
+.benchmark-runs/
+
 # typescript
 *.tsbuildinfo
 next-env.d.ts

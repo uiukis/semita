@@ -7,12 +7,14 @@
     "home": "Semita home",
     "models": "Models",
     "compare": "Compare",
-    "score": "Score"
+    "score": "Score",
+    "benchmark": "Benchmark"
   },
   "footer": {
     "tagline": "Semita — open source, community-driven. AI that leverages you, not replaces you.",
     "disclaimer": "Prices and benchmarks are references — always verify the official source.",
     "score": "Semita score methodology",
+    "benchmark": "Semita Mini Benchmark",
     "contribute": "Contribute data"
   },
   "language": {
@@ -142,6 +144,37 @@
     "notGuarantee": "Not a purchase recommendation or SLA — always verify the official provider page.",
     "browseModels": "Browse models",
     "compare": "Compare side by side"
+  },
+  "benchmark": {
+    "eyebrow": "Phase 1 · Choose",
+    "title": "Semita Mini Benchmark",
+    "subtitle": "A small, transparent task suite run by maintainers — same prompts, pinned model IDs, snapshotted prices. Quality, latency and cost stay separate so trade-offs stay visible.",
+    "honesty": "This is not a live public runner and not a scientific leaderboard. Results are versioned in Git after a private maintainer run. Until the first official round is published, this page shows the methodology and pending state only.",
+    "methodologyLink": "Full methodology",
+    "scoreLink": "Editorial Semita score",
+    "pendingTitle": "First official run pending",
+    "pendingBody": "The suite is ready. Results will appear here after a maintainer configures AI Gateway and publishes a reviewed run — no invented demo numbers.",
+    "pendingStep1": "Set AI_GATEWAY_API_KEY locally (see .env.example).",
+    "pendingStep2": "Run pnpm benchmark:run --max-usd 2, then complete blinded human review.",
+    "pendingStep3": "Publish with pnpm benchmark:publish --run .benchmark-runs/<id>.",
+    "resultsTitle": "Latest published run",
+    "resultsMeta": "Run {runId} · published {date}",
+    "metricQuality": "Quality",
+    "metricLatency": "Median latency",
+    "metricCost": "Est. total cost",
+    "byCategory": "Quality by category",
+    "model": "Model",
+    "tasksTitle": "Public tasks",
+    "tasksSubtitle": "Ten short prompts across five categories. Full prompts are public so anyone can audit the suite.",
+    "modelsTitle": "Models in the suite",
+    "limitsTitle": "Limitations",
+    "categories": {
+      "coding": "Coding",
+      "reasoning": "Reasoning",
+      "extraction": "Extraction",
+      "writing": "Writing",
+      "pt-br": "PT-BR"
+    }
   },
   "useCases": {
     "coding": "Coding",

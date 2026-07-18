@@ -20,8 +20,15 @@ App runs at [http://localhost:3100](http://localhost:3100).
 
 ```bash
 pnpm lint
+pnpm benchmark:check
 pnpm build
 ```
+
+## Semita Mini Benchmark
+
+- Read [docs/benchmark-methodology.md](docs/benchmark-methodology.md).
+- Propose task/rubric changes in PRs — do not invent unpublished result JSON.
+- Maintainers run `pnpm benchmark:run` with a private `AI_GATEWAY_API_KEY`.
 
 ## Adding or updating a model
 

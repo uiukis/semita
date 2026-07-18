@@ -6,7 +6,7 @@ const siteUrl =
   "http://localhost:3100";
 
 export default function sitemap(): MetadataRoute.Sitemap {
-  const staticPaths = ["", "/models", "/compare", "/score"];
+  const staticPaths = ["", "/models", "/compare", "/score", "/benchmark"];
   return [
     ...staticPaths.map((path) => ({
       url: `${siteUrl}${path}`,

@@ -19,6 +19,7 @@ jobs:
           cache: pnpm
       - run: pnpm install --frozen-lockfile
       - run: pnpm lint
+      - run: pnpm benchmark:check
       - run: pnpm build
         env:
           NEXT_PUBLIC_SITE_URL: https://semita.example

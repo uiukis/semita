@@ -141,6 +141,12 @@ export default async function LocaleLayout({
                 >
                   {t("score")}
                 </Link>
+                <Link
+                  href="/benchmark"
+                  className="hidden rounded-full px-3 py-1.5 text-muted transition-colors hover:bg-surface-raised hover:text-foreground md:inline-flex"
+                >
+                  {t("benchmark")}
+                </Link>
                 <span className="ml-1">
                   <Suspense fallback={null}>
                     <LanguageSwitcher />
@@ -166,6 +172,12 @@ export default async function LocaleLayout({
                   className="underline-offset-4 transition-colors hover:text-accent hover:underline"
                 >
                   {tf("score")}
+                </Link>
+                <Link
+                  href="/benchmark"
+                  className="underline-offset-4 transition-colors hover:text-accent hover:underline"
+                >
+                  {tf("benchmark")}
                 </Link>
                 <a
                   href="https://github.com/uiukis/semita/issues/new?template=data_update.md"

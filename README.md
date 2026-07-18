@@ -8,7 +8,7 @@ MVP focus: **Choose** — compare LLMs by cost per token, context window, benchm
 - Repo: [https://github.com/uiukis/semita](https://github.com/uiukis/semita)
 - Languages: English and Portuguese on the same URLs (cookie-based)
 - License: [MIT](LICENSE)
-- Contribute: [CONTRIBUTING.md](CONTRIBUTING.md) · [docs/adding-a-model.md](docs/adding-a-model.md) · [docs/keeping-data-fresh.md](docs/keeping-data-fresh.md)
+- Contribute: [CONTRIBUTING.md](CONTRIBUTING.md) · [docs/adding-a-model.md](docs/adding-a-model.md) · [docs/keeping-data-fresh.md](docs/keeping-data-fresh.md) · [docs/benchmark-methodology.md](docs/benchmark-methodology.md)
 
 ## Stack
 
@@ -28,14 +28,31 @@ pnpm dev
 
 ```bash
 pnpm lint
+pnpm benchmark:check
 pnpm build
 ```
+
+## Semita Mini Benchmark
+
+- Public page: [/benchmark](https://semita-nu.vercel.app/benchmark)
+- Methodology: [docs/benchmark-methodology.md](docs/benchmark-methodology.md)
+- Maintainer-only runner (AI Gateway key in `.env.local`):
+
+```bash
+pnpm benchmark:run --dry-run --max-usd 2
+pnpm benchmark:run --max-usd 2
+pnpm benchmark:publish --run .benchmark-runs/<id>
+pnpm benchmark:check
+```
+
+The site never executes models. Only published JSON under `src/data/benchmark/results/` is rendered.
 
 ## Data honesty (MVP)
 
 - Prices and benchmarks are verified against public docs when updated (`lastUpdated` per model).
 - Always re-check the linked official source before making cost decisions.
 - The Semita score is **editorial** in the MVP — see [/score](https://semita-nu.vercel.app/score). Live community voting is Phase 4.
+- The Semita Mini Benchmark is a **small maintainer-run suite** — see [/benchmark](https://semita-nu.vercel.app/benchmark). No invented demo results.
 - Fastest way to fix a price: open a [Data update](https://github.com/uiukis/semita/issues/new?template=data_update.md) issue.
 
 ## Custom domain

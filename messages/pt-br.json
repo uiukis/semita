@@ -7,12 +7,14 @@
     "home": "Início Semita",
     "models": "Modelos",
     "compare": "Comparar",
-    "score": "Score"
+    "score": "Score",
+    "benchmark": "Benchmark"
   },
   "footer": {
     "tagline": "Semita — open source, mantido pela comunidade. IA que te alavanca, não te substitui.",
     "disclaimer": "Preços e benchmarks são referências — sempre confirme na fonte oficial.",
     "score": "Metodologia do Semita score",
+    "benchmark": "Semita Mini Benchmark",
     "contribute": "Contribuir dados"
   },
   "language": {
@@ -142,6 +144,37 @@
     "notGuarantee": "Não é recomendação de compra nem SLA — sempre confira a página oficial do provedor.",
     "browseModels": "Ver modelos",
     "compare": "Comparar lado a lado"
+  },
+  "benchmark": {
+    "eyebrow": "Fase 1 · Escolher",
+    "title": "Semita Mini Benchmark",
+    "subtitle": "Um conjunto pequeno e transparente de tarefas, executado por maintainers — mesmos prompts, IDs de modelo fixos, preços congelados. Qualidade, latência e custo ficam separados para o trade-off aparecer.",
+    "honesty": "Isto não é um runner público ao vivo nem um leaderboard científico. Os resultados entram versionados no Git após uma execução privada. Enquanto a primeira rodada oficial não for publicada, esta página mostra só a metodologia e o estado pendente.",
+    "methodologyLink": "Metodologia completa",
+    "scoreLink": "Score editorial Semita",
+    "pendingTitle": "Primeira rodada oficial pendente",
+    "pendingBody": "A suíte está pronta. Os resultados aparecem aqui depois que um maintainer configurar o AI Gateway e publicar uma rodada revisada — sem números inventados de demonstração.",
+    "pendingStep1": "Defina AI_GATEWAY_API_KEY localmente (veja .env.example).",
+    "pendingStep2": "Rode pnpm benchmark:run --max-usd 2 e complete a revisão humana cega.",
+    "pendingStep3": "Publique com pnpm benchmark:publish --run .benchmark-runs/<id>.",
+    "resultsTitle": "Última rodada publicada",
+    "resultsMeta": "Run {runId} · publicada em {date}",
+    "metricQuality": "Qualidade",
+    "metricLatency": "Latência mediana",
+    "metricCost": "Custo estimado total",
+    "byCategory": "Qualidade por categoria",
+    "model": "Modelo",
+    "tasksTitle": "Tarefas públicas",
+    "tasksSubtitle": "Dez prompts curtos em cinco categorias. Os prompts são públicos para qualquer pessoa auditar a suíte.",
+    "modelsTitle": "Modelos na suíte",
+    "limitsTitle": "Limitações",
+    "categories": {
+      "coding": "Código",
+      "reasoning": "Raciocínio",
+      "extraction": "Extração",
+      "writing": "Escrita",
+      "pt-br": "PT-BR"
+    }
   },
   "useCases": {
     "coding": "Programação",
