@@ -1,0 +1,131 @@
+{
+  "metadata": {
+    "title": "Semita — Find your path through AI",
+    "description": "A community-driven hub to compare LLMs: cost per token, context windows, benchmarks and real-world recommendations — so you can pick the right model."
+  },
+  "nav": {
+    "home": "Semita home",
+    "models": "Models",
+    "compare": "Compare"
+  },
+  "footer": {
+    "tagline": "Semita — open source, community-driven. AI that leverages you, not replaces you.",
+    "disclaimer": "Prices and benchmarks are references — always verify the official source."
+  },
+  "language": {
+    "label": "Language",
+    "en": "EN",
+    "pt-br": "PT"
+  },
+  "home": {
+    "badge": "MVP · Choose pillar",
+    "titleLead": "Find your path through AI.",
+    "titleAccent": "Leverage it",
+    "titleTail": ", don't be replaced by it.",
+    "subtitle": "Semita is a community-driven hub that compares LLMs by cost per token, context window, benchmarks and real-world recommendations — one clear path to the right model, without digging through a dozen sites.",
+    "exploreCta": "Explore models",
+    "compareCta": "Compare side by side",
+    "statModels": "models tracked",
+    "statProviders": "providers",
+    "statOpenSource": "open source",
+    "features": {
+      "costTitle": "Cost per token",
+      "costBody": "Input and output prices side by side, so you can estimate the real spend of your use case before committing.",
+      "contextTitle": "Context & capabilities",
+      "contextBody": "Context windows, modalities and the real strengths of each model — explained without jargon.",
+      "communityTitle": "Community picks",
+      "communityBody": "What each model is actually good at in practice, backed by open, verifiable sources."
+    },
+    "roadmapTitle": "The road ahead",
+    "roadmapSubtitle": "Semita grows one pillar at a time — each phase ships only when the previous one is solid.",
+    "statusInProgress": "in progress",
+    "statusPlanned": "planned",
+    "phases": {
+      "chooseName": "Choose",
+      "chooseBody": "A living LLM comparison hub: benchmarks, cost per token, strengths and community recommendations, filterable by use case.",
+      "applyName": "Apply",
+      "applyBody": "A directory of skills and MCPs, organized and filterable by personal and professional goals, built on the same data and tag structure.",
+      "learnName": "Learn",
+      "learnBody": "Bite-size AI curiosities connected to deeper articles, forming a progressive path — each one carrying the “leverages vs replaces” badge.",
+      "validateName": "Community validates",
+      "validateBody": "A truthfulness voting system for every article and entry — enabled only once there is a critical mass of active users."
+    }
+  },
+  "models": {
+    "title": "Models",
+    "subtitle": "Compare LLMs by cost, context and use case. Open a model to see details, benchmarks and sources.",
+    "searchPlaceholder": "Search by name, provider or keyword…",
+    "allProviders": "All providers",
+    "allUseCases": "All use cases",
+    "sortRecommended": "Recommended",
+    "sortCheapest": "Cheapest",
+    "sortContext": "Largest context",
+    "clearFilters": "Clear filters",
+    "empty": "No models match these filters.",
+    "filterProvider": "Filter by provider",
+    "filterUseCase": "Filter by use case",
+    "sortBy": "Sort by"
+  },
+  "notFound": {
+    "title": "This path does not exist",
+    "body": "The page you asked for is off the trail. Head home or browse the model catalog.",
+    "home": "Back home",
+    "models": "Browse models"
+  },
+  "card": {
+    "input": "Input / 1M",
+    "output": "Output / 1M",
+    "context": "Context",
+    "useCases": "Use cases"
+  },
+  "model": {
+    "back": "← Back to models",
+    "releasedOn": "{provider} · released {date}",
+    "community": "{score} ★ Semita score",
+    "compare": "Compare",
+    "input": "Input / 1M",
+    "output": "Output / 1M",
+    "context": "Context",
+    "maxOutput": "Max output",
+    "goodFor": "Good for",
+    "strengths": "Strengths",
+    "modalities": "Modalities",
+    "useCases": "Use cases",
+    "benchmarks": "Benchmarks",
+    "source": "source",
+    "communityTake": "Editorial take (MVP)",
+    "sources": "Sources",
+    "lastUpdated": "Last updated {date}. Reference values — always confirm with the official source.",
+    "pricingSource": "{provider} pricing (verify current value)",
+    "notFound": "Model not found"
+  },
+  "compare": {
+    "title": "Compare models",
+    "subtitle": "Pick up to 4 models to see the differences side by side.",
+    "empty": "Pick models above to start comparing.",
+    "share": "Copy share link",
+    "copied": "Link copied",
+    "attribute": "Attribute",
+    "provider": "Provider",
+    "input": "Input / 1M",
+    "output": "Output / 1M",
+    "context": "Context",
+    "maxOutput": "Max output",
+    "useCases": "Use cases",
+    "community": "Semita score"
+  },
+  "useCases": {
+    "coding": "Coding",
+    "writing": "Writing",
+    "research": "Research",
+    "reasoning": "Reasoning",
+    "vision": "Vision",
+    "cost-effective": "Cost-effective"
+  },
+  "modalities": {
+    "text": "Text",
+    "vision": "Vision",
+    "audio": "Audio",
+    "code": "Code"
+  }
+}
