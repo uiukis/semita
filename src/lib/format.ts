@@ -5,6 +5,9 @@ function intlLocale(locale: Locale): string {
 }
 
 export function formatUsdPerMillion(value: number, locale: Locale): string {
+  if (value === 0) {
+    return locale === "pt-br" ? "Local (pesos)" : "Local (weights)";
+  }
   return new Intl.NumberFormat(intlLocale(locale), {
     style: "currency",
     currency: "USD",

@@ -4,8 +4,23 @@ import { getTranslations, setRequestLocale } from "next-intl/server";
 import { FilterBar } from "@/components/filter-bar";
 import { ModelCard } from "@/components/model-card";
 import { FadeIn, Stagger } from "@/components/motion";
-import { getAllModels, getProviders, getUseCases } from "@/data/models";
-import type { LlmModel, Locale, ModelProvider, UseCase } from "@/data/types";
+import {
+  getAllModels,
+  getProviders,
+  getUseCases,
+  modelMatchesDeployment,
+  modelMatchesHardware,
+  modelMatchesPlatform,
+} from "@/data/models";
+import type {
+  DeploymentMode,
+  HardwarePlatform,
+  HardwareTier,
+  LlmModel,
+  Locale,
+  ModelProvider,
+  UseCase,
+} from "@/data/types";
 
 export async function generateMetadata({
   params,
@@ -22,14 +37,22 @@ type SearchParams = Promise<{
   use?: string;
   sort?: string;
   q?: string;
+  host?: string;
+  tier?: string;
+  platform?: string;
 }>;
 
 function sortModels(items: LlmModel[], sort: string): LlmModel[] {
   const sorted = [...items];
   if (sort === "cheapest") {
-    return sorted.sort(
-      (a, b) => a.pricing.inputPerMillion - b.pricing.inputPerMillion,
-    );
+    return sorted.sort((a, b) => {
+      const aLocal = a.deployment !== "api" && a.pricing.inputPerMillion === 0;
+      const bLocal = b.deployment !== "api" && b.pricing.inputPerMillion === 0;
+      if (aLocal !== bLocal) {
+        return aLocal ? -1 : 1;
+      }
+      return a.pricing.inputPerMillion - b.pricing.inputPerMillion;
+    });
   }
   if (sort === "context") {
     return sorted.sort((a, b) => b.contextWindow - a.contextWindow);
@@ -47,7 +70,7 @@ export default async function ModelsPage({
   const { locale } = await params;
   setRequestLocale(locale);
   const t = await getTranslations("models");
-  const { provider, use, sort, q } = await searchParams;
+  const { provider, use, sort, q, host, tier, platform } = await searchParams;
 
   let filtered = getAllModels();
   if (provider) {
@@ -60,6 +83,21 @@ export default async function ModelsPage({
       model.useCases.includes(use as UseCase),
     );
   }
+  if (host) {
+    filtered = filtered.filter((model) =>
+      modelMatchesDeployment(model, host as DeploymentMode),
+    );
+  }
+  if (tier) {
+    filtered = filtered.filter((model) =>
+      modelMatchesHardware(model, tier as HardwareTier),
+    );
+  }
+  if (platform) {
+    filtered = filtered.filter((model) =>
+      modelMatchesPlatform(model, platform as HardwarePlatform),
+    );
+  }
   if (q?.trim()) {
     const needle = q.trim().toLowerCase();
     filtered = filtered.filter((model) => {
@@ -68,7 +106,9 @@ export default async function ModelsPage({
         model.name.toLowerCase().includes(needle) ||
         model.provider.toLowerCase().includes(needle) ||
         model.slug.toLowerCase().includes(needle) ||
-        content.summary.toLowerCase().includes(needle)
+        content.summary.toLowerCase().includes(needle) ||
+        model.local?.ollamaTag?.toLowerCase().includes(needle) ||
+        model.local?.parameterCount.toLowerCase().includes(needle)
       );
     });
   }

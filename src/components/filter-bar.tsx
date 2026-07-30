@@ -3,7 +3,13 @@
 import { useTranslations } from "next-intl";
 import { useSearchParams } from "next/navigation";
 import { useEffect, useState, useTransition } from "react";
-import type { ModelProvider, UseCase } from "@/data/types";
+import type {
+  DeploymentMode,
+  HardwarePlatform,
+  HardwareTier,
+  ModelProvider,
+  UseCase,
+} from "@/data/types";
 import { usePathname, useRouter } from "@/i18n/navigation";
 
 type SortOption = "recommended" | "cheapest" | "context";
@@ -17,6 +23,8 @@ export function FilterBar({
 }) {
   const t = useTranslations("models");
   const tu = useTranslations("useCases");
+  const th = useTranslations("hardware");
+  const td = useTranslations("deployment");
   const router = useRouter();
   const pathname = usePathname();
   const searchParams = useSearchParams();
@@ -26,6 +34,9 @@ export function FilterBar({
   const currentUseCase = searchParams.get("use") ?? "";
   const currentSort = (searchParams.get("sort") as SortOption) ?? "recommended";
   const currentQuery = searchParams.get("q") ?? "";
+  const currentHost = searchParams.get("host") ?? "";
+  const currentTier = searchParams.get("tier") ?? "";
+  const currentPlatform = searchParams.get("platform") ?? "";
   const [query, setQuery] = useState(currentQuery);
 
   const sortLabels: Record<SortOption, string> = {
@@ -66,7 +77,20 @@ export function FilterBar({
     currentProvider ||
     currentUseCase ||
     currentSort !== "recommended" ||
-    currentQuery;
+    currentQuery ||
+    currentHost ||
+    currentTier ||
+    currentPlatform;
+
+  const hostOptions: Array<DeploymentMode | ""> = ["", "local", "api", "both"];
+  const tierOptions: Array<HardwareTier | ""> = ["", "entry", "mid", "heavy"];
+  const platformOptions: Array<HardwarePlatform | ""> = [
+    "",
+    "nvidia",
+    "amd",
+    "apple",
+    "cpu",
+  ];
 
   return (
     <div className="flex flex-col gap-3">
@@ -80,6 +104,48 @@ export function FilterBar({
       />
 
       <div className="flex flex-col gap-3 sm:flex-row sm:flex-wrap sm:items-center">
+        <select
+          aria-label={t("filterHost")}
+          value={currentHost}
+          onChange={(event) => updateParam("host", event.target.value)}
+          className={selectClass}
+        >
+          <option value="">{t("allHosts")}</option>
+          {hostOptions.filter(Boolean).map((host) => (
+            <option key={host} value={host}>
+              {td(host)}
+            </option>
+          ))}
+        </select>
+
+        <select
+          aria-label={t("filterTier")}
+          value={currentTier}
+          onChange={(event) => updateParam("tier", event.target.value)}
+          className={selectClass}
+        >
+          <option value="">{t("allTiers")}</option>
+          {tierOptions.filter(Boolean).map((tier) => (
+            <option key={tier} value={tier}>
+              {th(`tiers.${tier}`)}
+            </option>
+          ))}
+        </select>
+
+        <select
+          aria-label={t("filterPlatform")}
+          value={currentPlatform}
+          onChange={(event) => updateParam("platform", event.target.value)}
+          className={selectClass}
+        >
+          <option value="">{t("allPlatforms")}</option>
+          {platformOptions.filter(Boolean).map((platform) => (
+            <option key={platform} value={platform}>
+              {th(`platforms.${platform}`)}
+            </option>
+          ))}
+        </select>
+
         <select
           aria-label={t("filterProvider")}
           value={currentProvider}

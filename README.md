@@ -2,7 +2,7 @@
 
 A community-driven hub that shows how to use AI to **leverage — not replace** — learning and work.
 
-MVP focus: **Choose** — compare LLMs by cost per token, context window, benchmarks and an editorial [Semita score](https://semita-nu.vercel.app/score).
+MVP focus: **Choose** — compare LLMs by cost per token, context window, local hardware fit, benchmarks and an editorial [Semita score](https://semita-nu.vercel.app/score).
 
 - Production: [https://semita-nu.vercel.app](https://semita-nu.vercel.app)
 - Repo: [https://github.com/uiukis/semita](https://github.com/uiukis/semita)

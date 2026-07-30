@@ -50,8 +50,12 @@ export default async function ModelDetailPage({ params }: { params: Params }) {
   const t = await getTranslations("model");
   const tu = await getTranslations("useCases");
   const tm = await getTranslations("modalities");
+  const td = await getTranslations("deployment");
+  const th = await getTranslations("hardware");
+  const tr = await getTranslations("runtimes");
   const typedLocale = locale as Locale;
   const content = getModelContent(model, typedLocale);
+  const local = model.local;
 
   const stats = [
     {
@@ -223,6 +227,95 @@ export default async function ModelDetailPage({ params }: { params: Params }) {
         </ul>
       </FadeIn>
 
+      {local ? (
+        <FadeIn delay={0.26} as="section" className="mt-10">
+          <div className="rounded-2xl border border-line bg-surface p-5 sm:p-6">
+            <div className="flex flex-wrap items-center gap-2">
+              <h2 className="text-xs font-semibold uppercase tracking-widest text-muted">
+                {t("localTitle")}
+              </h2>
+              <span className="rounded-full bg-accent-soft px-2.5 py-0.5 text-[11px] font-semibold text-accent">
+                {td(model.deployment)}
+              </span>
+            </div>
+            <p className="mt-3 text-sm leading-relaxed text-muted">
+              {local.tips[typedLocale] ?? local.tips.en}
+            </p>
+            <dl className="mt-5 grid gap-4 sm:grid-cols-2">
+              <div>
+                <dt className="text-xs text-muted">{t("params")}</dt>
+                <dd className="font-medium">{local.parameterCount}</dd>
+              </div>
+              <div>
+                <dt className="text-xs text-muted">{t("quant")}</dt>
+                <dd className="font-medium">{local.quantization}</dd>
+              </div>
+              <div>
+                <dt className="text-xs text-muted">{t("runtimes")}</dt>
+                <dd className="font-medium">
+                  {local.runtimes.map((runtime) => tr(runtime)).join(", ")}
+                </dd>
+              </div>
+              <div>
+                <dt className="text-xs text-muted">{t("ollamaTag")}</dt>
+                <dd className="font-mono text-sm">
+                  {local.ollamaTag ?? "—"}
+                </dd>
+              </div>
+            </dl>
+            <h3 className="mt-6 text-xs font-semibold uppercase tracking-widest text-muted">
+              {t("hardwareGuides")}
+            </h3>
+            <ul className="mt-3 space-y-3">
+              {local.hardware.map((guide) => (
+                <li
+                  key={`${guide.platform}-${guide.tier}-${guide.exampleDevices[0]}`}
+                  className="rounded-xl border border-line bg-background/40 px-4 py-3"
+                >
+                  <div className="flex flex-wrap items-center gap-2 text-sm">
+                    <span className="font-semibold">
+                      {th(`platforms.${guide.platform}`)}
+                    </span>
+                    <span className="rounded-full border border-line px-2 py-0.5 text-[11px] text-muted">
+                      {th(`tiers.${guide.tier}`)}
+                    </span>
+                    {guide.minVramGb != null ? (
+                      <span className="text-xs text-muted">
+                        {t("minVram", { gb: guide.minVramGb })}
+                      </span>
+                    ) : null}
+                    {guide.minUnifiedMemoryGb != null ? (
+                      <span className="text-xs text-muted">
+                        {t("minUnified", { gb: guide.minUnifiedMemoryGb })}
+                      </span>
+                    ) : null}
+                    <span className="text-xs text-muted">
+                      {t("minRam", { gb: guide.minRamGb })}
+                    </span>
+                  </div>
+                  <p className="mt-2 text-sm text-foreground/90">
+                    {guide.exampleDevices.join(" · ")}
+                  </p>
+                  {guide.notes ? (
+                    <p className="mt-1 text-xs text-muted">
+                      {guide.notes[typedLocale] ?? guide.notes.en}
+                    </p>
+                  ) : null}
+                </li>
+              ))}
+            </ul>
+            <a
+              href={local.weightsUrl}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="mt-4 inline-flex text-sm text-accent underline-offset-4 hover:underline"
+            >
+              {t("weightsLink")}
+            </a>
+          </div>
+        </FadeIn>
+      ) : null}
+
       <FadeIn delay={0.28} as="section" className="mt-10 rounded-2xl border border-accent/20 bg-accent-soft p-5 sm:p-6">
         <h2 className="text-xs font-semibold uppercase tracking-widest text-accent">
           {t("communityTake")}
@@ -245,7 +338,11 @@ export default async function ModelDetailPage({ params }: { params: Params }) {
                 rel="noopener noreferrer"
                 className="text-sm text-muted underline underline-offset-4 transition-colors hover:text-accent"
               >
-                {t("pricingSource", { provider: model.provider })}
+                {source.kind === "pricing"
+                  ? t("pricingSource", { provider: model.provider })
+                  : source.kind === "weights"
+                    ? t("weightsSource", { provider: model.provider })
+                    : t("docsSource", { provider: model.provider })}
               </a>
             </li>
           ))}
@@ -255,6 +352,7 @@ export default async function ModelDetailPage({ params }: { params: Params }) {
             date: formatDate(model.lastUpdated, typedLocale),
           })}
         </p>
+        <p className="mt-2 text-xs text-muted">{t("localDisclaimer")}</p>
       </FadeIn>
     </div>
   );

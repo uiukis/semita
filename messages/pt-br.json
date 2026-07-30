@@ -59,17 +59,23 @@
   },
   "models": {
     "title": "Modelos",
-    "subtitle": "Compare LLMs por custo, contexto e caso de uso. Abra um modelo para ver detalhes, benchmarks e fontes.",
-    "searchPlaceholder": "Buscar por nome, provedor ou palavra-chave…",
+    "subtitle": "Compare LLMs por custo, contexto, caso de uso — e quais rodam localmente no seu hardware.",
+    "searchPlaceholder": "Buscar por nome, provedor, tag Ollama…",
     "allProviders": "Todos os provedores",
     "allUseCases": "Todos os casos de uso",
+    "allHosts": "API + local",
+    "allTiers": "Qualquer faixa de hardware",
+    "allPlatforms": "Qualquer plataforma",
     "sortRecommended": "Recomendado",
-    "sortCheapest": "Mais barato",
+    "sortCheapest": "Mais barato / local primeiro",
     "sortContext": "Maior contexto",
     "clearFilters": "Limpar filtros",
     "empty": "Nenhum modelo corresponde a esses filtros.",
     "filterProvider": "Filtrar por provedor",
     "filterUseCase": "Filtrar por caso de uso",
+    "filterHost": "Filtrar por hospedagem",
+    "filterTier": "Filtrar por faixa de hardware",
+    "filterPlatform": "Filtrar por plataforma",
     "sortBy": "Ordenar por"
   },
   "notFound": {
@@ -82,7 +88,9 @@
     "input": "Entrada / 1M",
     "output": "Saída / 1M",
     "context": "Contexto",
-    "useCases": "Casos de uso"
+    "useCases": "Casos de uso",
+    "params": "Params",
+    "quant": "Quant"
   },
   "model": {
     "back": "← Voltar aos modelos",
@@ -104,7 +112,20 @@
     "sources": "Fontes",
     "lastUpdated": "Última atualização {date}. Valores de referência — sempre confirme na fonte oficial.",
     "pricingSource": "Preços {provider} (confirme o valor atual)",
-    "notFound": "Modelo não encontrado"
+    "weightsSource": "Pesos / download {provider}",
+    "docsSource": "Docs {provider}",
+    "notFound": "Modelo não encontrado",
+    "localTitle": "Rodar localmente",
+    "params": "Parâmetros",
+    "quant": "Guia de quantização",
+    "runtimes": "Runtimes",
+    "ollamaTag": "Tag Ollama",
+    "hardwareGuides": "Guias de hardware",
+    "minVram": "≥ {gb} GB VRAM",
+    "minUnified": "≥ {gb} GB unified",
+    "minRam": "≥ {gb} GB RAM de sistema",
+    "weightsLink": "Abrir pesos / página de download →",
+    "localDisclaimer": "Os números de VRAM/RAM são guias práticos para a quantização listada e contexto curto/médio — não são SLA de fabricante. Sempre confira a docs do runtime na sua máquina."
   },
   "compare": {
     "title": "Comparar modelos",
@@ -182,7 +203,34 @@
     "research": "Pesquisa",
     "reasoning": "Raciocínio",
     "vision": "Visão",
-    "cost-effective": "Custo-benefício"
+    "cost-effective": "Custo-benefício",
+    "local": "Local"
+  },
+  "deployment": {
+    "api": "API",
+    "local": "Local",
+    "both": "API + local"
+  },
+  "hardware": {
+    "tiers": {
+      "entry": "Entry (8–12GB / Mac 16GB)",
+      "mid": "Mid (12–16GB / Mac 32GB)",
+      "heavy": "Heavy (24GB+ / Mac 64GB+)"
+    },
+    "platforms": {
+      "nvidia": "NVIDIA",
+      "amd": "AMD",
+      "apple": "Apple Silicon",
+      "cpu": "Só CPU"
+    }
+  },
+  "runtimes": {
+    "ollama": "Ollama",
+    "lmstudio": "LM Studio",
+    "llamacpp": "llama.cpp",
+    "mlx": "MLX",
+    "vllm": "vLLM",
+    "other": "Outro"
   },
   "modalities": {
     "text": "Texto",

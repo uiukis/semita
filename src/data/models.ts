@@ -1,6 +1,7 @@
-import type { LlmModel, Locale, LocalizedModelContent, ModelProvider, UseCase } from "./types";
+import type { LlmModel, Locale, LocalizedModelContent, ModelProvider, UseCase, HardwareTier, HardwarePlatform, DeploymentMode } from "./types";
+import { localModels } from "./local-models";
 
-export const models: LlmModel[] = [
+export const cloudModels: LlmModel[] = [
   {
     slug: "gpt-5",
     name: "GPT-5",
@@ -21,6 +22,7 @@ export const models: LlmModel[] = [
     ],
     sources: [{ kind: "pricing", url: "https://developers.openai.com/api/docs/pricing" }],
     lastUpdated: "2026-07-18",
+    deployment: "api",
     content: {
       en: {
         summary:
@@ -68,6 +70,7 @@ export const models: LlmModel[] = [
     ],
     sources: [{ kind: "pricing", url: "https://developers.openai.com/api/docs/pricing" }],
     lastUpdated: "2026-07-18",
+    deployment: "api",
     content: {
       en: {
         summary:
@@ -116,6 +119,7 @@ export const models: LlmModel[] = [
     ],
     sources: [{ kind: "pricing", url: "https://developers.openai.com/api/docs/pricing" }],
     lastUpdated: "2026-07-18",
+    deployment: "api",
     content: {
       en: {
         summary:
@@ -163,6 +167,7 @@ export const models: LlmModel[] = [
     ],
     sources: [{ kind: "pricing", url: "https://www.anthropic.com/pricing" }],
     lastUpdated: "2026-07-18",
+    deployment: "api",
     content: {
       en: {
         summary:
@@ -210,6 +215,7 @@ export const models: LlmModel[] = [
     ],
     sources: [{ kind: "pricing", url: "https://www.anthropic.com/pricing" }],
     lastUpdated: "2026-07-18",
+    deployment: "api",
     content: {
       en: {
         summary:
@@ -257,6 +263,7 @@ export const models: LlmModel[] = [
     ],
     sources: [{ kind: "pricing", url: "https://ai.google.dev/gemini-api/docs/pricing" }],
     lastUpdated: "2026-07-18",
+    deployment: "api",
     content: {
       en: {
         summary:
@@ -304,6 +311,7 @@ export const models: LlmModel[] = [
     ],
     sources: [{ kind: "pricing", url: "https://ai.google.dev/gemini-api/docs/pricing" }],
     lastUpdated: "2026-07-18",
+    deployment: "api",
     content: {
       en: {
         summary:
@@ -351,6 +359,7 @@ export const models: LlmModel[] = [
     ],
     sources: [{ kind: "pricing", url: "https://developers.openai.com/api/docs/pricing" }],
     lastUpdated: "2026-07-18",
+    deployment: "api",
     content: {
       en: {
         summary:
@@ -387,7 +396,7 @@ export const models: LlmModel[] = [
     maxOutputTokens: 8192,
     pricing: { inputPerMillion: 0.28, outputPerMillion: 0.42, currency: "USD" },
     modalities: ["text", "code"],
-    useCases: ["coding", "reasoning", "cost-effective"],
+    useCases: ["coding", "reasoning", "cost-effective", "local"],
     communityScore: 4.4,
     benchmarks: [
       {
@@ -396,8 +405,36 @@ export const models: LlmModel[] = [
         sourceUrl: "https://github.com/deepseek-ai/DeepSeek-V3",
       },
     ],
-    sources: [{ kind: "pricing", url: "https://api-docs.deepseek.com/quick_start/pricing" }],
-    lastUpdated: "2026-07-18",
+    sources: [
+      { kind: "pricing", url: "https://api-docs.deepseek.com/quick_start/pricing" },
+      { kind: "weights", url: "https://github.com/deepseek-ai/DeepSeek-V3" },
+    ],
+    lastUpdated: "2026-07-30",
+    deployment: "both",
+    local: {
+      parameterCount: "671B MoE (37B active)",
+      quantization: "FP8 / INT4 multi-GPU (not a laptop Q4)",
+      runtimes: ["vllm", "other"],
+      weightsUrl: "https://github.com/deepseek-ai/DeepSeek-V3",
+      comfortTiers: ["heavy"],
+      hardware: [
+        {
+          tier: "heavy",
+          platform: "nvidia",
+          minRamGb: 512,
+          minVramGb: 8 * 80,
+          exampleDevices: ["8× H100 80GB", "Multi-node GPU cluster"],
+          notes: {
+            en: "Full DeepSeek-V3 is a datacenter self-host. For a single consumer GPU, use R1 distill models instead.",
+            "pt-br": "DeepSeek-V3 completo é self-host de datacenter. Para GPU consumer única, use os destilados R1.",
+          },
+        },
+      ],
+      tips: {
+        en: "Most builders should call the cheap API or run R1 distill locally — not the full MoE.",
+        "pt-br": "A maioria deve usar a API barata ou rodar R1 distill local — não o MoE completo.",
+      },
+    },
     content: {
       en: {
         summary:
@@ -434,7 +471,7 @@ export const models: LlmModel[] = [
     maxOutputTokens: 8192,
     pricing: { inputPerMillion: 0.4, outputPerMillion: 0.4, currency: "USD" },
     modalities: ["text", "code"],
-    useCases: ["writing", "coding", "cost-effective"],
+    useCases: ["writing", "coding", "cost-effective", "local"],
     communityScore: 4.2,
     benchmarks: [
       {
@@ -443,8 +480,44 @@ export const models: LlmModel[] = [
         sourceUrl: "https://ai.meta.com/blog/llama-3-3/",
       },
     ],
-    sources: [{ kind: "pricing", url: "https://www.llama.com/" }],
-    lastUpdated: "2026-07-18",
+    sources: [
+      { kind: "pricing", url: "https://www.llama.com/" },
+      { kind: "weights", url: "https://ollama.com/library/llama3.3" },
+    ],
+    lastUpdated: "2026-07-30",
+    deployment: "both",
+    local: {
+      parameterCount: "70B",
+      quantization: "Q3_K_M / Q4_K_M (GGUF)",
+      runtimes: ["ollama", "lmstudio", "llamacpp", "vllm", "mlx"],
+      ollamaTag: "llama3.3:70b",
+      weightsUrl: "https://ollama.com/library/llama3.3",
+      comfortTiers: ["heavy"],
+      hardware: [
+        {
+          tier: "heavy",
+          platform: "nvidia",
+          minRamGb: 128,
+          minVramGb: 40,
+          exampleDevices: ["2× RTX 4090", "A6000 48GB", "4× RTX 3090"],
+        },
+        {
+          tier: "heavy",
+          platform: "apple",
+          minRamGb: 64,
+          minUnifiedMemoryGb: 64,
+          exampleDevices: ["Mac Studio M2 Ultra 64–192GB"],
+          notes: {
+            en: "Q3 is more realistic on 64GB; Q4 prefers 96GB+.",
+            "pt-br": "Q3 é mais realista em 64GB; Q4 prefere 96GB+.",
+          },
+        },
+      ],
+      tips: {
+        en: "Available via cloud APIs and as open weights. Local needs workstation-class hardware.",
+        "pt-br": "Disponível via APIs na nuvem e como pesos abertos. Local precisa de hardware nível workstation.",
+      },
+    },
     content: {
       en: {
         summary:
@@ -492,6 +565,7 @@ export const models: LlmModel[] = [
     ],
     sources: [{ kind: "pricing", url: "https://mistral.ai/products/la-plateforme/" }],
     lastUpdated: "2026-07-18",
+    deployment: "api",
     content: {
       en: {
         summary:
@@ -539,6 +613,7 @@ export const models: LlmModel[] = [
     ],
     sources: [{ kind: "pricing", url: "https://x.ai/api" }],
     lastUpdated: "2026-07-18",
+    deployment: "api",
     content: {
       en: {
         summary:
@@ -568,6 +643,8 @@ export const models: LlmModel[] = [
   },
 ];
 
+export const models: LlmModel[] = [...cloudModels, ...localModels];
+
 export function getAllModels(): LlmModel[] {
   return models;
 }
@@ -589,4 +666,46 @@ export function getProviders(): ModelProvider[] {
 
 export function getUseCases(): UseCase[] {
   return Array.from(new Set(models.flatMap((model) => model.useCases)));
+}
+
+export function getLocalModels(): LlmModel[] {
+  return models.filter(
+    (model) => model.deployment === "local" || model.deployment === "both",
+  );
+}
+
+export function modelMatchesHardware(
+  model: LlmModel,
+  tier: HardwareTier,
+): boolean {
+  if (!model.local) {
+    return false;
+  }
+  return model.local.comfortTiers.includes(tier);
+}
+
+export function modelMatchesPlatform(
+  model: LlmModel,
+  platform: HardwarePlatform,
+): boolean {
+  if (!model.local) {
+    return false;
+  }
+  return model.local.hardware.some((guide) => guide.platform === platform);
+}
+
+export function modelMatchesDeployment(
+  model: LlmModel,
+  deployment: DeploymentMode | "any",
+): boolean {
+  if (deployment === "any") {
+    return true;
+  }
+  if (deployment === "local") {
+    return model.deployment === "local" || model.deployment === "both";
+  }
+  if (deployment === "api") {
+    return model.deployment === "api" || model.deployment === "both";
+  }
+  return model.deployment === deployment;
 }

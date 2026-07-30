@@ -14,7 +14,9 @@ export async function ModelCard({
 }) {
   const t = await getTranslations("card");
   const tu = await getTranslations("useCases");
+  const td = await getTranslations("deployment");
   const content = getModelContent(model, locale);
+  const isLocal = model.deployment === "local" || model.deployment === "both";
 
   return (
     <StaggerItem className="h-full">
@@ -29,9 +31,16 @@ export async function ModelCard({
             </h3>
             <p className="text-xs text-muted">{model.provider}</p>
           </div>
-          <span className="rounded-full bg-accent-soft px-2.5 py-1 text-xs font-semibold text-accent">
-            {model.communityScore.toFixed(1)} ★
-          </span>
+          <div className="flex flex-col items-end gap-1">
+            <span className="rounded-full bg-accent-soft px-2.5 py-1 text-xs font-semibold text-accent">
+              {model.communityScore.toFixed(1)} ★
+            </span>
+            {isLocal ? (
+              <span className="rounded-full border border-accent/30 px-2 py-0.5 text-[10px] font-medium uppercase tracking-wide text-accent">
+                {td(model.deployment)}
+              </span>
+            ) : null}
+          </div>
         </div>
 
         <p className="mt-3 line-clamp-2 text-sm leading-relaxed text-muted">
@@ -58,13 +67,26 @@ export async function ModelCard({
             </dd>
           </div>
           <div>
-            <dt className="text-xs text-muted">{t("useCases")}</dt>
-            <dd className="font-medium">{model.useCases.length}</dd>
+            <dt className="text-xs text-muted">
+              {isLocal && model.local ? t("params") : t("useCases")}
+            </dt>
+            <dd className="font-medium">
+              {isLocal && model.local
+                ? model.local.parameterCount
+                : model.useCases.length}
+            </dd>
           </div>
         </dl>
 
+        {isLocal && model.local ? (
+          <p className="mt-3 text-xs text-muted">
+            {t("quant")}: {model.local.quantization}
+            {model.local.ollamaTag ? ` · ${model.local.ollamaTag}` : ""}
+          </p>
+        ) : null}
+
         <div className="mt-auto flex flex-wrap gap-1.5 pt-4">
-          {model.useCases.map((useCase) => (
+          {model.useCases.slice(0, 4).map((useCase) => (
             <span
               key={useCase}
               className="rounded-full border border-line px-2 py-0.5 text-xs text-muted"
