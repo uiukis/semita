@@ -13,12 +13,36 @@ import {
 import { Link } from "@/i18n/navigation";
 
 const PERSONAS = [
-  "student",
-  "builder",
-  "writer",
-  "lead",
-  "private",
+  {
+    id: "student",
+    href: "/models?use=research&sort=recommended",
+  },
+  {
+    id: "builder",
+    href: "/models?use=coding&sort=recommended",
+  },
+  {
+    id: "writer",
+    href: "/models?use=writing&sort=recommended",
+  },
+  {
+    id: "lead",
+    href: "/recommend",
+  },
+  {
+    id: "private",
+    href: "/models?host=local&sort=recommended",
+  },
 ] as const;
+
+const TOPIC_LINKS = {
+  prompts: "/recommend",
+  context: "/models?sort=context",
+  cloudLocal: "/hardware",
+  cost: "/models?host=api&sort=cheapest",
+  privacy: "/models?host=local&tier=entry",
+  eval: "/benchmark",
+} as const;
 
 const LEVELS = [
   {
@@ -120,20 +144,26 @@ export default async function GuidePage({
         <p className="mt-2 text-muted">{t("forWhomSubtitle")}</p>
         <div className="mt-6 grid gap-4 sm:grid-cols-2">
           {PERSONAS.map((persona, index) => (
-            <FadeIn key={persona} delay={0.04 * index}>
+            <FadeIn key={persona.id} delay={0.04 * index}>
               <Card className="h-full">
                 <CardHeader className="p-5 pb-2">
                   <CardTitle className="text-base">
-                    {t(`personas.${persona}.title`)}
+                    {t(`personas.${persona.id}.title`)}
                   </CardTitle>
                   <p className="text-xs font-medium text-accent">
-                    {t(`personas.${persona}.aim`)}
+                    {t(`personas.${persona.id}.aim`)}
                   </p>
                 </CardHeader>
-                <CardContent className="p-5 pt-0">
+                <CardContent className="space-y-3 p-5 pt-0">
                   <CardDescription>
-                    {t(`personas.${persona}.body`)}
+                    {t(`personas.${persona.id}.body`)}
                   </CardDescription>
+                  <Link
+                    href={persona.href}
+                    className="inline-block text-sm font-medium text-accent underline-offset-4 hover:underline"
+                  >
+                    {t(`personas.${persona.id}.cta`)} →
+                  </Link>
                 </CardContent>
               </Card>
             </FadeIn>
@@ -199,10 +229,16 @@ export default async function GuidePage({
                     {t(`topics.${topic}.title`)}
                   </CardTitle>
                 </CardHeader>
-                <CardContent className="p-5 pt-0">
+                <CardContent className="space-y-3 p-5 pt-0">
                   <CardDescription className="leading-relaxed">
                     {t(`topics.${topic}.body`)}
                   </CardDescription>
+                  <Link
+                    href={TOPIC_LINKS[topic]}
+                    className="inline-block text-sm font-medium text-accent underline-offset-4 hover:underline"
+                  >
+                    {t(`topics.${topic}.cta`)} →
+                  </Link>
                 </CardContent>
               </Card>
             </FadeIn>
@@ -219,10 +255,13 @@ export default async function GuidePage({
             </div>
             <div className="flex flex-wrap gap-2">
               <Button asChild>
+                <Link href="/recommend">{t("recommend")}</Link>
+              </Button>
+              <Button asChild variant="outline">
                 <Link href="/models">{t("browseModels")}</Link>
               </Button>
               <Button asChild variant="outline">
-                <Link href="/compare">{t("compare")}</Link>
+                <Link href="/apply">{t("apply")}</Link>
               </Button>
             </div>
           </CardContent>

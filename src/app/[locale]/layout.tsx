@@ -128,10 +128,7 @@ export default async function LocaleLayout({
                   <Link href="/models">{t("models")}</Link>
                 </Button>
                 <Button asChild variant="ghost" size="sm">
-                  <Link href="/compare">{t("compare")}</Link>
-                </Button>
-                <Button asChild variant="ghost" size="sm">
-                  <Link href="/guide">{t("guide")}</Link>
+                  <Link href="/recommend">{t("recommend")}</Link>
                 </Button>
                 <Button
                   asChild
@@ -139,7 +136,7 @@ export default async function LocaleLayout({
                   size="sm"
                   className="hidden sm:inline-flex"
                 >
-                  <Link href="/score">{t("score")}</Link>
+                  <Link href="/hardware">{t("hardware")}</Link>
                 </Button>
                 <Button
                   asChild
@@ -147,7 +144,15 @@ export default async function LocaleLayout({
                   size="sm"
                   className="hidden md:inline-flex"
                 >
-                  <Link href="/benchmark">{t("benchmark")}</Link>
+                  <Link href="/apply">{t("apply")}</Link>
+                </Button>
+                <Button
+                  asChild
+                  variant="ghost"
+                  size="sm"
+                  className="hidden lg:inline-flex"
+                >
+                  <Link href="/guide">{t("guide")}</Link>
                 </Button>
                 <span className="ml-1">
                   <Suspense fallback={null}>
@@ -170,6 +175,24 @@ export default async function LocaleLayout({
               </div>
               <div className="flex flex-wrap gap-x-5 gap-y-2 text-xs">
                 <Link
+                  href="/recommend"
+                  className="underline-offset-4 transition-colors hover:text-accent hover:underline"
+                >
+                  {tf("recommend")}
+                </Link>
+                <Link
+                  href="/hardware"
+                  className="underline-offset-4 transition-colors hover:text-accent hover:underline"
+                >
+                  {tf("hardware")}
+                </Link>
+                <Link
+                  href="/apply"
+                  className="underline-offset-4 transition-colors hover:text-accent hover:underline"
+                >
+                  {tf("apply")}
+                </Link>
+                <Link
                   href="/guide"
                   className="underline-offset-4 transition-colors hover:text-accent hover:underline"
                 >
@@ -187,14 +210,12 @@ export default async function LocaleLayout({
                 >
                   {tf("benchmark")}
                 </Link>
-                <a
-                  href="https://github.com/uiukis/semita/issues/new?template=data_update.md"
-                  target="_blank"
-                  rel="noopener noreferrer"
+                <Link
+                  href="/contribute"
                   className="underline-offset-4 transition-colors hover:text-accent hover:underline"
                 >
-                  {tf("contribute")}
-                </a>
+                  {tf("contributePage")}
+                </Link>
                 <a
                   href="https://github.com/uiukis"
                   target="_blank"

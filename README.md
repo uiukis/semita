@@ -2,13 +2,14 @@
 
 A community-driven hub that shows how to use AI to **leverage — not replace** — learning and work.
 
-MVP focus: **Choose** — compare LLMs by cost per token, context window, local hardware fit, benchmarks and an editorial [Semita score](https://semita-nu.vercel.app/score).
+MVP focus: **Choose** — compare LLMs by cost per token, context window, local hardware fit, benchmarks and an editorial [Semita score](https://semita-nu.vercel.app/score). Growing **Apply** + **Learn** with recipes and a progressive guide.
 
 - Production: [https://semita-nu.vercel.app](https://semita-nu.vercel.app)
 - Repo: [https://github.com/uiukis/semita](https://github.com/uiukis/semita)
 - Languages: English and Portuguese on the same URLs (cookie-based)
 - License: [MIT](LICENSE)
-- Contribute: [CONTRIBUTING.md](CONTRIBUTING.md) · [docs/adding-a-model.md](docs/adding-a-model.md) · [docs/keeping-data-fresh.md](docs/keeping-data-fresh.md) · [docs/benchmark-methodology.md](docs/benchmark-methodology.md)
+- Paths: [/recommend](https://semita-nu.vercel.app/recommend) · [/hardware](https://semita-nu.vercel.app/hardware) · [/apply](https://semita-nu.vercel.app/apply) · [/guide](https://semita-nu.vercel.app/guide) · [/contribute](https://semita-nu.vercel.app/contribute)
+- Contribute: [CONTRIBUTING.md](CONTRIBUTING.md) · [docs/adding-a-model.md](docs/adding-a-model.md) · [docs/keeping-data-fresh.md](docs/keeping-data-fresh.md) · [docs/benchmark-methodology.md](docs/benchmark-methodology.md) · [docs/custom-domain.md](docs/custom-domain.md)
 
 ## Stack
 
@@ -78,7 +79,9 @@ Point your DNS at Vercel when ready (A/CNAME for the `semita` project). Until th
 
 ## Roadmap
 
-1. **Choose** (MVP) — LLM comparison hub
-2. **Apply** — skills & MCPs directory
-3. **Learn** — progressive articles + leverages vs replaces
+1. **Choose** (live) — catalog, compare, recommender, hardware recipes, Mini Benchmark methodology
+2. **Apply** (started) — practical recipes linking goals → models (MCP directory later)
+3. **Learn** (started) — [/guide](https://semita-nu.vercel.app/guide) beginner → advanced
 4. **Community validates** — truthfulness voting after critical mass
+
+**Blocked without secrets:** first Mini Benchmark publish needs `AI_GATEWAY_API_KEY` + human review — never invent results.

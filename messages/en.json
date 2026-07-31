@@ -9,7 +9,10 @@
     "compare": "Compare",
     "guide": "Guide",
     "score": "Score",
-    "benchmark": "Benchmark"
+    "benchmark": "Benchmark",
+    "recommend": "Recommend",
+    "hardware": "Hardware",
+    "apply": "Apply"
   },
   "footer": {
     "tagline": "Semita — open source, community-driven. AI that leverages you, not replaces you.",
@@ -18,7 +21,11 @@
     "score": "Semita score methodology",
     "benchmark": "Semita Mini Benchmark",
     "contribute": "Contribute data",
-    "createdBy": "Created by Wilker Quirino"
+    "createdBy": "Created by Wilker Quirino",
+    "recommend": "Which model for me?",
+    "hardware": "Hardware recipes",
+    "apply": "Apply recipes",
+    "contributePage": "Suggest a model"
   },
   "language": {
     "label": "Language",
@@ -54,12 +61,13 @@
       "chooseName": "Choose",
       "chooseBody": "A living LLM comparison hub: benchmarks, cost per token, strengths and community recommendations, filterable by use case.",
       "applyName": "Apply",
-      "applyBody": "A directory of skills and MCPs, organized and filterable by personal and professional goals, built on the same data and tag structure.",
+      "applyBody": "Practical recipes that connect goals to catalog models — coding in the IDE, local Ollama, cheap APIs, writing loops and light RAG.",
       "learnName": "Learn",
       "learnBody": "A progressive path from first prompts to local models and evaluation — starting with the beginner → advanced guide.",
       "learnLink": "Read the guide",
       "validateName": "Community validates",
-      "validateBody": "A truthfulness voting system for every article and entry — enabled only once there is a critical mass of active users."
+      "validateBody": "A truthfulness voting system for every article and entry — enabled only once there is a critical mass of active users.",
+      "applyLink": "Browse apply recipes"
     }
   },
   "guide": {
@@ -79,27 +87,32 @@
       "student": {
         "title": "Student / lifelong learner",
         "aim": "Understand faster",
-        "body": "Turn dense material into outlines, quizzes and analogies. Ask for counter-arguments. Never paste graded work you have not rewritten in your own words."
+        "body": "Turn dense material into outlines, quizzes and analogies. Ask for counter-arguments. Never paste graded work you have not rewritten in your own words.",
+        "cta": "Browse research models"
       },
       "builder": {
         "title": "Developer / maker",
         "aim": "Ship with less friction",
-        "body": "Debug, scaffold, review diffs and explore APIs. Keep secrets out of prompts. Prefer models strong at coding — then verify with tests."
+        "body": "Debug, scaffold, review diffs and explore APIs. Keep secrets out of prompts. Prefer models strong at coding — then verify with tests.",
+        "cta": "Browse coding models"
       },
       "writer": {
         "title": "Writer / creator",
         "aim": "Draft and iterate",
-        "body": "Brainstorm angles, tighten structure, localize tone. You own voice and facts. Use AI for first passes and editing passes — not as the final byline."
+        "body": "Brainstorm angles, tighten structure, localize tone. You own voice and facts. Use AI for first passes and editing passes — not as the final byline.",
+        "cta": "Browse writing models"
       },
       "lead": {
         "title": "Founder / ops / lead",
         "aim": "Decide with less noise",
-        "body": "Summarize options, draft SOPs, stress-test plans. Watch cost and privacy on customer data. Compare models before locking a vendor habit."
+        "body": "Summarize options, draft SOPs, stress-test plans. Watch cost and privacy on customer data. Compare models before locking a vendor habit.",
+        "cta": "Take the recommender"
       },
       "private": {
         "title": "Privacy-minded user",
         "aim": "Keep data close",
-        "body": "Prefer local / open weights when the topic is sensitive. Filter Semita by local + hardware tier. Cloud APIs are fine for non-sensitive exploration."
+        "body": "Prefer local / open weights when the topic is sensitive. Filter Semita by local + hardware tier. Cloud APIs are fine for non-sensitive exploration.",
+        "cta": "Browse local models"
       }
     },
     "pathTitle": "The path: beginner → advanced",
@@ -141,33 +154,41 @@
     "topics": {
       "prompts": {
         "title": "Prompts that carry intent",
-        "body": "Good prompts name role, goal, format, constraints and success criteria. Bad prompts ask the model to “be smart.” Prefer concrete verbs and examples of the shape you want."
+        "body": "Good prompts name role, goal, format, constraints and success criteria. Bad prompts ask the model to “be smart.” Prefer concrete verbs and examples of the shape you want.",
+        "cta": "Start the recommender"
       },
       "context": {
         "title": "Context windows",
-        "body": "Context is working memory, not infinite wisdom. Stuffing a whole repo often hurts more than a focused file plus a clear question. Check the catalog’s context field when your task is long."
+        "body": "Context is working memory, not infinite wisdom. Stuffing a whole repo often hurts more than a focused file plus a clear question. Check the catalog’s context field when your task is long.",
+        "cta": "Sort by largest context"
       },
       "cloudLocal": {
         "title": "Cloud API vs local",
-        "body": "Cloud: strongest models, easy updates, data leaves your machine. Local: privacy, offline, predictable cost after hardware — with VRAM/RAM limits. Semita filters help you see both."
+        "body": "Cloud: strongest models, easy updates, data leaves your machine. Local: privacy, offline, predictable cost after hardware — with VRAM/RAM limits. Semita filters help you see both.",
+        "cta": "Open hardware recipes"
       },
       "cost": {
         "title": "Cost per token (and why it matters)",
-        "body": "Input and output are priced differently. Long system prompts and verbose answers add up. Estimate before you automate a high-volume path — then re-check the provider page."
+        "body": "Input and output are priced differently. Long system prompts and verbose answers add up. Estimate before you automate a high-volume path — then re-check the provider page.",
+        "cta": "Sort API models by price"
       },
       "privacy": {
         "title": "Privacy & secrets",
-        "body": "Never paste API keys, passwords or personal data you are not allowed to share. For sensitive work, prefer local runtimes (Ollama, LM Studio, llama.cpp, MLX) and open weights."
+        "body": "Never paste API keys, passwords or personal data you are not allowed to share. For sensitive work, prefer local runtimes (Ollama, LM Studio, llama.cpp, MLX) and open weights.",
+        "cta": "Entry-tier local models"
       },
       "eval": {
         "title": "How to know it is working",
-        "body": "Define a tiny scorecard for your job: correctness, tone, latency, cost. Re-run the same cases when you switch models. Public leaderboards are signals — your tasks are the exam."
+        "body": "Define a tiny scorecard for your job: correctness, tone, latency, cost. Re-run the same cases when you switch models. Public leaderboards are signals — your tasks are the exam.",
+        "cta": "See Mini Benchmark"
       }
     },
     "nextTitle": "Ready to pick a model?",
     "nextBody": "Use the catalog with filters for use case, local hardware and cost — then compare side by side.",
     "browseModels": "Browse models",
-    "compare": "Compare models"
+    "compare": "Compare side by side",
+    "recommend": "Which model for me?",
+    "apply": "Apply recipes"
   },
   "models": {
     "title": "Models",
@@ -352,5 +373,126 @@
     "vision": "Vision",
     "audio": "Audio",
     "code": "Code"
+  },
+  "recommend": {
+    "eyebrow": "Phase 1 · Choose",
+    "title": "Which model is for me?",
+    "subtitle": "Four short questions. Semita matches your use case, hosting preference, budget and hardware to a few honest picks from the catalog.",
+    "steps": {
+      "0": "1 · Use",
+      "1": "2 · Host",
+      "2": "3 · Budget",
+      "3": "4 · Hardware"
+    },
+    "qUse": "What are you trying to do?",
+    "qUseHelp": "Pick the job that matters most this week.",
+    "qHost": "Where should it run?",
+    "qHostHelp": "API = cloud providers. Local = your machine. Either = show both.",
+    "qBudget": "How do you want to spend?",
+    "qBudgetHelp": "Free prioritizes open local weights. Cheap favors low $/M. Quality favors top editorial scores.",
+    "qTier": "What hardware can you use locally?",
+    "qTierHelp": "Skip if you only care about APIs.",
+    "uses": {
+      "coding": "Coding & agents",
+      "writing": "Writing & editing",
+      "research": "Research & study",
+      "reasoning": "Hard reasoning / decisions",
+      "vision": "Images & documents",
+      "general": "General / not sure yet"
+    },
+    "hosts": {
+      "api": "Cloud API",
+      "local": "Local on my machine",
+      "either": "Either is fine"
+    },
+    "budgets": {
+      "free": "Free / open weights",
+      "cheap": "Keep costs low",
+      "quality": "Best quality I can get"
+    },
+    "tiers": {
+      "entry": "Entry — ~8–12GB VRAM or Mac 16GB",
+      "mid": "Mid — ~12–16GB VRAM or Mac 32GB",
+      "heavy": "Heavy — 24GB+ VRAM or Mac 64GB+",
+      "skip": "Skip — API only / unsure"
+    },
+    "back": "Back",
+    "resultsTitle": "Your shortlist",
+    "resultsBody": "Editorial match from the Semita catalog — not a live benchmark. Open a model or browse the filtered list.",
+    "seeFiltered": "See filtered catalog",
+    "restart": "Start over",
+    "empty": "No models matched. Try Either host or a different tier.",
+    "matchScore": "Match {score}",
+    "openModel": "Open",
+    "hardwareLink": "Hardware recipes",
+    "guideLink": "Learning guide",
+    "catalogLink": "Full catalog"
+  },
+  "hardwarePage": {
+    "eyebrow": "Local fit",
+    "title": "Hardware recipes",
+    "subtitle": "Curated starting points for common machines — then jump into the filtered local catalog.",
+    "browseFiltered": "Browse matching models",
+    "recommendLink": "Not sure? Take the quiz",
+    "allLocal": "All local models",
+    "recipes": {
+      "mac-16": {
+        "title": "Apple Silicon · 16GB unified",
+        "body": "Comfortable entry local chat and light coding with 7B–12B class Q4 models."
+      },
+      "mac-32": {
+        "title": "Apple Silicon · 32GB+",
+        "body": "Mid-tier local coding and reasoning — 20B–30B class when quantized well."
+      },
+      "rtx-3060-12": {
+        "title": "NVIDIA · ~12GB VRAM (3060 class)",
+        "body": "Sweet spot for many desktops: 8B–14B Q4/Q5 with headroom for short context."
+      },
+      "rtx-4090-24": {
+        "title": "NVIDIA · 24GB+ VRAM",
+        "body": "Heavy local work: larger coders, MoE shards and longer contexts when VRAM allows."
+      },
+      "cpu-only": {
+        "title": "CPU-only / no discrete GPU",
+        "body": "Stay small and quantized. Prefer tiny and 7B–8B entry models; expect slower tokens."
+      }
+    }
+  },
+  "apply": {
+    "eyebrow": "Phase 2 · Apply",
+    "title": "Apply AI to real work",
+    "subtitle": "Short recipes that connect a goal to Semita models — no MCP directory yet, just practical paths you can start today.",
+    "openCatalog": "Open related models",
+    "recommendLink": "Which model for me?",
+    "guideLink": "Learning guide",
+    "audiences": {
+      "builder": "Builder",
+      "writer": "Writer",
+      "lead": "Lead / ops",
+      "private": "Privacy",
+      "student": "Student"
+    }
+  },
+  "suggest": {
+    "eyebrow": "Community",
+    "pageTitle": "Suggest a model or data fix",
+    "pageIntro": "Fill the form — it opens a GitHub data-update issue with your fields prefilled. Maintainers verify sources before merging.",
+    "title": "Contribution form",
+    "subtitle": "No account on Semita required. You will finish on GitHub.",
+    "nameLabel": "Model name or slug",
+    "namePlaceholder": "e.g. qwen3.5 or gpt-5.2",
+    "tagLabel": "Ollama tag (if local)",
+    "kindLabel": "What kind of update?",
+    "kinds": {
+      "newLocal": "New local model",
+      "cloudPricing": "Cloud pricing / context",
+      "localHardware": "Local hardware guide",
+      "other": "Other data fix"
+    },
+    "notesLabel": "What should change?",
+    "notesPlaceholder": "Missing from catalog, wrong VRAM, stale price…",
+    "sourceLabel": "Official source URL",
+    "submit": "Open GitHub issue",
+    "disclaimer": "Never invent benchmark numbers. Link an official page we can verify."
   }
 }

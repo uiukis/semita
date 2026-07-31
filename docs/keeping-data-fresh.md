@@ -14,7 +14,10 @@ pnpm catalog:check
 This fetches [ollama.com/library](https://ollama.com/library) (no API key) and reports:
 
 - **missing** — in the Ollama library, not covered by Semita (`ollamaTag` or `ollama.com/library/…` URLs)
-- **stale** — local/both entries with `lastUpdated` older than 60 days
+- **stale local** — local/both entries with `lastUpdated` older than 60 days
+- **stale cloud** — api/both entries with `lastUpdated` older than 60 days (pricing/context refresh cue)
+
+Faster contribution UX: [/contribute](https://semita-nu.vercel.app/contribute) prefills a GitHub data-update issue.
 
 To scaffold a stub for a missing tag:
 

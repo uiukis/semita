@@ -40,9 +40,25 @@ export async function generateMetadata({
     const t = await getTranslations({ locale, namespace: "model" });
     return { title: t("notFound") };
   }
+  const summary = getModelContent(model, locale as Locale).summary;
+  const title = `${model.name} — ${model.provider}`;
+  const path = `/models/${model.slug}`;
   return {
-    title: model.name,
-    description: getModelContent(model, locale as Locale).summary,
+    title,
+    description: summary,
+    alternates: { canonical: path },
+    openGraph: {
+      title,
+      description: summary,
+      url: path,
+      type: "website",
+      locale: locale === "pt-br" ? "pt_BR" : "en_US",
+    },
+    twitter: {
+      card: "summary_large_image",
+      title,
+      description: summary,
+    },
   };
 }
 
@@ -64,6 +80,29 @@ export default async function ModelDetailPage({ params }: { params: Params }) {
   const typedLocale = locale as Locale;
   const content = getModelContent(model, typedLocale);
   const local = model.local;
+  const siteUrl =
+    process.env.NEXT_PUBLIC_SITE_URL?.replace(/\/$/, "") ??
+    "http://localhost:3100";
+  const jsonLd = {
+    "@context": "https://schema.org",
+    "@type": "SoftwareApplication",
+    name: model.name,
+    applicationCategory: "DeveloperApplication",
+    operatingSystem: local ? "Cross-platform" : "Web",
+    description: content.summary,
+    url: `${siteUrl}/models/${model.slug}`,
+    dateModified: model.lastUpdated,
+    provider: {
+      "@type": "Organization",
+      name: model.provider,
+    },
+    offers: {
+      "@type": "Offer",
+      priceCurrency: model.pricing.currency,
+      price: model.pricing.inputPerMillion,
+      description: "USD per 1M input tokens (list price reference)",
+    },
+  };
 
   const stats = [
     {
@@ -86,6 +125,10 @@ export default async function ModelDetailPage({ params }: { params: Params }) {
 
   return (
     <div className="mx-auto w-full max-w-4xl px-4 py-12 sm:px-6 sm:py-16">
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
+      />
       <FadeIn>
         <Link
           href="/models"

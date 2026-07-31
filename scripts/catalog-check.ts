@@ -22,12 +22,25 @@ async function main(): Promise<void> {
   const localish = models.filter(
     (model) => model.deployment === "local" || model.deployment === "both",
   );
-  const stale = localish
+  const cloudish = models.filter(
+    (model) => model.deployment === "api" || model.deployment === "both",
+  );
+  const staleLocal = localish
     .map((model) => ({
       slug: model.slug,
       lastUpdated: model.lastUpdated,
       ageDays: daysSince(model.lastUpdated),
       ollamaTag: model.local?.ollamaTag ?? null,
+    }))
+    .filter((row) => row.ageDays > STALE_DAYS)
+    .sort((a, b) => b.ageDays - a.ageDays);
+
+  const staleCloud = cloudish
+    .map((model) => ({
+      slug: model.slug,
+      lastUpdated: model.lastUpdated,
+      ageDays: daysSince(model.lastUpdated),
+      provider: model.provider,
     }))
     .filter((row) => row.ageDays > STALE_DAYS)
     .sort((a, b) => b.ageDays - a.ageDays);
@@ -38,7 +51,9 @@ async function main(): Promise<void> {
   console.log(`Covered by Semita       : ${covered.length}`);
   console.log(`Missing in Semita       : ${missing.length}`);
   console.log(`Local/both models       : ${localish.length}`);
-  console.log(`Stale (>${STALE_DAYS}d)           : ${stale.length}`);
+  console.log(`Cloud/both models       : ${cloudish.length}`);
+  console.log(`Stale local (>${STALE_DAYS}d)     : ${staleLocal.length}`);
+  console.log(`Stale cloud (>${STALE_DAYS}d)     : ${staleCloud.length}`);
   console.log("");
 
   if (missing.length > 0) {
@@ -54,10 +69,10 @@ async function main(): Promise<void> {
     console.log("");
   }
 
-  if (stale.length > 0) {
+  if (staleLocal.length > 0) {
     console.log(`Stale local/both entries (lastUpdated > ${STALE_DAYS} days)`);
     console.log("-------------------------------------------------------");
-    for (const row of stale) {
+    for (const row of staleLocal) {
       const tag = row.ollamaTag ? ` · ${row.ollamaTag}` : "";
       console.log(
         `  - ${row.slug}${tag}  (${row.lastUpdated}, ${row.ageDays}d)`,
@@ -66,8 +81,23 @@ async function main(): Promise<void> {
     console.log("");
   }
 
+  if (staleCloud.length > 0) {
+    console.log(`Stale cloud/both entries (lastUpdated > ${STALE_DAYS} days)`);
+    console.log("-------------------------------------------------------");
+    for (const row of staleCloud) {
+      console.log(
+        `  - ${row.slug} · ${row.provider}  (${row.lastUpdated}, ${row.ageDays}d)`,
+      );
+    }
+    console.log("");
+    console.log(
+      "Tip: refresh pricing/context from the provider page, bump lastUpdated, open a data_update issue if unsure.",
+    );
+    console.log("");
+  }
+
   console.log(
-    `ok: ${covered.length} covered · ${missing.length} missing · ${stale.length} stale`,
+    `ok: ${covered.length} covered · ${missing.length} missing · ${staleLocal.length} stale local · ${staleCloud.length} stale cloud`,
   );
 
   if (failOnMissing && missing.length > 0) {

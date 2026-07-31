@@ -48,10 +48,12 @@ export default async function Home({
     {
       phase: "Phase 2",
       name: t("phases.applyName"),
-      status: t("statusPlanned"),
-      inProgress: false,
+      status: t("statusInProgress"),
+      inProgress: true,
       live: false,
       body: t("phases.applyBody"),
+      href: "/apply" as const,
+      linkLabel: t("phases.applyLink"),
     },
     {
       phase: "Phase 3",

@@ -9,7 +9,10 @@
     "compare": "Comparar",
     "guide": "Guia",
     "score": "Score",
-    "benchmark": "Benchmark"
+    "benchmark": "Benchmark",
+    "recommend": "Recomendar",
+    "hardware": "Hardware",
+    "apply": "Aplicar"
   },
   "footer": {
     "tagline": "Semita — open source, mantido pela comunidade. IA que te alavanca, não te substitui.",
@@ -18,7 +21,11 @@
     "score": "Metodologia do Semita score",
     "benchmark": "Semita Mini Benchmark",
     "contribute": "Contribuir dados",
-    "createdBy": "Criado por Wilker Quirino"
+    "createdBy": "Criado por Wilker Quirino",
+    "recommend": "Qual modelo pra mim?",
+    "hardware": "Receitas de hardware",
+    "apply": "Receitas de aplicação",
+    "contributePage": "Sugerir um modelo"
   },
   "language": {
     "label": "Idioma",
@@ -54,12 +61,13 @@
       "chooseName": "Escolher",
       "chooseBody": "Um hub vivo de comparação de LLMs: benchmarks, custo por token, pontos fortes e recomendações da comunidade, filtrável por caso de uso.",
       "applyName": "Aplicar",
-      "applyBody": "Um diretório de skills e MCPs, organizado e filtrável por objetivos pessoais e profissionais, sobre a mesma base de dados e estrutura de tags.",
+      "applyBody": "Receitas práticas que ligam objetivos a modelos do catálogo — código na IDE, Ollama local, APIs baratas, loops de escrita e RAG leve.",
       "learnName": "Aprender",
       "learnBody": "Um caminho progressivo do primeiro prompt a modelos locais e avaliação — começando pelo guia iniciante → avançado.",
       "learnLink": "Ler o guia",
       "validateName": "Comunidade valida",
-      "validateBody": "Um sistema de votação de veracidade para cada artigo e conteúdo — ativado só quando houver massa crítica de usuários ativos."
+      "validateBody": "Um sistema de votação de veracidade para cada artigo e conteúdo — ativado só quando houver massa crítica de usuários ativos.",
+      "applyLink": "Ver receitas de aplicação"
     }
   },
   "guide": {
@@ -79,27 +87,32 @@
       "student": {
         "title": "Estudante / aprendiz contínuo",
         "aim": "Entender mais rápido",
-        "body": "Transforme material denso em esboços, quizzes e analogias. Peça contra-argumentos. Nunca entregue trabalho avaliado que você não reescreveu com as próprias palavras."
+        "body": "Transforme material denso em esboços, quizzes e analogias. Peça contra-argumentos. Nunca entregue trabalho avaliado que você não reescreveu com as próprias palavras.",
+        "cta": "Ver modelos de pesquisa"
       },
       "builder": {
         "title": "Dev / maker",
         "aim": "Entregar com menos atrito",
-        "body": "Depure, faça scaffold, revise diffs e explore APIs. Mantenha segredos fora do prompt. Prefira modelos fortes em código — e valide com testes."
+        "body": "Depure, faça scaffold, revise diffs e explore APIs. Mantenha segredos fora do prompt. Prefira modelos fortes em código — e valide com testes.",
+        "cta": "Ver modelos de código"
       },
       "writer": {
         "title": "Escritor / criador",
         "aim": "Rascunhar e iterar",
-        "body": "Brainstorm de ângulos, estrutura e tom. A voz e os fatos são seus. Use IA para primeiras e últimas passadas de edição — não como assinatura final."
+        "body": "Brainstorm de ângulos, estrutura e tom. A voz e os fatos são seus. Use IA para primeiras e últimas passadas de edição — não como assinatura final.",
+        "cta": "Ver modelos de escrita"
       },
       "lead": {
         "title": "Founder / ops / liderança",
         "aim": "Decidir com menos ruído",
-        "body": "Resuma opções, rascunhe SOPs, teste planos. Cuidado com custo e privacidade em dados de clientes. Compare modelos antes de cristalizar um hábito de vendor."
+        "body": "Resuma opções, rascunhe SOPs, teste planos. Cuidado com custo e privacidade em dados de clientes. Compare modelos antes de cristalizar um hábito de vendor.",
+        "cta": "Fazer o recomendador"
       },
       "private": {
         "title": "Usuário preocupado com privacidade",
         "aim": "Manter dados perto",
-        "body": "Prefira local / pesos abertos quando o tema for sensível. Filtre o Semita por local + tier de hardware. APIs na nuvem servem bem para exploração não sensível."
+        "body": "Prefira local / pesos abertos quando o tema for sensível. Filtre o Semita por local + tier de hardware. APIs na nuvem servem bem para exploração não sensível.",
+        "cta": "Ver modelos locais"
       }
     },
     "pathTitle": "O caminho: iniciante → avançado",
@@ -141,33 +154,41 @@
     "topics": {
       "prompts": {
         "title": "Prompts com intenção",
-        "body": "Bons prompts nomeiam papel, objetivo, formato, restrições e critério de sucesso. Ruins pedem para o modelo “ser inteligente”. Prefira verbos concretos e exemplos do formato desejado."
+        "body": "Bons prompts nomeiam papel, objetivo, formato, restrições e critério de sucesso. Ruins pedem para o modelo “ser inteligente”. Prefira verbos concretos e exemplos do formato desejado.",
+        "cta": "Abrir o recomendador"
       },
       "context": {
         "title": "Janelas de contexto",
-        "body": "Contexto é memória de trabalho, não sabedoria infinita. Empurrar um repo inteiro costuma piorar mais do que um arquivo focado + pergunta clara. Confira o campo de contexto no catálogo em tarefas longas."
+        "body": "Contexto é memória de trabalho, não sabedoria infinita. Empurrar um repo inteiro costuma piorar mais do que um arquivo focado + pergunta clara. Confira o campo de contexto no catálogo em tarefas longas.",
+        "cta": "Ordenar por maior contexto"
       },
       "cloudLocal": {
         "title": "API na nuvem vs local",
-        "body": "Nuvem: modelos mais fortes, updates fáceis, dado sai da máquina. Local: privacidade, offline, custo previsível depois do hardware — com limites de VRAM/RAM. Os filtros do Semita mostram os dois."
+        "body": "Nuvem: modelos mais fortes, updates fáceis, dado sai da máquina. Local: privacidade, offline, custo previsível depois do hardware — com limites de VRAM/RAM. Os filtros do Semita mostram os dois.",
+        "cta": "Abrir receitas de hardware"
       },
       "cost": {
         "title": "Custo por token (e por que importa)",
-        "body": "Entrada e saída têm preços diferentes. System prompts longos e respostas verbosas somam. Estime antes de automatizar volume alto — e reconfera a página do provedor."
+        "body": "Entrada e saída têm preços diferentes. System prompts longos e respostas verbosas somam. Estime antes de automatizar volume alto — e reconfera a página do provedor.",
+        "cta": "Ordenar APIs por preço"
       },
       "privacy": {
         "title": "Privacidade e segredos",
-        "body": "Nunca cole API keys, senhas ou dados pessoais que você não pode compartilhar. Em trabalho sensível, prefira runtimes locais (Ollama, LM Studio, llama.cpp, MLX) e pesos abertos."
+        "body": "Nunca cole API keys, senhas ou dados pessoais que você não pode compartilhar. Em trabalho sensível, prefira runtimes locais (Ollama, LM Studio, llama.cpp, MLX) e pesos abertos.",
+        "cta": "Modelos locais entry"
       },
       "eval": {
         "title": "Como saber se está funcionando",
-        "body": "Defina um placar mínimo do seu trabalho: correção, tom, latência, custo. Rode os mesmos casos ao trocar de modelo. Leaderboards públicos são sinais — suas tarefas são a prova."
+        "body": "Defina um placar mínimo do seu trabalho: correção, tom, latência, custo. Rode os mesmos casos ao trocar de modelo. Leaderboards públicos são sinais — suas tarefas são a prova.",
+        "cta": "Ver Mini Benchmark"
       }
     },
     "nextTitle": "Pronto para escolher um modelo?",
     "nextBody": "Use o catálogo com filtros de caso de uso, hardware local e custo — depois compare lado a lado.",
     "browseModels": "Ver modelos",
-    "compare": "Comparar modelos"
+    "compare": "Comparar lado a lado",
+    "recommend": "Qual modelo pra mim?",
+    "apply": "Receitas de aplicação"
   },
   "models": {
     "title": "Modelos",
@@ -352,5 +373,126 @@
     "vision": "Visão",
     "audio": "Áudio",
     "code": "Código"
+  },
+  "recommend": {
+    "eyebrow": "Fase 1 · Escolher",
+    "title": "Qual modelo é pra mim?",
+    "subtitle": "Quatro perguntas curtas. O Semita cruza caso de uso, hospedagem, orçamento e hardware com algumas escolhas honestas do catálogo.",
+    "steps": {
+      "0": "1 · Uso",
+      "1": "2 · Onde",
+      "2": "3 · Orçamento",
+      "3": "4 · Hardware"
+    },
+    "qUse": "O que você quer fazer?",
+    "qUseHelp": "Escolha o trabalho que mais importa nesta semana.",
+    "qHost": "Onde deve rodar?",
+    "qHostHelp": "API = provedores na nuvem. Local = sua máquina. Tanto faz = mostra os dois.",
+    "qBudget": "Como você quer gastar?",
+    "qBudgetHelp": "Grátis prioriza pesos open locais. Barato favorece baixo $/M. Qualidade favorece os melhores scores editoriais.",
+    "qTier": "Qual hardware local você tem?",
+    "qTierHelp": "Pule se só se importa com APIs.",
+    "uses": {
+      "coding": "Código e agents",
+      "writing": "Escrita e edição",
+      "research": "Pesquisa e estudo",
+      "reasoning": "Raciocínio / decisões",
+      "vision": "Imagens e documentos",
+      "general": "Geral / ainda não sei"
+    },
+    "hosts": {
+      "api": "API na nuvem",
+      "local": "Local na minha máquina",
+      "either": "Tanto faz"
+    },
+    "budgets": {
+      "free": "Grátis / pesos abertos",
+      "cheap": "Manter o custo baixo",
+      "quality": "Melhor qualidade possível"
+    },
+    "tiers": {
+      "entry": "Entry — ~8–12GB VRAM ou Mac 16GB",
+      "mid": "Mid — ~12–16GB VRAM ou Mac 32GB",
+      "heavy": "Heavy — 24GB+ VRAM ou Mac 64GB+",
+      "skip": "Pular — só API / não sei"
+    },
+    "back": "Voltar",
+    "resultsTitle": "Sua lista curta",
+    "resultsBody": "Match editorial do catálogo Semita — não é benchmark ao vivo. Abra um modelo ou veja a lista filtrada.",
+    "seeFiltered": "Ver catálogo filtrado",
+    "restart": "Recomeçar",
+    "empty": "Nenhum modelo bateu. Tente “Tanto faz” ou outro tier.",
+    "matchScore": "Match {score}",
+    "openModel": "Abrir",
+    "hardwareLink": "Receitas de hardware",
+    "guideLink": "Guia de aprendizado",
+    "catalogLink": "Catálogo completo"
+  },
+  "hardwarePage": {
+    "eyebrow": "Encaixe local",
+    "title": "Receitas de hardware",
+    "subtitle": "Pontos de partida para máquinas comuns — depois pule para o catálogo local filtrado.",
+    "browseFiltered": "Ver modelos compatíveis",
+    "recommendLink": "Não sabe? Faça o quiz",
+    "allLocal": "Todos os modelos locais",
+    "recipes": {
+      "mac-16": {
+        "title": "Apple Silicon · 16GB unificado",
+        "body": "Chat local confortável e código leve com modelos Q4 na faixa 7B–12B."
+      },
+      "mac-32": {
+        "title": "Apple Silicon · 32GB+",
+        "body": "Código e raciocínio local mid — faixa 20B–30B bem quantizada."
+      },
+      "rtx-3060-12": {
+        "title": "NVIDIA · ~12GB VRAM (classe 3060)",
+        "body": "Ponto doce de muitos desktops: 8B–14B Q4/Q5 com folga para contexto curto."
+      },
+      "rtx-4090-24": {
+        "title": "NVIDIA · 24GB+ VRAM",
+        "body": "Trabalho local pesado: coders maiores, MoE e contextos longos quando a VRAM permitir."
+      },
+      "cpu-only": {
+        "title": "Só CPU / sem GPU dedicada",
+        "body": "Fique pequeno e quantizado. Prefira tiny e 7B–8B entry; espere tokens mais lentos."
+      }
+    }
+  },
+  "apply": {
+    "eyebrow": "Fase 2 · Aplicar",
+    "title": "Aplicar IA no trabalho real",
+    "subtitle": "Receitas curtas que ligam um objetivo a modelos do Semita — ainda sem diretório de MCPs, só caminhos práticos para começar hoje.",
+    "openCatalog": "Abrir modelos relacionados",
+    "recommendLink": "Qual modelo pra mim?",
+    "guideLink": "Guia de aprendizado",
+    "audiences": {
+      "builder": "Builder",
+      "writer": "Escritor",
+      "lead": "Liderança / ops",
+      "private": "Privacidade",
+      "student": "Estudante"
+    }
+  },
+  "suggest": {
+    "eyebrow": "Comunidade",
+    "pageTitle": "Sugerir modelo ou correção de dados",
+    "pageIntro": "Preencha o formulário — ele abre uma issue de data-update no GitHub com os campos prontos. Maintainers verificam fontes antes do merge.",
+    "title": "Formulário de contribuição",
+    "subtitle": "Não precisa de conta no Semita. Você termina no GitHub.",
+    "nameLabel": "Nome ou slug do modelo",
+    "namePlaceholder": "ex.: qwen3.5 ou gpt-5.2",
+    "tagLabel": "Tag Ollama (se local)",
+    "kindLabel": "Que tipo de atualização?",
+    "kinds": {
+      "newLocal": "Modelo local novo",
+      "cloudPricing": "Preço / contexto cloud",
+      "localHardware": "Guia de hardware local",
+      "other": "Outra correção de dados"
+    },
+    "notesLabel": "O que deve mudar?",
+    "notesPlaceholder": "Falta no catálogo, VRAM errada, preço velho…",
+    "sourceLabel": "URL da fonte oficial",
+    "submit": "Abrir issue no GitHub",
+    "disclaimer": "Nunca invente números de benchmark. Linke uma página oficial verificável."
   }
 }

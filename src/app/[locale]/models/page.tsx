@@ -23,6 +23,7 @@ import type {
   ModelProvider,
   UseCase,
 } from "@/data/types";
+import { Link } from "@/i18n/navigation";
 import { formatDate } from "@/lib/format";
 
 export async function generateMetadata({
@@ -131,14 +132,12 @@ export default async function ModelsPage({
               date: formatDate(catalogUpdated, locale as Locale),
             })}
           </span>
-          <a
-            href="https://github.com/uiukis/semita/issues/new?template=data_update.md"
-            target="_blank"
-            rel="noopener noreferrer"
+          <Link
+            href="/contribute"
             className="underline-offset-4 transition-colors hover:text-accent hover:underline"
           >
             {t("suggestUpdate")}
-          </a>
+          </Link>
         </p>
       </FadeIn>
 
