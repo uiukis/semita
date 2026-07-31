@@ -130,6 +130,9 @@ export default async function LocaleLayout({
                 <Button asChild variant="ghost" size="sm">
                   <Link href="/compare">{t("compare")}</Link>
                 </Button>
+                <Button asChild variant="ghost" size="sm">
+                  <Link href="/guide">{t("guide")}</Link>
+                </Button>
                 <Button
                   asChild
                   variant="ghost"
@@ -166,6 +169,12 @@ export default async function LocaleLayout({
                 <span className="text-xs">{tf("disclaimer")}</span>
               </div>
               <div className="flex flex-wrap gap-x-5 gap-y-2 text-xs">
+                <Link
+                  href="/guide"
+                  className="underline-offset-4 transition-colors hover:text-accent hover:underline"
+                >
+                  {tf("guide")}
+                </Link>
                 <Link
                   href="/score"
                   className="underline-offset-4 transition-colors hover:text-accent hover:underline"

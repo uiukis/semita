@@ -14,6 +14,7 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
+import { Link } from "@/i18n/navigation";
 import { getAllModels, getProviders } from "@/data/models";
 import { cn } from "@/lib/utils";
 
@@ -55,10 +56,12 @@ export default async function Home({
     {
       phase: "Phase 3",
       name: t("phases.learnName"),
-      status: t("statusPlanned"),
-      inProgress: false,
+      status: t("statusInProgress"),
+      inProgress: true,
       live: false,
       body: t("phases.learnBody"),
+      href: "/guide" as const,
+      linkLabel: t("phases.learnLink"),
     },
     {
       phase: "Phase 4",
@@ -199,31 +202,46 @@ export default async function Home({
               <p className="mt-1 max-w-xl text-sm leading-relaxed text-muted">
                 {step.body}
               </p>
+              {"href" in step && step.href ? (
+                <Link
+                  href={step.href}
+                  className="mt-2 inline-block text-sm font-medium text-accent underline-offset-4 hover:underline"
+                >
+                  {step.linkLabel} →
+                </Link>
+              ) : null}
             </FadeIn>
           ))}
         </ol>
       </section>
 
       <FadeIn className="pb-20">
-        <Card className="border-accent/25 bg-accent-soft/40 p-6 sm:flex sm:items-center sm:justify-between sm:gap-6 sm:p-8">
-          <div className="max-w-xl">
-            <p className="text-xs font-semibold uppercase tracking-widest text-accent">
-              Phase 1 · Choose
-            </p>
-            <h2 className="mt-2 text-xl font-semibold sm:text-2xl">
-              {t("exploreCta")}
-            </h2>
-            <p className="mt-2 text-sm text-muted">{t("subtitle")}</p>
+        <Card className="border-accent/25 bg-accent-soft/40 p-6 sm:p-8">
+          <div className="flex flex-col gap-6 sm:flex-row sm:items-center sm:justify-between">
+            <div className="max-w-xl">
+              <p className="text-xs font-semibold uppercase tracking-widest text-accent">
+                Phase 1 · Choose
+              </p>
+              <h2 className="mt-2 text-xl font-semibold sm:text-2xl">
+                {t("exploreCta")}
+              </h2>
+              <p className="mt-2 text-sm text-muted">{t("subtitle")}</p>
+            </div>
+            <div className="flex flex-wrap gap-2">
+              <MotionLink
+                href="/models"
+                className={cn(buttonVariants({ size: "default" }), "btn-shimmer")}
+              >
+                {t("exploreCta")} →
+              </MotionLink>
+              <MotionLink
+                href="/guide"
+                className={cn(buttonVariants({ size: "default", variant: "outline" }))}
+              >
+                {t("guideCta")} →
+              </MotionLink>
+            </div>
           </div>
-          <MotionLink
-            href="/models"
-            className={cn(
-              buttonVariants({ size: "default" }),
-              "btn-shimmer mt-5 sm:mt-0",
-            )}
-          >
-            {t("exploreCta")} →
-          </MotionLink>
         </Card>
       </FadeIn>
     </div>

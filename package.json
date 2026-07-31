@@ -9,7 +9,9 @@
     "lint": "eslint",
     "benchmark:run": "tsx benchmark/run.ts",
     "benchmark:publish": "tsx benchmark/publish.ts",
-    "benchmark:check": "tsx benchmark/check.ts"
+    "benchmark:check": "tsx benchmark/check.ts",
+    "catalog:check": "tsx scripts/catalog-check.ts",
+    "catalog:add": "tsx scripts/catalog-add.ts"
   },
   "dependencies": {
     "@vercel/analytics": "^2.0.1",

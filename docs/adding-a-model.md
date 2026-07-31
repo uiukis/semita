@@ -1,8 +1,15 @@
 # Adding a model
 
-Models live in [`src/data/models.ts`](../src/data/models.ts).
+Semita has two catalog files:
 
-## Checklist
+| Kind | File |
+|------|------|
+| Cloud / API (`deployment: "api"` or `"both"`) | [`src/data/models.ts`](../src/data/models.ts) → `cloudModels` |
+| Local / Ollama (`deployment: "local"` or `"both"`) | [`src/data/local-models.ts`](../src/data/local-models.ts) → `localModels` |
+
+Shared types: [`src/data/types.ts`](../src/data/types.ts). Local hardware helpers: [`src/data/local-helpers.ts`](../src/data/local-helpers.ts).
+
+## Cloud checklist
 
 - [ ] Unique `slug` (kebab-case)
 - [ ] Official `name`, `provider`, `releaseDate`
@@ -13,8 +20,29 @@ Models live in [`src/data/models.ts`](../src/data/models.ts).
 - [ ] `content.en` and `content.pt-br` (summary, goodFor, strengths, communityNotes)
 - [ ] `lastUpdated` set to the verification date (`YYYY-MM-DD`)
 - [ ] `communityScore` is editorial for MVP (1.0–5.0) — see public `/score` methodology page
+- [ ] `deployment: "api"` (or `"both"` if open weights + API)
 
-## Example skeleton
+## Local checklist
+
+- [ ] Unique `slug`; prefer matching an Ollama library family when applicable
+- [ ] `deployment: "local"` (or `"both"`)
+- [ ] `local` via `localQ4(...)` (or custom) with `parameterCount`, `quantization`, `weightsUrl`, `comfortTiers`, `hardware`
+- [ ] `ollamaTag` when the model is on [ollama.com/library](https://ollama.com/library)
+- [ ] `sources` with a weights URL (Ollama and/or Hugging Face)
+- [ ] Bilingual `content` EN + PT-BR
+- [ ] Honest `communityScore` — no invented leaderboard numbers
+- [ ] `lastUpdated` = verification date
+
+### Scaffold from an Ollama tag
+
+```bash
+pnpm catalog:check          # see what's missing
+pnpm catalog:add --tag qwen3:8b
+```
+
+Paste the stub into `local-models.ts`, replace TODOs, fix `provider` / modalities / score.
+
+## Example cloud skeleton
 
 ```ts
 {
@@ -33,6 +61,7 @@ Models live in [`src/data/models.ts`](../src/data/models.ts).
   ],
   sources: [{ kind: "pricing", url: "https://example.com/pricing" }],
   lastUpdated: "2026-07-18",
+  deployment: "api",
   content: {
     en: {
       summary: "...",
@@ -50,4 +79,4 @@ Models live in [`src/data/models.ts`](../src/data/models.ts).
 }
 ```
 
-After editing, run `pnpm lint && pnpm build`.
+After editing, run `pnpm catalog:check && pnpm lint && pnpm build`.

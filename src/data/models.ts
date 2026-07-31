@@ -408,8 +408,9 @@ export const cloudModels: LlmModel[] = [
     sources: [
       { kind: "pricing", url: "https://api-docs.deepseek.com/quick_start/pricing" },
       { kind: "weights", url: "https://github.com/deepseek-ai/DeepSeek-V3" },
+      { kind: "weights", url: "https://ollama.com/library/deepseek-v3" },
     ],
-    lastUpdated: "2026-07-30",
+    lastUpdated: "2026-07-31",
     deployment: "both",
     local: {
       parameterCount: "671B MoE (37B active)",
@@ -647,6 +648,12 @@ export const models: LlmModel[] = [...cloudModels, ...localModels];
 
 export function getAllModels(): LlmModel[] {
   return models;
+}
+
+export function getCatalogLastUpdated(): string {
+  return models.reduce((latest, model) =>
+    model.lastUpdated > latest ? model.lastUpdated : latest,
+  "");
 }
 
 export function getModelBySlug(slug: string): LlmModel | undefined {

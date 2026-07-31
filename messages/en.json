@@ -7,12 +7,14 @@
     "home": "Semita home",
     "models": "Models",
     "compare": "Compare",
+    "guide": "Guide",
     "score": "Score",
     "benchmark": "Benchmark"
   },
   "footer": {
     "tagline": "Semita — open source, community-driven. AI that leverages you, not replaces you.",
     "disclaimer": "Prices and benchmarks are references — always verify the official source.",
+    "guide": "Beginner → advanced guide",
     "score": "Semita score methodology",
     "benchmark": "Semita Mini Benchmark",
     "contribute": "Contribute data",
@@ -31,6 +33,7 @@
     "subtitle": "Semita is a community-driven hub that compares LLMs by cost per token, context window, benchmarks and real-world recommendations — one clear path to the right model, without digging through a dozen sites.",
     "exploreCta": "Explore models",
     "compareCta": "Compare side by side",
+    "guideCta": "Open the learning path",
     "statModels": "models tracked",
     "statProviders": "providers",
     "statOpenSource": "open source",
@@ -53,10 +56,118 @@
       "applyName": "Apply",
       "applyBody": "A directory of skills and MCPs, organized and filterable by personal and professional goals, built on the same data and tag structure.",
       "learnName": "Learn",
-      "learnBody": "Bite-size AI curiosities connected to deeper articles, forming a progressive path — each one carrying the “leverages vs replaces” badge.",
+      "learnBody": "A progressive path from first prompts to local models and evaluation — starting with the beginner → advanced guide.",
+      "learnLink": "Read the guide",
       "validateName": "Community validates",
       "validateBody": "A truthfulness voting system for every article and entry — enabled only once there is a critical mass of active users."
     }
+  },
+  "guide": {
+    "eyebrow": "Phase 3 · Learn",
+    "title": "From first chat to sharp judgment",
+    "subtitle": "A practical path: what AI is for in your life, how to start without overwhelm, and how to level up toward local models, cost control and honest evaluation.",
+    "tocLabel": "On this page",
+    "tocForWhom": "Who it's for",
+    "tocPath": "Beginner → advanced",
+    "tocTopics": "Core topics",
+    "mindsetTitle": "Leverage, don't outsource your judgment",
+    "mindsetBody": "Semita treats AI as a force multiplier: it drafts, searches, explains and speeds loops — you decide what is true, what ships, and what matters. The goal is not to disappear behind a model; it is to get better outcomes with clearer ownership.",
+    "mindsetBadge": "Rule of thumb: if you cannot explain the result to a colleague, do not ship it yet.",
+    "forWhomTitle": "What is this for — for you?",
+    "forWhomSubtitle": "Same tools, different jobs. Pick the lane that matches your week.",
+    "personas": {
+      "student": {
+        "title": "Student / lifelong learner",
+        "aim": "Understand faster",
+        "body": "Turn dense material into outlines, quizzes and analogies. Ask for counter-arguments. Never paste graded work you have not rewritten in your own words."
+      },
+      "builder": {
+        "title": "Developer / maker",
+        "aim": "Ship with less friction",
+        "body": "Debug, scaffold, review diffs and explore APIs. Keep secrets out of prompts. Prefer models strong at coding — then verify with tests."
+      },
+      "writer": {
+        "title": "Writer / creator",
+        "aim": "Draft and iterate",
+        "body": "Brainstorm angles, tighten structure, localize tone. You own voice and facts. Use AI for first passes and editing passes — not as the final byline."
+      },
+      "lead": {
+        "title": "Founder / ops / lead",
+        "aim": "Decide with less noise",
+        "body": "Summarize options, draft SOPs, stress-test plans. Watch cost and privacy on customer data. Compare models before locking a vendor habit."
+      },
+      "private": {
+        "title": "Privacy-minded user",
+        "aim": "Keep data close",
+        "body": "Prefer local / open weights when the topic is sensitive. Filter Semita by local + hardware tier. Cloud APIs are fine for non-sensitive exploration."
+      }
+    },
+    "pathTitle": "The path: beginner → advanced",
+    "pathSubtitle": "Climb only as far as your goals need. Each level assumes the one above it.",
+    "levels": {
+      "beginner": {
+        "badge": "01 · Beginner",
+        "title": "Get useful answers on day one",
+        "for": "You have used ChatGPT-like tools a little — or not at all — and want reliable help without jargon.",
+        "tip1": "State the goal, audience and constraints in one short paragraph before asking for output.",
+        "tip2": "Ask for examples and a checklist, then do a small task yourself so you learn the pattern.",
+        "tip3": "Treat every factual claim as a draft: verify dates, numbers and citations elsewhere.",
+        "tip4": "Start with a strong general model in the catalog; specialize later when you know your use case.",
+        "tip5": "Save prompts that worked. Reuse and tweak — do not reinvent the brief every time."
+      },
+      "intermediate": {
+        "badge": "02 · Intermediate",
+        "title": "Make AI part of a real workflow",
+        "for": "You already get decent drafts and want consistency, cost awareness and better model fit.",
+        "tip1": "Split work into roles: research → outline → draft → critique. One chat trying to do everything gets muddy.",
+        "tip2": "Compare 2–3 models on the same prompt (Semita Compare) before standardizing a stack.",
+        "tip3": "Watch context size: dump only what the task needs. Long pastes raise cost and dilute attention.",
+        "tip4": "Tag use cases (coding, writing, research, local). Match model strengths instead of chasing hype names.",
+        "tip5": "Add a verification step: tests, linters, human review, or a second model as critic."
+      },
+      "advanced": {
+        "badge": "03 · Advanced",
+        "title": "Own the stack — cloud, local and judgment",
+        "for": "You care about latency, privacy, spend and repeatable quality across a team or product.",
+        "tip1": "Run capable local models on your hardware when data must stay offline; keep cloud for peak quality bursts.",
+        "tip2": "Pin model IDs and prices when evaluating — Semita Mini Benchmark methodology shows how maintainers do that.",
+        "tip3": "Build eval sets from your real tasks (10–30 examples beats a leaderboard you do not trust).",
+        "tip4": "Separate quality, latency and cost in decisions. The cheapest model that fails is not cheap.",
+        "tip5": "Document when AI may and may not touch customer or regulated data — tooling follows policy, not the reverse."
+      }
+    },
+    "topicsTitle": "Core topics worth mastering",
+    "topicsSubtitle": "Short primers you can revisit whenever a new model drops.",
+    "topics": {
+      "prompts": {
+        "title": "Prompts that carry intent",
+        "body": "Good prompts name role, goal, format, constraints and success criteria. Bad prompts ask the model to “be smart.” Prefer concrete verbs and examples of the shape you want."
+      },
+      "context": {
+        "title": "Context windows",
+        "body": "Context is working memory, not infinite wisdom. Stuffing a whole repo often hurts more than a focused file plus a clear question. Check the catalog’s context field when your task is long."
+      },
+      "cloudLocal": {
+        "title": "Cloud API vs local",
+        "body": "Cloud: strongest models, easy updates, data leaves your machine. Local: privacy, offline, predictable cost after hardware — with VRAM/RAM limits. Semita filters help you see both."
+      },
+      "cost": {
+        "title": "Cost per token (and why it matters)",
+        "body": "Input and output are priced differently. Long system prompts and verbose answers add up. Estimate before you automate a high-volume path — then re-check the provider page."
+      },
+      "privacy": {
+        "title": "Privacy & secrets",
+        "body": "Never paste API keys, passwords or personal data you are not allowed to share. For sensitive work, prefer local runtimes (Ollama, LM Studio, llama.cpp, MLX) and open weights."
+      },
+      "eval": {
+        "title": "How to know it is working",
+        "body": "Define a tiny scorecard for your job: correctness, tone, latency, cost. Re-run the same cases when you switch models. Public leaderboards are signals — your tasks are the exam."
+      }
+    },
+    "nextTitle": "Ready to pick a model?",
+    "nextBody": "Use the catalog with filters for use case, local hardware and cost — then compare side by side.",
+    "browseModels": "Browse models",
+    "compare": "Compare models"
   },
   "models": {
     "title": "Models",
@@ -77,7 +188,9 @@
     "filterHost": "Filter by hosting",
     "filterTier": "Filter by hardware tier",
     "filterPlatform": "Filter by platform",
-    "sortBy": "Sort by"
+    "sortBy": "Sort by",
+    "catalogUpdated": "Catalog last refreshed {date}",
+    "suggestUpdate": "Suggest a model or data fix"
   },
   "notFound": {
     "title": "This path does not exist",

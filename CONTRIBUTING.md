@@ -20,6 +20,7 @@ App runs at [http://localhost:3100](http://localhost:3100).
 
 ```bash
 pnpm lint
+pnpm catalog:check
 pnpm benchmark:check
 pnpm build
 ```
@@ -30,17 +31,26 @@ pnpm build
 - Propose task/rubric changes in PRs — do not invent unpublished result JSON.
 - Maintainers run `pnpm benchmark:run` with a private `AI_GATEWAY_API_KEY`.
 
+## Catalog freshness (Ollama)
+
+```bash
+pnpm catalog:check              # diff Semita vs ollama.com/library
+pnpm catalog:add --tag gemma3:12b   # print a local-model stub
+```
+
+See [docs/keeping-data-fresh.md](docs/keeping-data-fresh.md).
+
 ## Adding or updating a model
 
-**Prefer the issue template** if you only need a price/benchmark fix.
+**Prefer the issue template** if you only need a price/benchmark fix or to request a missing Ollama model.
 
 For a full PR:
 
-1. Edit `src/data/models.ts` (see [docs/adding-a-model.md](docs/adding-a-model.md) and [docs/keeping-data-fresh.md](docs/keeping-data-fresh.md)).
+1. Edit `src/data/models.ts` (cloud) and/or `src/data/local-models.ts` (local) — see [docs/adding-a-model.md](docs/adding-a-model.md) and [docs/keeping-data-fresh.md](docs/keeping-data-fresh.md).
 2. Fill **both** `en` and `pt-br` content blocks.
-3. Set `pricing`, `sources` and `lastUpdated` from official docs.
+3. Set `pricing` / `sources` / `ollamaTag` (when applicable) and `lastUpdated` from official docs.
 4. Keep `communityScore` as an **editorial Semita score** (methodology: `/score`) — not live votes.
-5. Run `pnpm lint && pnpm build`.
+5. Run `pnpm catalog:check && pnpm lint && pnpm build`.
 
 ## Pull requests
 

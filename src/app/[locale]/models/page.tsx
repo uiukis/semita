@@ -7,6 +7,7 @@ import { FadeIn, Stagger } from "@/components/motion";
 import { Card, CardContent } from "@/components/ui/card";
 import {
   getAllModels,
+  getCatalogLastUpdated,
   getProviders,
   getUseCases,
   modelMatchesDeployment,
@@ -22,6 +23,7 @@ import type {
   ModelProvider,
   UseCase,
 } from "@/data/types";
+import { formatDate } from "@/lib/format";
 
 export async function generateMetadata({
   params,
@@ -114,6 +116,7 @@ export default async function ModelsPage({
     });
   }
   filtered = sortModels(filtered, sort ?? "recommended");
+  const catalogUpdated = getCatalogLastUpdated();
 
   return (
     <div className="mx-auto w-full max-w-6xl px-4 py-12 sm:px-6 sm:py-16">
@@ -122,6 +125,21 @@ export default async function ModelsPage({
           {t("title")}
         </h1>
         <p className="mt-2 max-w-2xl text-muted">{t("subtitle")}</p>
+        <p className="mt-3 flex flex-wrap items-center gap-x-3 gap-y-1 text-xs text-muted">
+          <span>
+            {t("catalogUpdated", {
+              date: formatDate(catalogUpdated, locale as Locale),
+            })}
+          </span>
+          <a
+            href="https://github.com/uiukis/semita/issues/new?template=data_update.md"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="underline-offset-4 transition-colors hover:text-accent hover:underline"
+          >
+            {t("suggestUpdate")}
+          </a>
+        </p>
       </FadeIn>
 
       <FadeIn delay={0.08} className="mb-8">

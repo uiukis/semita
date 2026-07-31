@@ -28,9 +28,21 @@ pnpm dev
 
 ```bash
 pnpm lint
+pnpm catalog:check
 pnpm benchmark:check
 pnpm build
 ```
+
+## Catalog freshness
+
+Diff the Semita local catalog against [Ollama’s library](https://ollama.com/library):
+
+```bash
+pnpm catalog:check
+pnpm catalog:add --tag gemma3:12b
+```
+
+Details: [docs/keeping-data-fresh.md](docs/keeping-data-fresh.md).
 
 ## Semita Mini Benchmark
 

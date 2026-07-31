@@ -7,12 +7,14 @@
     "home": "Início Semita",
     "models": "Modelos",
     "compare": "Comparar",
+    "guide": "Guia",
     "score": "Score",
     "benchmark": "Benchmark"
   },
   "footer": {
     "tagline": "Semita — open source, mantido pela comunidade. IA que te alavanca, não te substitui.",
     "disclaimer": "Preços e benchmarks são referências — sempre confirme na fonte oficial.",
+    "guide": "Guia iniciante → avançado",
     "score": "Metodologia do Semita score",
     "benchmark": "Semita Mini Benchmark",
     "contribute": "Contribuir dados",
@@ -31,6 +33,7 @@
     "subtitle": "O Semita é um hub mantido pela comunidade que compara LLMs por custo por token, janela de contexto, benchmarks e recomendações reais — um caminho claro até o modelo certo, sem garimpar em vários sites.",
     "exploreCta": "Explorar modelos",
     "compareCta": "Comparar lado a lado",
+    "guideCta": "Abrir o caminho de aprendizado",
     "statModels": "modelos monitorados",
     "statProviders": "provedores",
     "statOpenSource": "open source",
@@ -53,10 +56,118 @@
       "applyName": "Aplicar",
       "applyBody": "Um diretório de skills e MCPs, organizado e filtrável por objetivos pessoais e profissionais, sobre a mesma base de dados e estrutura de tags.",
       "learnName": "Aprender",
-      "learnBody": "Curiosidades sobre IA conectadas a artigos mais profundos, formando uma trilha progressiva — cada uma com o selo “alavanca vs substitui”.",
+      "learnBody": "Um caminho progressivo do primeiro prompt a modelos locais e avaliação — começando pelo guia iniciante → avançado.",
+      "learnLink": "Ler o guia",
       "validateName": "Comunidade valida",
       "validateBody": "Um sistema de votação de veracidade para cada artigo e conteúdo — ativado só quando houver massa crítica de usuários ativos."
     }
+  },
+  "guide": {
+    "eyebrow": "Fase 3 · Aprender",
+    "title": "Do primeiro chat ao julgamento afiado",
+    "subtitle": "Um caminho prático: para que a IA serve na sua vida, como começar sem sobrecarga, e como evoluir até modelos locais, controle de custo e avaliação honesta.",
+    "tocLabel": "Nesta página",
+    "tocForWhom": "Para quem é",
+    "tocPath": "Iniciante → avançado",
+    "tocTopics": "Tópicos centrais",
+    "mindsetTitle": "Alavanque — não terceirize o julgamento",
+    "mindsetBody": "O Semita trata a IA como multiplicador de força: ela rascunha, pesquisa, explica e acelera ciclos — você decide o que é verdade, o que sobe e o que importa. O objetivo não é sumir atrás de um modelo; é ter melhores resultados com responsabilidade clara.",
+    "mindsetBadge": "Regra prática: se você não consegue explicar o resultado para um colega, ainda não publique.",
+    "forWhomTitle": "Para que isso serve — para você?",
+    "forWhomSubtitle": "As mesmas ferramentas, trabalhos diferentes. Escolha a faixa que combina com a sua semana.",
+    "personas": {
+      "student": {
+        "title": "Estudante / aprendiz contínuo",
+        "aim": "Entender mais rápido",
+        "body": "Transforme material denso em esboços, quizzes e analogias. Peça contra-argumentos. Nunca entregue trabalho avaliado que você não reescreveu com as próprias palavras."
+      },
+      "builder": {
+        "title": "Dev / maker",
+        "aim": "Entregar com menos atrito",
+        "body": "Depure, faça scaffold, revise diffs e explore APIs. Mantenha segredos fora do prompt. Prefira modelos fortes em código — e valide com testes."
+      },
+      "writer": {
+        "title": "Escritor / criador",
+        "aim": "Rascunhar e iterar",
+        "body": "Brainstorm de ângulos, estrutura e tom. A voz e os fatos são seus. Use IA para primeiras e últimas passadas de edição — não como assinatura final."
+      },
+      "lead": {
+        "title": "Founder / ops / liderança",
+        "aim": "Decidir com menos ruído",
+        "body": "Resuma opções, rascunhe SOPs, teste planos. Cuidado com custo e privacidade em dados de clientes. Compare modelos antes de cristalizar um hábito de vendor."
+      },
+      "private": {
+        "title": "Usuário preocupado com privacidade",
+        "aim": "Manter dados perto",
+        "body": "Prefira local / pesos abertos quando o tema for sensível. Filtre o Semita por local + tier de hardware. APIs na nuvem servem bem para exploração não sensível."
+      }
+    },
+    "pathTitle": "O caminho: iniciante → avançado",
+    "pathSubtitle": "Suba só até onde seus objetivos pedem. Cada nível assume o anterior.",
+    "levels": {
+      "beginner": {
+        "badge": "01 · Iniciante",
+        "title": "Respostas úteis no primeiro dia",
+        "for": "Você já usou ferramentas tipo ChatGPT um pouco — ou nunca — e quer ajuda confiável sem jargão.",
+        "tip1": "Declare objetivo, público e restrições em um parágrafo curto antes de pedir a saída.",
+        "tip2": "Peça exemplos e um checklist; depois faça uma tarefa pequena você mesmo para fixar o padrão.",
+        "tip3": "Trate toda afirmação factual como rascunho: confira datas, números e citações em outro lugar.",
+        "tip4": "Comece com um modelo geral forte no catálogo; especialize depois, quando souber o caso de uso.",
+        "tip5": "Salve prompts que funcionaram. Reuse e ajuste — não reinvente o brief toda vez."
+      },
+      "intermediate": {
+        "badge": "02 · Intermediário",
+        "title": "Encaixar a IA num fluxo real",
+        "for": "Você já tira rascunhos decentes e quer consistência, consciência de custo e melhor encaixe de modelo.",
+        "tip1": "Separe papéis: pesquisa → outline → rascunho → crítica. Um chat tentando fazer tudo vira confusão.",
+        "tip2": "Compare 2–3 modelos no mesmo prompt (Comparar no Semita) antes de padronizar a stack.",
+        "tip3": "Olhe o tamanho do contexto: cole só o necessário. Pastas enormes sobem custo e diluem atenção.",
+        "tip4": "Use tags de caso de uso (código, escrita, pesquisa, local). Combine pontos fortes — não só nomes em hype.",
+        "tip5": "Inclua verificação: testes, linters, revisão humana ou um segundo modelo como crítico."
+      },
+      "advanced": {
+        "badge": "03 · Avançado",
+        "title": "Donos da stack — nuvem, local e julgamento",
+        "for": "Você se importa com latência, privacidade, gasto e qualidade repetível em time ou produto.",
+        "tip1": "Rode modelos locais capazes no seu hardware quando o dado precisa ficar offline; use nuvem para picos de qualidade.",
+        "tip2": "Fixe IDs de modelo e preços ao avaliar — a metodologia do Mini Benchmark mostra como os maintainers fazem isso.",
+        "tip3": "Monte conjuntos de eval com suas tarefas reais (10–30 exemplos batem um leaderboard em que você não confia).",
+        "tip4": "Separe qualidade, latência e custo nas decisões. O modelo mais barato que falha não é barato.",
+        "tip5": "Documente quando a IA pode e não pode tocar dados de cliente ou regulados — ferramenta segue política, não o contrário."
+      }
+    },
+    "topicsTitle": "Tópicos que valem dominar",
+    "topicsSubtitle": "Primers curtos para revisitar sempre que um modelo novo aparecer.",
+    "topics": {
+      "prompts": {
+        "title": "Prompts com intenção",
+        "body": "Bons prompts nomeiam papel, objetivo, formato, restrições e critério de sucesso. Ruins pedem para o modelo “ser inteligente”. Prefira verbos concretos e exemplos do formato desejado."
+      },
+      "context": {
+        "title": "Janelas de contexto",
+        "body": "Contexto é memória de trabalho, não sabedoria infinita. Empurrar um repo inteiro costuma piorar mais do que um arquivo focado + pergunta clara. Confira o campo de contexto no catálogo em tarefas longas."
+      },
+      "cloudLocal": {
+        "title": "API na nuvem vs local",
+        "body": "Nuvem: modelos mais fortes, updates fáceis, dado sai da máquina. Local: privacidade, offline, custo previsível depois do hardware — com limites de VRAM/RAM. Os filtros do Semita mostram os dois."
+      },
+      "cost": {
+        "title": "Custo por token (e por que importa)",
+        "body": "Entrada e saída têm preços diferentes. System prompts longos e respostas verbosas somam. Estime antes de automatizar volume alto — e reconfera a página do provedor."
+      },
+      "privacy": {
+        "title": "Privacidade e segredos",
+        "body": "Nunca cole API keys, senhas ou dados pessoais que você não pode compartilhar. Em trabalho sensível, prefira runtimes locais (Ollama, LM Studio, llama.cpp, MLX) e pesos abertos."
+      },
+      "eval": {
+        "title": "Como saber se está funcionando",
+        "body": "Defina um placar mínimo do seu trabalho: correção, tom, latência, custo. Rode os mesmos casos ao trocar de modelo. Leaderboards públicos são sinais — suas tarefas são a prova."
+      }
+    },
+    "nextTitle": "Pronto para escolher um modelo?",
+    "nextBody": "Use o catálogo com filtros de caso de uso, hardware local e custo — depois compare lado a lado.",
+    "browseModels": "Ver modelos",
+    "compare": "Comparar modelos"
   },
   "models": {
     "title": "Modelos",
@@ -77,7 +188,9 @@
     "filterHost": "Filtrar por hospedagem",
     "filterTier": "Filtrar por faixa de hardware",
     "filterPlatform": "Filtrar por plataforma",
-    "sortBy": "Ordenar por"
+    "sortBy": "Ordenar por",
+    "catalogUpdated": "Catálogo atualizado em {date}",
+    "suggestUpdate": "Sugerir modelo ou correção"
   },
   "notFound": {
     "title": "Esse caminho não existe",
