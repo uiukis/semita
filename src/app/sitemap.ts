@@ -1,4 +1,5 @@
 import type { MetadataRoute } from "next";
+import { learnArticles } from "@/data/learn-articles";
 import { getAllModels } from "@/data/models";
 
 const siteUrl =
@@ -11,6 +12,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
     "/models",
     "/compare",
     "/guide",
+    "/learn",
     "/recommend",
     "/hardware",
     "/apply",
@@ -26,6 +28,12 @@ export default function sitemap(): MetadataRoute.Sitemap {
         | "weekly"
         | "daily",
       priority: path === "" ? 1 : 0.8,
+    })),
+    ...learnArticles.map((article) => ({
+      url: `${siteUrl}/learn/${article.slug}`,
+      lastModified: new Date(),
+      changeFrequency: "monthly" as const,
+      priority: 0.65,
     })),
     ...getAllModels().map((model) => ({
       url: `${siteUrl}/models/${model.slug}`,

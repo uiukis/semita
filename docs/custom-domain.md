@@ -2,6 +2,8 @@
 
 Production currently ships on `https://semita-nu.vercel.app`.
 
+Also required for Mini Benchmark calls: a credit card on the [AI Gateway](https://vercel.com/d?to=%2F%5Bteam%5D%2F%7E%2Fai%3Fmodal%3Dadd-credit-card) page (auth can be OIDC via `vercel env pull`; the card unlocks free credits).
+
 ## Availability check (2026-07-31)
 
 | Domain | Status |

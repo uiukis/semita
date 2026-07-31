@@ -152,6 +152,14 @@ export default async function LocaleLayout({
                   size="sm"
                   className="hidden lg:inline-flex"
                 >
+                  <Link href="/learn">{t("learn")}</Link>
+                </Button>
+                <Button
+                  asChild
+                  variant="ghost"
+                  size="sm"
+                  className="hidden xl:inline-flex"
+                >
                   <Link href="/guide">{t("guide")}</Link>
                 </Button>
                 <span className="ml-1">
@@ -191,6 +199,12 @@ export default async function LocaleLayout({
                   className="underline-offset-4 transition-colors hover:text-accent hover:underline"
                 >
                   {tf("apply")}
+                </Link>
+                <Link
+                  href="/learn"
+                  className="underline-offset-4 transition-colors hover:text-accent hover:underline"
+                >
+                  {tf("learn")}
                 </Link>
                 <Link
                   href="/guide"

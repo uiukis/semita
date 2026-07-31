@@ -8,7 +8,7 @@ MVP focus: **Choose** — compare LLMs by cost per token, context window, local 
 - Repo: [https://github.com/uiukis/semita](https://github.com/uiukis/semita)
 - Languages: English and Portuguese on the same URLs (cookie-based)
 - License: [MIT](LICENSE)
-- Paths: [/recommend](https://semita-nu.vercel.app/recommend) · [/hardware](https://semita-nu.vercel.app/hardware) · [/apply](https://semita-nu.vercel.app/apply) · [/guide](https://semita-nu.vercel.app/guide) · [/contribute](https://semita-nu.vercel.app/contribute)
+- Paths: [/recommend](https://semita-nu.vercel.app/recommend) · [/hardware](https://semita-nu.vercel.app/hardware) · [/apply](https://semita-nu.vercel.app/apply) · [/learn](https://semita-nu.vercel.app/learn) · [/guide](https://semita-nu.vercel.app/guide) · [/contribute](https://semita-nu.vercel.app/contribute)
 - Contribute: [CONTRIBUTING.md](CONTRIBUTING.md) · [docs/adding-a-model.md](docs/adding-a-model.md) · [docs/keeping-data-fresh.md](docs/keeping-data-fresh.md) · [docs/benchmark-methodology.md](docs/benchmark-methodology.md) · [docs/custom-domain.md](docs/custom-domain.md)
 
 ## Stack
@@ -84,4 +84,4 @@ Point your DNS at Vercel when ready (A/CNAME for the `semita` project). Until th
 3. **Learn** (started) — [/guide](https://semita-nu.vercel.app/guide) beginner → advanced
 4. **Community validates** — truthfulness voting after critical mass
 
-**Blocked without secrets:** first Mini Benchmark publish needs `AI_GATEWAY_API_KEY` + human review — never invent results.
+**Blocked for first Mini Benchmark publish:** Vercel AI Gateway needs a credit card on file to unlock free credits (auth can be OIDC via `vercel env pull`). Then dry-run → run → human review → publish — never invent results.

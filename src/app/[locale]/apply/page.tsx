@@ -12,6 +12,7 @@ import {
 } from "@/components/ui/card";
 import { applyRecipes, getApplyRecipeContent } from "@/data/apply-recipes";
 import { getModelBySlug } from "@/data/models";
+import { getSkillContent, skillEntries } from "@/data/skills";
 import type { Locale } from "@/data/types";
 import { Link } from "@/i18n/navigation";
 
@@ -49,7 +50,44 @@ export default async function ApplyPage({
         </p>
       </FadeIn>
 
-      <div className="mt-10 space-y-5">
+      <FadeIn delay={0.06} as="section" className="mt-12">
+        <h2 className="text-xl font-semibold tracking-tight">{t("skillsTitle")}</h2>
+        <p className="mt-2 text-sm text-muted">{t("skillsSubtitle")}</p>
+        <div className="mt-5 grid gap-3 sm:grid-cols-2">
+          {skillEntries.map((skill) => {
+            const content = getSkillContent(skill, typedLocale);
+            return (
+              <Card key={skill.id} className="h-full">
+                <CardHeader className="p-4 pb-2">
+                  <div className="flex flex-wrap gap-2">
+                    <Badge variant="outline" className="text-[11px]">
+                      {t(`skillKinds.${skill.kind}`)}
+                    </Badge>
+                    <Badge variant="secondary" className="text-[11px]">
+                      {t(`audiences.${skill.audience}`)}
+                    </Badge>
+                  </div>
+                  <CardTitle className="mt-2 text-base">{content.title}</CardTitle>
+                  <CardDescription>{content.summary}</CardDescription>
+                </CardHeader>
+                <CardContent className="space-y-2 p-4 pt-0">
+                  <p className="text-xs text-muted">{content.when}</p>
+                  <Button asChild size="sm" variant="outline">
+                    <Link href={skill.href}>{t("openSkill")}</Link>
+                  </Button>
+                </CardContent>
+              </Card>
+            );
+          })}
+        </div>
+      </FadeIn>
+
+      <FadeIn delay={0.08} className="mt-14">
+        <h2 className="text-xl font-semibold tracking-tight">{t("recipesTitle")}</h2>
+        <p className="mt-2 text-sm text-muted">{t("recipesSubtitle")}</p>
+      </FadeIn>
+
+      <div className="mt-6 space-y-5">
         {applyRecipes.map((recipe, index) => {
           const content = getApplyRecipeContent(recipe, typedLocale);
           const models = recipe.modelSlugs

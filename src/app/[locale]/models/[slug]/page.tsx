@@ -11,6 +11,10 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
+import {
+  getLatestBenchmarkAggregate,
+  isBenchmarkSuiteModel,
+} from "@/data/benchmark";
 import { getAllModels, getModelBySlug, getModelContent } from "@/data/models";
 import type { Locale } from "@/data/types";
 import { Link } from "@/i18n/navigation";
@@ -80,6 +84,8 @@ export default async function ModelDetailPage({ params }: { params: Params }) {
   const typedLocale = locale as Locale;
   const content = getModelContent(model, typedLocale);
   const local = model.local;
+  const bench = getLatestBenchmarkAggregate(model.slug);
+  const inSuite = isBenchmarkSuiteModel(model.slug);
   const siteUrl =
     process.env.NEXT_PUBLIC_SITE_URL?.replace(/\/$/, "") ??
     "http://localhost:3100";
@@ -361,6 +367,62 @@ export default async function ModelDetailPage({ params }: { params: Params }) {
               >
                 {t("weightsLink")}
               </a>
+            </CardContent>
+          </Card>
+        </FadeIn>
+      ) : null}
+
+      {inSuite ? (
+        <FadeIn delay={0.26} as="section" className="mt-10">
+          <Card>
+            <CardHeader className="p-5 pb-0 sm:p-6 sm:pb-0">
+              <CardTitle className="text-base">{t("miniBenchTitle")}</CardTitle>
+            </CardHeader>
+            <CardContent className="space-y-3 p-5 sm:p-6">
+              {bench ? (
+                <dl className="grid gap-3 text-sm sm:grid-cols-3">
+                  <div>
+                    <dt className="text-xs text-muted">{t("miniBenchQuality")}</dt>
+                    <dd className="mt-1 font-medium">
+                      {new Intl.NumberFormat(
+                        locale === "pt-br" ? "pt-BR" : "en-US",
+                        { style: "percent", maximumFractionDigits: 0 },
+                      ).format(bench.qualityOverall)}
+                    </dd>
+                  </div>
+                  <div>
+                    <dt className="text-xs text-muted">{t("miniBenchLatency")}</dt>
+                    <dd className="mt-1 font-medium">
+                      {new Intl.NumberFormat(
+                        locale === "pt-br" ? "pt-BR" : "en-US",
+                        { maximumFractionDigits: 0 },
+                      ).format(bench.latencyMsMedian)}{" "}
+                      ms
+                    </dd>
+                  </div>
+                  <div>
+                    <dt className="text-xs text-muted">{t("miniBenchCost")}</dt>
+                    <dd className="mt-1 font-medium">
+                      {new Intl.NumberFormat(
+                        locale === "pt-br" ? "pt-BR" : "en-US",
+                        {
+                          style: "currency",
+                          currency: "USD",
+                          maximumFractionDigits: 4,
+                        },
+                      ).format(bench.totalEstimatedCostUsd)}
+                    </dd>
+                  </div>
+                </dl>
+              ) : (
+                <p className="text-sm text-muted">{t("miniBenchPending")}</p>
+              )}
+              <Link
+                href="/benchmark"
+                className="inline-block text-sm text-accent underline-offset-4 hover:underline"
+              >
+                {t("miniBenchLink")} →
+              </Link>
             </CardContent>
           </Card>
         </FadeIn>

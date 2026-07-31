@@ -12,7 +12,8 @@
     "benchmark": "Benchmark",
     "recommend": "Recommend",
     "hardware": "Hardware",
-    "apply": "Apply"
+    "apply": "Apply",
+    "learn": "Learn"
   },
   "footer": {
     "tagline": "Semita — open source, community-driven. AI that leverages you, not replaces you.",
@@ -25,7 +26,8 @@
     "recommend": "Which model for me?",
     "hardware": "Hardware recipes",
     "apply": "Apply recipes",
-    "contributePage": "Suggest a model"
+    "contributePage": "Suggest a model",
+    "learn": "Learn articles"
   },
   "language": {
     "label": "Language",
@@ -260,7 +262,13 @@
     "minUnified": "≥ {gb} GB unified",
     "minRam": "≥ {gb} GB system RAM",
     "weightsLink": "Open weights / download page →",
-    "localDisclaimer": "Local VRAM/RAM figures are practical guides for the listed quantization and short-to-medium context — not vendor SLAs. Always re-check the runtime docs for your machine."
+    "localDisclaimer": "Local VRAM/RAM figures are practical guides for the listed quantization and short-to-medium context — not vendor SLAs. Always re-check the runtime docs for your machine.",
+    "miniBenchTitle": "Semita Mini Benchmark",
+    "miniBenchQuality": "Quality",
+    "miniBenchLatency": "Median latency",
+    "miniBenchCost": "Est. run cost",
+    "miniBenchPending": "This model is in the suite. Results appear after the first official maintainer run is published.",
+    "miniBenchLink": "See methodology / results"
   },
   "compare": {
     "title": "Compare models",
@@ -276,7 +284,13 @@
     "context": "Context",
     "maxOutput": "Max output",
     "useCases": "Use cases",
-    "community": "Semita score"
+    "community": "Semita score",
+    "miniBenchQuality": "Mini Bench quality",
+    "miniBenchLatency": "Mini Bench latency",
+    "miniBenchCost": "Mini Bench est. cost",
+    "miniBenchPending": "Pending run",
+    "miniBenchNotInSuite": "Not in suite",
+    "miniBenchLink": "About Semita Mini Benchmark"
   },
   "score": {
     "eyebrow": "Transparency",
@@ -311,9 +325,9 @@
     "scoreLink": "Editorial Semita score",
     "pendingTitle": "First official run pending",
     "pendingBody": "The suite is ready. Results will appear here after a maintainer configures AI Gateway and publishes a reviewed run — no invented demo numbers.",
-    "pendingStep1": "Set AI_GATEWAY_API_KEY locally (see .env.example).",
-    "pendingStep2": "Run pnpm benchmark:run --max-usd 2, then complete blinded human review.",
-    "pendingStep3": "Publish with pnpm benchmark:publish --run .benchmark-runs/<id>.",
+    "pendingStep1": "Add a credit card on the Vercel AI Gateway page to unlock free credits (OIDC from `vercel env pull` is already enough for auth).",
+    "pendingStep2": "Run `pnpm benchmark:run --dry-run --max-usd 0.5`, then `pnpm benchmark:run --max-usd 0.5` and complete blinded human review.",
+    "pendingStep3": "Publish with `pnpm benchmark:publish --run .benchmark-runs/<id>` — never invent demo numbers.",
     "resultsTitle": "Latest published run",
     "resultsMeta": "Run {runId} · published {date}",
     "metricQuality": "Quality",
@@ -426,7 +440,8 @@
     "openModel": "Open",
     "hardwareLink": "Hardware recipes",
     "guideLink": "Learning guide",
-    "catalogLink": "Full catalog"
+    "catalogLink": "Full catalog",
+    "miniBenchSuite": "in Mini Bench suite"
   },
   "hardwarePage": {
     "eyebrow": "Local fit",
@@ -471,6 +486,16 @@
       "lead": "Lead / ops",
       "private": "Privacy",
       "student": "Student"
+    },
+    "skillsTitle": "Skills & MCP patterns",
+    "skillsSubtitle": "Lightweight directory — workflows, runtimes and MCP shapes tied to catalog models. Full MCP marketplace comes later.",
+    "recipesTitle": "Step-by-step recipes",
+    "recipesSubtitle": "Longer paths you can start today.",
+    "openSkill": "Open",
+    "skillKinds": {
+      "workflow": "Workflow",
+      "mcp": "MCP pattern",
+      "runtime": "Runtime"
     }
   },
   "suggest": {
@@ -494,5 +519,22 @@
     "sourceLabel": "Official source URL",
     "submit": "Open GitHub issue",
     "disclaimer": "Never invent benchmark numbers. Link an official page we can verify."
+  },
+  "learn": {
+    "eyebrow": "Phase 3 · Learn",
+    "title": "Short articles on the path",
+    "subtitle": "Bite-size pieces linked to the guide — each carrying the leverages-you badge, not replaces-you.",
+    "levels": {
+      "beginner": "Beginner",
+      "intermediate": "Intermediate",
+      "advanced": "Advanced"
+    },
+    "leveragesBadge": "Leverages you",
+    "read": "Read",
+    "back": "← All articles",
+    "takeaway": "Takeaway",
+    "relatedCta": "Continue on Semita",
+    "guideLink": "Full guide",
+    "applyLink": "Apply recipes"
   }
 }

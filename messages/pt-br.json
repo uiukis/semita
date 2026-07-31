@@ -12,7 +12,8 @@
     "benchmark": "Benchmark",
     "recommend": "Recomendar",
     "hardware": "Hardware",
-    "apply": "Aplicar"
+    "apply": "Aplicar",
+    "learn": "Aprender"
   },
   "footer": {
     "tagline": "Semita — open source, mantido pela comunidade. IA que te alavanca, não te substitui.",
@@ -25,7 +26,8 @@
     "recommend": "Qual modelo pra mim?",
     "hardware": "Receitas de hardware",
     "apply": "Receitas de aplicação",
-    "contributePage": "Sugerir um modelo"
+    "contributePage": "Sugerir um modelo",
+    "learn": "Artigos"
   },
   "language": {
     "label": "Idioma",
@@ -260,7 +262,13 @@
     "minUnified": "≥ {gb} GB unified",
     "minRam": "≥ {gb} GB RAM de sistema",
     "weightsLink": "Abrir pesos / página de download →",
-    "localDisclaimer": "Os números de VRAM/RAM são guias práticos para a quantização listada e contexto curto/médio — não são SLA de fabricante. Sempre confira a docs do runtime na sua máquina."
+    "localDisclaimer": "Os números de VRAM/RAM são guias práticos para a quantização listada e contexto curto/médio — não são SLA de fabricante. Sempre confira a docs do runtime na sua máquina.",
+    "miniBenchTitle": "Semita Mini Benchmark",
+    "miniBenchQuality": "Qualidade",
+    "miniBenchLatency": "Latência mediana",
+    "miniBenchCost": "Custo est. da rodada",
+    "miniBenchPending": "Este modelo está na suíte. Os resultados aparecem depois da primeira rodada oficial publicada.",
+    "miniBenchLink": "Ver metodologia / resultados"
   },
   "compare": {
     "title": "Comparar modelos",
@@ -276,7 +284,13 @@
     "context": "Contexto",
     "maxOutput": "Saída máx.",
     "useCases": "Casos de uso",
-    "community": "Score Semita"
+    "community": "Score Semita",
+    "miniBenchQuality": "Qualidade Mini Bench",
+    "miniBenchLatency": "Latência Mini Bench",
+    "miniBenchCost": "Custo est. Mini Bench",
+    "miniBenchPending": "Rodada pendente",
+    "miniBenchNotInSuite": "Fora da suíte",
+    "miniBenchLink": "Sobre o Semita Mini Benchmark"
   },
   "score": {
     "eyebrow": "Transparência",
@@ -311,9 +325,9 @@
     "scoreLink": "Score editorial Semita",
     "pendingTitle": "Primeira rodada oficial pendente",
     "pendingBody": "A suíte está pronta. Os resultados aparecem aqui depois que um maintainer configurar o AI Gateway e publicar uma rodada revisada — sem números inventados de demonstração.",
-    "pendingStep1": "Defina AI_GATEWAY_API_KEY localmente (veja .env.example).",
-    "pendingStep2": "Rode pnpm benchmark:run --max-usd 2 e complete a revisão humana cega.",
-    "pendingStep3": "Publique com pnpm benchmark:publish --run .benchmark-runs/<id>.",
+    "pendingStep1": "Cadastre um cartão na página do AI Gateway da Vercel para liberar créditos grátis (OIDC via `vercel env pull` já basta para auth).",
+    "pendingStep2": "Rode `pnpm benchmark:run --dry-run --max-usd 0.5`, depois `pnpm benchmark:run --max-usd 0.5` e complete a revisão humana cega.",
+    "pendingStep3": "Publique com `pnpm benchmark:publish --run .benchmark-runs/<id>` — nunca invente números de demo.",
     "resultsTitle": "Última rodada publicada",
     "resultsMeta": "Run {runId} · publicada em {date}",
     "metricQuality": "Qualidade",
@@ -426,7 +440,8 @@
     "openModel": "Abrir",
     "hardwareLink": "Receitas de hardware",
     "guideLink": "Guia de aprendizado",
-    "catalogLink": "Catálogo completo"
+    "catalogLink": "Catálogo completo",
+    "miniBenchSuite": "na suíte Mini Bench"
   },
   "hardwarePage": {
     "eyebrow": "Encaixe local",
@@ -471,6 +486,16 @@
       "lead": "Liderança / ops",
       "private": "Privacidade",
       "student": "Estudante"
+    },
+    "skillsTitle": "Skills e padrões MCP",
+    "skillsSubtitle": "Diretório leve — workflows, runtimes e formas de MCP ligados aos modelos do catálogo. Marketplace de MCP vem depois.",
+    "recipesTitle": "Receitas passo a passo",
+    "recipesSubtitle": "Caminhos mais longos para começar hoje.",
+    "openSkill": "Abrir",
+    "skillKinds": {
+      "workflow": "Workflow",
+      "mcp": "Padrão MCP",
+      "runtime": "Runtime"
     }
   },
   "suggest": {
@@ -494,5 +519,22 @@
     "sourceLabel": "URL da fonte oficial",
     "submit": "Abrir issue no GitHub",
     "disclaimer": "Nunca invente números de benchmark. Linke uma página oficial verificável."
+  },
+  "learn": {
+    "eyebrow": "Fase 3 · Aprender",
+    "title": "Artigos curtos no caminho",
+    "subtitle": "Peças pequenas ligadas ao guia — cada uma com o selo te alavanca, não te substitui.",
+    "levels": {
+      "beginner": "Iniciante",
+      "intermediate": "Intermediário",
+      "advanced": "Avançado"
+    },
+    "leveragesBadge": "Te alavanca",
+    "read": "Ler",
+    "back": "← Todos os artigos",
+    "takeaway": "Takeaway",
+    "relatedCta": "Continuar no Semita",
+    "guideLink": "Guia completo",
+    "applyLink": "Receitas Apply"
   }
 }

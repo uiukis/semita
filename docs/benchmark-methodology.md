@@ -46,27 +46,30 @@ Macro quality is the equal-weight average of the five category averages. Latency
 
 ## Maintainer workflow
 
-1. Create an AI Gateway key and put it in `.env.local` as `AI_GATEWAY_API_KEY` (never `NEXT_PUBLIC_*`).
-2. Dry-run budget check:
+1. Auth (either works; never `NEXT_PUBLIC_*`):
+   - Preferred locally: `npx vercel env pull .env.local --yes` → `VERCEL_OIDC_TOKEN`
+   - Or create an AI Gateway API key → `AI_GATEWAY_API_KEY`
+2. Unlock spend: add a credit card on the [Vercel AI Gateway](https://vercel.com/d?to=%2F%5Bteam%5D%2F%7E%2Fai%3Fmodal%3Dadd-credit-card) page (required even for free credits).
+3. Dry-run budget check:
 
 ```bash
-pnpm benchmark:run --dry-run --max-usd 2
+pnpm benchmark:run --dry-run --max-usd 0.5
 ```
 
-3. Execute:
+4. Execute (keep the cap tight):
 
 ```bash
-pnpm benchmark:run --max-usd 2
+pnpm benchmark:run --max-usd 0.5
 ```
 
-4. Copy `.benchmark-runs/<id>/human-review.template.json` → `human-review.json`, fill scores blindly.
-5. Publish:
+5. Copy `.benchmark-runs/<id>/human-review.template.json` → `human-review.json`, fill scores blindly.
+6. Publish:
 
 ```bash
 pnpm benchmark:publish --run .benchmark-runs/<id>
 ```
 
-6. Verify offline:
+7. Verify offline:
 
 ```bash
 pnpm benchmark:check

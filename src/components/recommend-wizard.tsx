@@ -12,6 +12,7 @@ import {
   CardTitle,
 } from "@/components/ui/card";
 import { Link } from "@/i18n/navigation";
+import { isBenchmarkSuiteModel } from "@/data/benchmark";
 import {
   modelsHrefFromAnswers,
   recommendModels,
@@ -247,6 +248,9 @@ export function RecommendWizard() {
                       <CardTitle className="text-lg">{row.model.name}</CardTitle>
                       <CardDescription>
                         {row.model.provider} · {row.model.communityScore} ★
+                        {isBenchmarkSuiteModel(row.model.slug)
+                          ? ` · ${t("miniBenchSuite")}`
+                          : ""}
                       </CardDescription>
                     </div>
                     <Button asChild size="sm">

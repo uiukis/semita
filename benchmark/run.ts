@@ -108,9 +108,12 @@ async function main() {
   await loadEnvLocal();
   const { maxUsd, dryRun } = parseArgs(process.argv.slice(2));
 
-  if (!process.env.AI_GATEWAY_API_KEY && !dryRun) {
+  const hasGatewayAuth = Boolean(
+    process.env.AI_GATEWAY_API_KEY || process.env.VERCEL_OIDC_TOKEN,
+  );
+  if (!hasGatewayAuth && !dryRun) {
     throw new Error(
-      "AI_GATEWAY_API_KEY is required. Set it in .env.local (never NEXT_PUBLIC_*).",
+      "AI Gateway auth required: set AI_GATEWAY_API_KEY or run `vercel env pull .env.local --yes` for VERCEL_OIDC_TOKEN (never NEXT_PUBLIC_*).",
     );
   }
 

@@ -13,6 +13,11 @@ import {
   TableHeader,
   TableRow,
 } from "@/components/ui/table";
+import {
+  getLatestBenchmarkAggregate,
+  getLatestBenchmarkRun,
+  isBenchmarkSuiteModel,
+} from "@/data/benchmark";
 import { getAllModels, getModelBySlug } from "@/data/models";
 import type { LlmModel, Locale } from "@/data/types";
 import { Link } from "@/i18n/navigation";
@@ -53,6 +58,23 @@ export default async function ComparePage({
     .map((slug) => getModelBySlug(slug))
     .filter((model): model is LlmModel => Boolean(model));
 
+  const hasBenchRun = Boolean(getLatestBenchmarkRun());
+  const pct = (value: number) =>
+    new Intl.NumberFormat(locale === "pt-br" ? "pt-BR" : "en-US", {
+      style: "percent",
+      maximumFractionDigits: 0,
+    }).format(value);
+  const ms = (value: number) =>
+    `${new Intl.NumberFormat(locale === "pt-br" ? "pt-BR" : "en-US", {
+      maximumFractionDigits: 0,
+    }).format(value)} ms`;
+  const usd = (value: number) =>
+    new Intl.NumberFormat(locale === "pt-br" ? "pt-BR" : "en-US", {
+      style: "currency",
+      currency: "USD",
+      maximumFractionDigits: 4,
+    }).format(value);
+
   const rows: { label: string; render: (model: LlmModel) => string }[] = [
     { label: t("provider"), render: (m) => m.provider },
     {
@@ -80,6 +102,33 @@ export default async function ComparePage({
       label: t("community"),
       render: (m) => `${m.communityScore.toFixed(1)} ★`,
     },
+    {
+      label: t("miniBenchQuality"),
+      render: (m) => {
+        const aggregate = getLatestBenchmarkAggregate(m.slug);
+        if (aggregate) {
+          return pct(aggregate.qualityOverall);
+        }
+        if (isBenchmarkSuiteModel(m.slug)) {
+          return hasBenchRun ? "—" : t("miniBenchPending");
+        }
+        return t("miniBenchNotInSuite");
+      },
+    },
+    {
+      label: t("miniBenchLatency"),
+      render: (m) => {
+        const aggregate = getLatestBenchmarkAggregate(m.slug);
+        return aggregate ? ms(aggregate.latencyMsMedian) : "—";
+      },
+    },
+    {
+      label: t("miniBenchCost"),
+      render: (m) => {
+        const aggregate = getLatestBenchmarkAggregate(m.slug);
+        return aggregate ? usd(aggregate.totalEstimatedCostUsd) : "—";
+      },
+    },
   ];
 
   return (
@@ -93,6 +142,14 @@ export default async function ComparePage({
             {t("title")}
           </h1>
           <p className="mt-2 max-w-2xl text-muted">{t("subtitle")}</p>
+          <p className="mt-2 text-xs text-muted">
+            <Link
+              href="/benchmark"
+              className="underline-offset-4 hover:text-accent hover:underline"
+            >
+              {t("miniBenchLink")}
+            </Link>
+          </p>
         </div>
         {selected.length > 0 ? <ShareCompareButton /> : null}
       </FadeIn>
