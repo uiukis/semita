@@ -4,6 +4,7 @@ import { getTranslations, setRequestLocale } from "next-intl/server";
 import { FilterBar } from "@/components/filter-bar";
 import { ModelCard } from "@/components/model-card";
 import { FadeIn, Stagger } from "@/components/motion";
+import { Card, CardContent } from "@/components/ui/card";
 import {
   getAllModels,
   getProviders,
@@ -131,9 +132,11 @@ export default async function ModelsPage({
 
       {filtered.length === 0 ? (
         <FadeIn>
-          <p className="rounded-2xl border border-dashed border-line p-10 text-center text-muted">
-            {t("empty")}
-          </p>
+          <Card className="border-dashed bg-transparent">
+            <CardContent className="p-10 text-center text-muted">
+              {t("empty")}
+            </CardContent>
+          </Card>
         </FadeIn>
       ) : (
         <Stagger

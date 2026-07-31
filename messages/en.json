@@ -15,7 +15,8 @@
     "disclaimer": "Prices and benchmarks are references — always verify the official source.",
     "score": "Semita score methodology",
     "benchmark": "Semita Mini Benchmark",
-    "contribute": "Contribute data"
+    "contribute": "Contribute data",
+    "createdBy": "Created by Wilker Quirino"
   },
   "language": {
     "label": "Language",
@@ -133,6 +134,7 @@
     "empty": "Pick models above to start comparing.",
     "share": "Copy share link",
     "copied": "Link copied",
+    "selectorLabel": "Models to compare",
     "attribute": "Attribute",
     "provider": "Provider",
     "input": "Input / 1M",

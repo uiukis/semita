@@ -1,6 +1,7 @@
 import { getTranslations } from "next-intl/server";
 import { FadeIn } from "@/components/motion";
 import { MotionLink } from "@/components/motion-link";
+import { buttonVariants } from "@/components/ui/button";
 
 export default async function NotFound() {
   const t = await getTranslations("notFound");
@@ -16,15 +17,12 @@ export default async function NotFound() {
         </h1>
         <p className="mt-3 max-w-lg text-muted">{t("body")}</p>
         <div className="mt-8 flex flex-wrap gap-3">
-          <MotionLink
-            href="/"
-            className="rounded-full bg-accent px-5 py-2.5 text-sm font-semibold text-[#06130a]"
-          >
+          <MotionLink href="/" className={buttonVariants()}>
             {t("home")}
           </MotionLink>
           <MotionLink
             href="/models"
-            className="rounded-full border border-line bg-surface px-5 py-2.5 text-sm font-semibold"
+            className={buttonVariants({ variant: "outline" })}
           >
             {t("models")}
           </MotionLink>

@@ -1,6 +1,8 @@
 "use client";
 
 import { motion, useReducedMotion } from "motion/react";
+import { Progress as ProgressPrimitive } from "radix-ui";
+import { cn } from "@/lib/utils";
 
 export function ScoreBar({
   value,
@@ -20,8 +22,16 @@ export function ScoreBar({
         <span className="text-muted">{label}</span>
         <span className="font-mono text-foreground">{pct.toFixed(0)}%</span>
       </div>
-      <div className="h-2 overflow-hidden rounded-full bg-surface-raised">
+      <ProgressPrimitive.Root
+        data-slot="progress"
+        value={pct}
+        aria-label={label}
+        className={cn(
+          "relative flex h-2 w-full items-center overflow-x-hidden rounded-full bg-surface-raised",
+        )}
+      >
         <motion.div
+          data-slot="progress-indicator"
           className="h-full rounded-full bg-accent"
           initial={reduce ? false : { width: 0 }}
           whileInView={{ width: `${pct}%` }}
@@ -31,8 +41,9 @@ export function ScoreBar({
             delay,
             ease: [0.16, 1, 0.3, 1],
           }}
+          style={reduce ? { width: `${pct}%` } : undefined}
         />
-      </div>
+      </ProgressPrimitive.Root>
     </div>
   );
 }

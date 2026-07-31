@@ -1,0 +1,19 @@
+---
+description: Padroniza os componentes de interface do Semita com shadcn/ui
+globs: src/**/*.tsx
+alwaysApply: false
+---
+
+# Componentes de interface
+
+- Use componentes do shadcn/ui para todos os controles e primitives de interface disponíveis: Button, Input, Select, Card, Badge, Tabs, Dialog, Tooltip, Dropdown Menu, Popover, Sheet, Table, Progress, Toggle e equivalentes.
+- Não crie controles HTML brutos como `button`, `input`, `select`, `textarea` ou componentes visuais customizados quando houver equivalente no shadcn/ui.
+- Antes de implementar uma interface, procure componentes já instalados em `src/components/ui` e reutilize-os.
+- Se o componente necessário ainda não existir, adicione-o pelo CLI oficial do shadcn usando a base Radix configurada no projeto.
+- Customize os componentes shadcn com os tokens e a identidade visual do Semita; não mantenha o tema visual padrão quando ele conflitar com o projeto.
+- Preserve acessibilidade, navegação por teclado, estados de foco e responsividade fornecidos pelos primitives.
+- Motion continua permitido para animações e transições; use shadcn como base estrutural do componente.
+- Quando Motion precisar de um nó nativo (ex.: `layoutId`, `whileInView`, `whileHover` em chip), use `buttonVariants` / `Badge` styles com `motion.button` ou `Button asChild` — não descarte animação ao migrar.
+- Migrar para shadcn não pode remover `layoutId`, `whileInView`, tilt ou reduced-motion já existentes.
+- `Table` pode ficar direto dentro de `Card` (full-bleed); evite `CardContent` com padding em volta de tabelas largas.
+- Elementos sem equivalente de UI, como `div`, `section`, `nav`, `main`, `header`, `footer`, títulos e textos, continuam sem abstração obrigatória.

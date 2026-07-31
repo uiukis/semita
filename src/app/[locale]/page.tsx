@@ -5,7 +5,17 @@ import { FadeIn, Stagger, StaggerItem } from "@/components/motion";
 import { MotionLink } from "@/components/motion-link";
 import { TiltCard } from "@/components/tilt-card";
 import { TrailBackdrop } from "@/components/trail-backdrop";
+import { Badge } from "@/components/ui/badge";
+import { buttonVariants } from "@/components/ui/button";
+import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardHeader,
+  CardTitle,
+} from "@/components/ui/card";
 import { getAllModels, getProviders } from "@/data/models";
+import { cn } from "@/lib/utils";
 
 export default async function Home({
   params,
@@ -72,10 +82,10 @@ export default async function Home({
         <TrailBackdrop />
 
         <FadeIn delay={0} className="relative z-10">
-          <span className="inline-flex items-center gap-2 rounded-full border border-line bg-surface px-3.5 py-1.5 text-xs font-medium text-muted">
+          <Badge variant="outline" className="gap-2 px-3.5 py-1.5">
             <span className="h-1.5 w-1.5 animate-pulse rounded-full bg-accent" />
             {t("badge")}
-          </span>
+          </Badge>
         </FadeIn>
 
         <div className="relative z-10">
@@ -96,13 +106,13 @@ export default async function Home({
         <FadeIn delay={0.24} className="relative z-10 flex flex-wrap gap-3">
           <MotionLink
             href="/models"
-            className="btn-shimmer rounded-full bg-accent px-6 py-3 text-sm font-semibold text-[#06130a] transition-colors hover:bg-accent-dim hover:shadow-lg hover:shadow-accent/20"
+            className={cn(buttonVariants({ size: "lg" }), "btn-shimmer")}
           >
             {t("exploreCta")}
           </MotionLink>
           <MotionLink
             href="/compare"
-            className="rounded-full border border-line bg-surface px-6 py-3 text-sm font-semibold transition-colors hover:border-accent/40 hover:bg-surface-raised"
+            className={buttonVariants({ variant: "outline", size: "lg" })}
           >
             {t("compareCta")}
           </MotionLink>
@@ -127,14 +137,18 @@ export default async function Home({
       <Stagger className="grid gap-4 pb-20 sm:grid-cols-2 lg:grid-cols-3">
         {features.map((card, index) => (
           <StaggerItem key={card.title} className="h-full">
-            <TiltCard className="group relative h-full rounded-2xl border border-line bg-surface p-6 transition-colors hover:border-accent/40 hover:bg-surface-raised">
-              <div className="mb-4 flex h-9 w-9 items-center justify-center rounded-lg bg-accent-soft text-accent transition-transform duration-300 group-hover:rotate-6 group-hover:scale-110">
-                <span className="text-sm font-bold">{index + 1}</span>
-              </div>
-              <h2 className="text-base font-semibold">{card.title}</h2>
-              <p className="mt-2 text-sm leading-relaxed text-muted">
-                {card.body}
-              </p>
+            <TiltCard className="h-full">
+              <Card className="group h-full border-line bg-surface transition-colors hover:border-accent/40 hover:bg-surface-raised">
+                <CardHeader className="p-6 pb-0">
+                  <div className="mb-4 flex h-9 w-9 items-center justify-center rounded-lg bg-accent-soft text-accent transition-transform duration-300 group-hover:rotate-6 group-hover:scale-110">
+                    <span className="text-sm font-bold">{index + 1}</span>
+                  </div>
+                  <CardTitle>{card.title}</CardTitle>
+                </CardHeader>
+                <CardContent className="p-6 pt-2">
+                  <CardDescription>{card.body}</CardDescription>
+                </CardContent>
+              </Card>
             </TiltCard>
           </StaggerItem>
         ))}
@@ -172,16 +186,14 @@ export default async function Home({
                 <span className="font-mono text-xs uppercase tracking-wider text-muted">
                   {step.phase}
                 </span>
-                <span
-                  className={[
-                    "rounded-full px-2.5 py-0.5 text-[11px] font-medium",
-                    step.live || step.inProgress
-                      ? "bg-accent-soft text-accent"
-                      : "border border-line text-muted",
-                  ].join(" ")}
+                <Badge
+                  variant={
+                    step.live || step.inProgress ? "default" : "outline"
+                  }
+                  className="text-[11px]"
                 >
                   {step.status}
-                </span>
+                </Badge>
               </div>
               <h3 className="mt-1.5 text-lg font-semibold">{step.name}</h3>
               <p className="mt-1 max-w-xl text-sm leading-relaxed text-muted">
@@ -193,7 +205,7 @@ export default async function Home({
       </section>
 
       <FadeIn className="pb-20">
-        <div className="rounded-2xl border border-accent/25 bg-accent-soft/40 p-6 sm:flex sm:items-center sm:justify-between sm:gap-6 sm:p-8">
+        <Card className="border-accent/25 bg-accent-soft/40 p-6 sm:flex sm:items-center sm:justify-between sm:gap-6 sm:p-8">
           <div className="max-w-xl">
             <p className="text-xs font-semibold uppercase tracking-widest text-accent">
               Phase 1 · Choose
@@ -205,11 +217,14 @@ export default async function Home({
           </div>
           <MotionLink
             href="/models"
-            className="btn-shimmer mt-5 inline-flex rounded-full bg-accent px-5 py-2.5 text-sm font-semibold text-[#06130a] transition-colors hover:bg-accent-dim sm:mt-0"
+            className={cn(
+              buttonVariants({ size: "default" }),
+              "btn-shimmer mt-5 sm:mt-0",
+            )}
           >
             {t("exploreCta")} →
           </MotionLink>
-        </div>
+        </Card>
       </FadeIn>
     </div>
   );

@@ -1,6 +1,14 @@
 import type { Metadata } from "next";
 import { getTranslations, setRequestLocale } from "next-intl/server";
 import { FadeIn } from "@/components/motion";
+import { Button } from "@/components/ui/button";
+import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardHeader,
+  CardTitle,
+} from "@/components/ui/card";
 import { Link } from "@/i18n/navigation";
 
 export async function generateMetadata({
@@ -43,8 +51,12 @@ export default async function ScorePage({
         </p>
       </FadeIn>
 
-      <FadeIn delay={0.08} className="mt-10 rounded-2xl border border-accent/20 bg-accent-soft p-5 sm:p-6">
-        <p className="leading-relaxed text-foreground/90">{t("editorial")}</p>
+      <FadeIn delay={0.08} className="mt-10">
+        <Card className="border-accent/20 bg-accent-soft">
+          <CardContent className="p-5 leading-relaxed text-foreground/90 sm:p-6">
+            {t("editorial")}
+          </CardContent>
+        </Card>
       </FadeIn>
 
       <FadeIn delay={0.12} as="section" className="mt-10">
@@ -57,10 +69,14 @@ export default async function ScorePage({
       <section className="mt-10 grid gap-4 sm:grid-cols-2">
         {factors.map((factor, index) => (
           <FadeIn key={factor.title} delay={0.14 + index * 0.05}>
-            <div className="h-full rounded-2xl border border-line bg-surface p-5">
-              <h3 className="font-semibold text-foreground">{factor.title}</h3>
-              <p className="mt-2 text-sm leading-relaxed text-muted">{factor.body}</p>
-            </div>
+            <Card className="h-full">
+              <CardHeader className="p-5 pb-0">
+                <CardTitle>{factor.title}</CardTitle>
+              </CardHeader>
+              <CardContent className="p-5 pt-2">
+                <CardDescription>{factor.body}</CardDescription>
+              </CardContent>
+            </Card>
           </FadeIn>
         ))}
       </section>
@@ -86,18 +102,12 @@ export default async function ScorePage({
       </FadeIn>
 
       <FadeIn delay={0.36} className="mt-12 flex flex-wrap gap-3">
-        <Link
-          href="/models"
-          className="rounded-full bg-accent px-5 py-2.5 text-sm font-semibold text-[#06130a] transition-colors hover:bg-accent-dim"
-        >
-          {t("browseModels")}
-        </Link>
-        <Link
-          href="/compare"
-          className="rounded-full border border-line bg-surface px-5 py-2.5 text-sm font-semibold transition-colors hover:border-accent/40"
-        >
-          {t("compare")}
-        </Link>
+        <Button asChild>
+          <Link href="/models">{t("browseModels")}</Link>
+        </Button>
+        <Button asChild variant="outline">
+          <Link href="/compare">{t("compare")}</Link>
+        </Button>
       </FadeIn>
     </div>
   );

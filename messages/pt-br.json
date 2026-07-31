@@ -15,7 +15,8 @@
     "disclaimer": "Preços e benchmarks são referências — sempre confirme na fonte oficial.",
     "score": "Metodologia do Semita score",
     "benchmark": "Semita Mini Benchmark",
-    "contribute": "Contribuir dados"
+    "contribute": "Contribuir dados",
+    "createdBy": "Criado por Wilker Quirino"
   },
   "language": {
     "label": "Idioma",
@@ -133,6 +134,7 @@
     "empty": "Escolha modelos acima para começar a comparação.",
     "share": "Copiar link",
     "copied": "Link copiado",
+    "selectorLabel": "Modelos para comparar",
     "attribute": "Atributo",
     "provider": "Provedor",
     "input": "Entrada / 1M",

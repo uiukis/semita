@@ -4,6 +4,15 @@ import { getTranslations, setRequestLocale } from "next-intl/server";
 import { CompareSelector } from "@/components/compare-selector";
 import { FadeIn, ScaleIn } from "@/components/motion";
 import { ShareCompareButton } from "@/components/share-compare-button";
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import {
+  Table,
+  TableBody,
+  TableCell,
+  TableHead,
+  TableHeader,
+  TableRow,
+} from "@/components/ui/table";
 import { getAllModels, getModelBySlug } from "@/data/models";
 import type { LlmModel, Locale } from "@/data/types";
 import { Link } from "@/i18n/navigation";
@@ -102,80 +111,80 @@ export default async function ComparePage({
 
       {selected.length === 0 ? (
         <FadeIn>
-          <p className="rounded-2xl border border-dashed border-line p-10 text-center text-muted">
-            {t("empty")}
-          </p>
+          <Card className="border-dashed bg-transparent">
+            <CardContent className="p-10 text-center text-muted">
+              {t("empty")}
+            </CardContent>
+          </Card>
         </FadeIn>
       ) : (
         <ScaleIn>
           <>
             <div className="grid gap-4 md:hidden">
               {selected.map((model) => (
-                <div
-                  key={model.slug}
-                  className="rounded-2xl border border-line bg-surface p-4"
-                >
-                  <Link
-                    href={`/models/${model.slug}`}
-                    className="text-base font-semibold underline-offset-4 hover:text-accent hover:underline"
-                  >
-                    {model.name}
-                  </Link>
-                  <dl className="mt-3 space-y-2 text-sm">
-                    {rows.map((row) => (
-                      <div
-                        key={row.label}
-                        className="flex items-start justify-between gap-3 border-b border-line/40 pb-2 last:border-0 last:pb-0"
+                <Card key={model.slug}>
+                  <CardHeader className="p-4 pb-0">
+                    <CardTitle>
+                      <Link
+                        href={`/models/${model.slug}`}
+                        className="underline-offset-4 hover:text-accent hover:underline"
                       >
-                        <dt className="text-muted">{row.label}</dt>
-                        <dd className="text-right font-medium">
-                          {row.render(model)}
-                        </dd>
-                      </div>
-                    ))}
-                  </dl>
-                </div>
+                        {model.name}
+                      </Link>
+                    </CardTitle>
+                  </CardHeader>
+                  <CardContent className="p-4">
+                    <dl className="space-y-2 text-sm">
+                      {rows.map((row) => (
+                        <div
+                          key={row.label}
+                          className="flex items-start justify-between gap-3 border-b border-line/40 pb-2 last:border-0 last:pb-0"
+                        >
+                          <dt className="text-muted">{row.label}</dt>
+                          <dd className="text-right font-medium">
+                            {row.render(model)}
+                          </dd>
+                        </div>
+                      ))}
+                    </dl>
+                  </CardContent>
+                </Card>
               ))}
             </div>
 
-            <div className="hidden overflow-x-auto rounded-2xl border border-line bg-surface md:block">
-              <table className="w-full min-w-[560px] border-collapse text-sm">
-                <thead>
-                  <tr className="border-b border-line">
-                    <th className="p-4 text-left font-medium text-muted">
-                      {t("attribute")}
-                    </th>
+            <Card className="hidden md:block">
+              <Table className="min-w-[560px]">
+                <TableHeader>
+                  <TableRow className="hover:bg-transparent">
+                    <TableHead>{t("attribute")}</TableHead>
                     {selected.map((model) => (
-                      <th key={model.slug} className="p-4 text-left">
+                      <TableHead key={model.slug} className="text-foreground">
                         <Link
                           href={`/models/${model.slug}`}
                           className="font-semibold underline-offset-4 transition-colors hover:text-accent hover:underline"
                         >
                           {model.name}
                         </Link>
-                      </th>
+                      </TableHead>
                     ))}
-                  </tr>
-                </thead>
-                <tbody>
+                  </TableRow>
+                </TableHeader>
+                <TableBody>
                   {rows.map((row) => (
-                    <tr
-                      key={row.label}
-                      className="border-b border-line/50 transition-colors last:border-0 hover:bg-surface-raised"
-                    >
-                      <td className="p-4 font-medium text-muted">
+                    <TableRow key={row.label}>
+                      <TableCell className="font-medium text-muted">
                         {row.label}
-                      </td>
+                      </TableCell>
                       {selected.map((model) => (
-                        <td key={model.slug} className="p-4">
+                        <TableCell key={model.slug}>
                           {row.render(model)}
-                        </td>
+                        </TableCell>
                       ))}
-                    </tr>
+                    </TableRow>
                   ))}
-                </tbody>
-              </table>
-            </div>
+                </TableBody>
+              </Table>
+            </Card>
           </>
         </ScaleIn>
       )}

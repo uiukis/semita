@@ -2,6 +2,7 @@
 
 import { useTranslations } from "next-intl";
 import { useState } from "react";
+import { Button } from "@/components/ui/button";
 
 export function ShareCompareButton() {
   const t = useTranslations("compare");
@@ -18,12 +19,8 @@ export function ShareCompareButton() {
   }
 
   return (
-    <button
-      type="button"
-      onClick={copyLink}
-      className="rounded-full border border-line bg-surface px-4 py-2 text-sm font-medium transition-colors hover:border-accent/40 hover:text-accent"
-    >
+    <Button type="button" variant="outline" onClick={copyLink}>
       {copied ? t("copied") : t("share")}
-    </button>
+    </Button>
   );
 }

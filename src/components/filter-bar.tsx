@@ -11,8 +11,79 @@ import type {
   UseCase,
 } from "@/data/types";
 import { usePathname, useRouter } from "@/i18n/navigation";
+import { Button } from "@/components/ui/button";
+import { Input } from "@/components/ui/input";
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select";
 
 type SortOption = "recommended" | "cheapest" | "context";
+
+const ALL_OPTIONS_VALUE = "__all__";
+
+interface FilterOption {
+  label: string;
+  value: string;
+}
+
+function FilterSelect({
+  ariaLabel,
+  value,
+  placeholder,
+  options,
+  onValueChange,
+  hasAllOption = true,
+}: {
+  ariaLabel: string;
+  value: string;
+  placeholder: string;
+  options: FilterOption[];
+  onValueChange: (value: string) => void;
+  hasAllOption?: boolean;
+}) {
+  return (
+    <Select
+      value={value || (hasAllOption ? ALL_OPTIONS_VALUE : undefined)}
+      onValueChange={(nextValue) =>
+        onValueChange(nextValue === ALL_OPTIONS_VALUE ? "" : nextValue)
+      }
+    >
+      <SelectTrigger
+        aria-label={ariaLabel}
+        className="h-auto w-full rounded-full border-line bg-surface px-4 py-2 text-foreground shadow-none transition-all hover:border-accent/50 hover:bg-surface-raised focus-visible:border-accent focus-visible:ring-2 focus-visible:ring-accent/20 sm:w-auto"
+      >
+        <SelectValue placeholder={placeholder} />
+      </SelectTrigger>
+      <SelectContent
+        position="popper"
+        align="start"
+        className="min-w-[var(--radix-select-trigger-width)] rounded-xl border border-line bg-surface-raised p-1 text-foreground shadow-2xl shadow-black/40"
+      >
+        {hasAllOption ? (
+          <SelectItem
+            value={ALL_OPTIONS_VALUE}
+            className="rounded-lg px-3 py-2 pr-9 focus:bg-accent-soft focus:text-foreground data-[state=checked]:text-accent"
+          >
+            {placeholder}
+          </SelectItem>
+        ) : null}
+        {options.map((option) => (
+          <SelectItem
+            key={option.value}
+            value={option.value}
+            className="rounded-lg px-3 py-2 pr-9 focus:bg-accent-soft focus:text-foreground data-[state=checked]:text-accent"
+          >
+            {option.label}
+          </SelectItem>
+        ))}
+      </SelectContent>
+    </Select>
+  );
+}
 
 export function FilterBar({
   providers,
@@ -70,9 +141,6 @@ export function FilterBar({
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [query]);
 
-  const selectClass =
-    "w-full rounded-full border border-line bg-surface px-4 py-2 text-sm text-foreground outline-none transition-colors hover:border-accent/40 focus:border-accent sm:w-auto";
-
   const hasFilters =
     currentProvider ||
     currentUseCase ||
@@ -94,112 +162,97 @@ export function FilterBar({
 
   return (
     <div className="flex flex-col gap-3">
-      <input
+      <Input
         type="search"
         value={query}
         onChange={(event) => setQuery(event.target.value)}
         placeholder={t("searchPlaceholder")}
         aria-label={t("searchPlaceholder")}
-        className="w-full rounded-full border border-line bg-surface px-4 py-2.5 text-sm text-foreground outline-none transition-colors placeholder:text-muted hover:border-accent/40 focus:border-accent"
       />
 
       <div className="flex flex-col gap-3 sm:flex-row sm:flex-wrap sm:items-center">
-        <select
-          aria-label={t("filterHost")}
+        <FilterSelect
+          ariaLabel={t("filterHost")}
           value={currentHost}
-          onChange={(event) => updateParam("host", event.target.value)}
-          className={selectClass}
-        >
-          <option value="">{t("allHosts")}</option>
-          {hostOptions.filter(Boolean).map((host) => (
-            <option key={host} value={host}>
-              {td(host)}
-            </option>
-          ))}
-        </select>
+          placeholder={t("allHosts")}
+          options={hostOptions.filter(Boolean).map((host) => ({
+            value: host,
+            label: td(host),
+          }))}
+          onValueChange={(value) => updateParam("host", value)}
+        />
 
-        <select
-          aria-label={t("filterTier")}
+        <FilterSelect
+          ariaLabel={t("filterTier")}
           value={currentTier}
-          onChange={(event) => updateParam("tier", event.target.value)}
-          className={selectClass}
-        >
-          <option value="">{t("allTiers")}</option>
-          {tierOptions.filter(Boolean).map((tier) => (
-            <option key={tier} value={tier}>
-              {th(`tiers.${tier}`)}
-            </option>
-          ))}
-        </select>
+          placeholder={t("allTiers")}
+          options={tierOptions.filter(Boolean).map((tier) => ({
+            value: tier,
+            label: th(`tiers.${tier}`),
+          }))}
+          onValueChange={(value) => updateParam("tier", value)}
+        />
 
-        <select
-          aria-label={t("filterPlatform")}
+        <FilterSelect
+          ariaLabel={t("filterPlatform")}
           value={currentPlatform}
-          onChange={(event) => updateParam("platform", event.target.value)}
-          className={selectClass}
-        >
-          <option value="">{t("allPlatforms")}</option>
-          {platformOptions.filter(Boolean).map((platform) => (
-            <option key={platform} value={platform}>
-              {th(`platforms.${platform}`)}
-            </option>
-          ))}
-        </select>
+          placeholder={t("allPlatforms")}
+          options={platformOptions.filter(Boolean).map((platform) => ({
+            value: platform,
+            label: th(`platforms.${platform}`),
+          }))}
+          onValueChange={(value) => updateParam("platform", value)}
+        />
 
-        <select
-          aria-label={t("filterProvider")}
+        <FilterSelect
+          ariaLabel={t("filterProvider")}
           value={currentProvider}
-          onChange={(event) => updateParam("provider", event.target.value)}
-          className={selectClass}
-        >
-          <option value="">{t("allProviders")}</option>
-          {providers.map((provider) => (
-            <option key={provider} value={provider}>
-              {provider}
-            </option>
-          ))}
-        </select>
+          placeholder={t("allProviders")}
+          options={providers.map((provider) => ({
+            value: provider,
+            label: provider,
+          }))}
+          onValueChange={(value) => updateParam("provider", value)}
+        />
 
-        <select
-          aria-label={t("filterUseCase")}
+        <FilterSelect
+          ariaLabel={t("filterUseCase")}
           value={currentUseCase}
-          onChange={(event) => updateParam("use", event.target.value)}
-          className={selectClass}
-        >
-          <option value="">{t("allUseCases")}</option>
-          {useCases.map((useCase) => (
-            <option key={useCase} value={useCase}>
-              {tu(useCase)}
-            </option>
-          ))}
-        </select>
+          placeholder={t("allUseCases")}
+          options={useCases.map((useCase) => ({
+            value: useCase,
+            label: tu(useCase),
+          }))}
+          onValueChange={(value) => updateParam("use", value)}
+        />
 
-        <select
-          aria-label={t("sortBy")}
+        <FilterSelect
+          ariaLabel={t("sortBy")}
           value={currentSort}
-          onChange={(event) => updateParam("sort", event.target.value)}
-          className={selectClass}
-        >
-          {(Object.keys(sortLabels) as SortOption[]).map((option) => (
-            <option key={option} value={option}>
-              {sortLabels[option]}
-            </option>
-          ))}
-        </select>
+          placeholder={sortLabels.recommended}
+          options={(Object.keys(sortLabels) as SortOption[]).map((option) => ({
+            value: option,
+            label: sortLabels[option],
+          }))}
+          onValueChange={(value) => updateParam("sort", value)}
+          hasAllOption={false}
+        />
 
         {hasFilters ? (
-          <button
+          <Button
             type="button"
+            variant="link"
+            size="sm"
+            className="self-start sm:self-auto"
             onClick={() => {
               setQuery("");
               startTransition(() => {
                 router.replace(pathname, { scroll: false });
               });
             }}
-            className="self-start rounded-full px-3 py-1.5 text-sm text-muted underline-offset-4 transition-colors hover:text-accent hover:underline sm:self-auto"
           >
             {t("clearFilters")}
-          </button>
+          </Button>
         ) : null}
       </div>
     </div>

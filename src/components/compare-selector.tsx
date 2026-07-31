@@ -1,14 +1,18 @@
 "use client";
 
 import { motion, useReducedMotion } from "motion/react";
+import { useTranslations } from "next-intl";
 import { useSearchParams } from "next/navigation";
 import { usePathname, useRouter } from "@/i18n/navigation";
+import { Button, buttonVariants } from "@/components/ui/button";
+import { cn } from "@/lib/utils";
 
 type Option = { slug: string; name: string; provider: string };
 
 const MAX_SELECTION = 4;
 
 export function CompareSelector({ options }: { options: Option[] }) {
+  const t = useTranslations("compare");
   const router = useRouter();
   const pathname = usePathname();
   const searchParams = useSearchParams();
@@ -40,29 +44,30 @@ export function CompareSelector({ options }: { options: Option[] }) {
   }
 
   return (
-    <div className="flex flex-wrap gap-2">
+    <div className="flex flex-wrap gap-2" role="group" aria-label={t("selectorLabel")}>
       {options.map((option, index) => {
         const isSelected = selected.includes(option.slug);
         const isDisabled = !isSelected && selected.length >= MAX_SELECTION;
-        const className = [
-          "rounded-full border px-4 py-2 text-sm font-medium",
-          isSelected
-            ? "border-accent bg-accent text-[#06130a] shadow-lg shadow-accent/20"
-            : "border-line bg-surface text-muted hover:border-accent/40 hover:text-foreground",
+        const className = cn(
+          buttonVariants({
+            variant: isSelected ? "default" : "outline",
+            size: "default",
+          }),
           isDisabled ? "cursor-not-allowed opacity-40" : "",
-        ].join(" ");
+        );
 
         if (reduce) {
           return (
-            <button
+            <Button
               key={option.slug}
               type="button"
+              variant={isSelected ? "default" : "outline"}
               onClick={() => toggle(option.slug)}
               disabled={isDisabled}
-              className={className}
+              aria-pressed={isSelected}
             >
               {option.name}
-            </button>
+            </Button>
           );
         }
 
@@ -72,6 +77,7 @@ export function CompareSelector({ options }: { options: Option[] }) {
             type="button"
             onClick={() => toggle(option.slug)}
             disabled={isDisabled}
+            aria-pressed={isSelected}
             className={className}
             initial={{ opacity: 0, y: 10 }}
             animate={{ opacity: 1, y: 0, scale: isSelected ? 1.03 : 1 }}

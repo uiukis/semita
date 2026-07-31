@@ -3,6 +3,14 @@ import { notFound } from "next/navigation";
 import { getTranslations, setRequestLocale } from "next-intl/server";
 import { FadeIn, ScaleIn } from "@/components/motion";
 import { MotionLink } from "@/components/motion-link";
+import { Badge } from "@/components/ui/badge";
+import { buttonVariants } from "@/components/ui/button";
+import {
+  Card,
+  CardContent,
+  CardHeader,
+  CardTitle,
+} from "@/components/ui/card";
 import { getAllModels, getModelBySlug, getModelContent } from "@/data/models";
 import type { Locale } from "@/data/types";
 import { Link } from "@/i18n/navigation";
@@ -104,9 +112,9 @@ export default async function ModelDetailPage({ params }: { params: Params }) {
           </p>
         </div>
         <div className="flex flex-col items-start gap-3 sm:items-end">
-          <span className="rounded-full bg-accent-soft px-3.5 py-1.5 text-sm font-semibold text-accent">
+          <Badge className="px-3.5 py-1.5 text-sm font-semibold">
             {t("community", { score: model.communityScore.toFixed(1) })}
-          </span>
+          </Badge>
           <div className="flex items-center gap-3">
             <Link
               href="/score"
@@ -116,7 +124,7 @@ export default async function ModelDetailPage({ params }: { params: Params }) {
             </Link>
             <MotionLink
               href={`/compare?models=${model.slug}`}
-              className="rounded-full border border-line bg-surface px-4 py-1.5 text-sm font-medium transition-colors hover:border-accent/40"
+              className={buttonVariants({ variant: "outline", size: "sm" })}
             >
               {t("compare")}
             </MotionLink>
@@ -133,12 +141,14 @@ export default async function ModelDetailPage({ params }: { params: Params }) {
       <section className="mt-8 grid grid-cols-2 gap-3 sm:grid-cols-4 sm:gap-4">
         {stats.map((item, index) => (
           <ScaleIn key={item.label} delay={0.12 + index * 0.05}>
-            <div className="rounded-2xl border border-line bg-surface p-4 transition-colors hover:border-accent/40">
-              <div className="text-xs text-muted">{item.label}</div>
-              <div className="mt-1 text-base font-semibold sm:text-lg">
-                {item.value}
-              </div>
-            </div>
+            <Card className="transition-colors hover:border-accent/40">
+              <CardContent className="p-4">
+                <div className="text-xs text-muted">{item.label}</div>
+                <div className="mt-1 text-base font-semibold sm:text-lg">
+                  {item.value}
+                </div>
+              </CardContent>
+            </Card>
           </ScaleIn>
         ))}
       </section>
@@ -174,12 +184,9 @@ export default async function ModelDetailPage({ params }: { params: Params }) {
           </h2>
           <div className="mt-2 flex flex-wrap gap-1.5">
             {model.modalities.map((modality) => (
-              <span
-                key={modality}
-                className="rounded-full border border-line px-2.5 py-1 text-sm text-muted"
-              >
+              <Badge key={modality} variant="outline" className="px-2.5 py-1 text-sm">
                 {tm(modality)}
-              </span>
+              </Badge>
             ))}
           </div>
         </div>
@@ -189,12 +196,9 @@ export default async function ModelDetailPage({ params }: { params: Params }) {
           </h2>
           <div className="mt-2 flex flex-wrap gap-1.5">
             {model.useCases.map((useCase) => (
-              <span
-                key={useCase}
-                className="rounded-full border border-line px-2.5 py-1 text-sm text-muted"
-              >
+              <Badge key={useCase} variant="outline" className="px-2.5 py-1 text-sm">
                 {tu(useCase)}
-              </span>
+              </Badge>
             ))}
           </div>
         </div>
@@ -206,22 +210,23 @@ export default async function ModelDetailPage({ params }: { params: Params }) {
         </h2>
         <ul className="mt-2 space-y-2">
           {model.benchmarks.map((benchmark) => (
-            <li
-              key={benchmark.name}
-              className="flex flex-wrap items-center justify-between gap-2 rounded-xl border border-line bg-surface px-4 py-3 transition-colors hover:border-accent/40"
-            >
-              <span className="font-medium">{benchmark.name}</span>
-              <span className="flex items-center gap-4">
-                <span className="font-mono text-sm">{benchmark.score}</span>
-                <a
-                  href={benchmark.sourceUrl}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="text-xs text-muted underline-offset-4 transition-colors hover:text-accent hover:underline"
-                >
-                  {t("source")}
-                </a>
-              </span>
+            <li key={benchmark.name}>
+              <Card className="transition-colors hover:border-accent/40">
+                <CardContent className="flex flex-wrap items-center justify-between gap-2 px-4 py-3">
+                  <span className="font-medium">{benchmark.name}</span>
+                  <span className="flex items-center gap-4">
+                    <span className="font-mono text-sm">{benchmark.score}</span>
+                    <a
+                      href={benchmark.sourceUrl}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="text-xs text-muted underline-offset-4 transition-colors hover:text-accent hover:underline"
+                    >
+                      {t("source")}
+                    </a>
+                  </span>
+                </CardContent>
+              </Card>
             </li>
           ))}
         </ul>
@@ -229,100 +234,106 @@ export default async function ModelDetailPage({ params }: { params: Params }) {
 
       {local ? (
         <FadeIn delay={0.26} as="section" className="mt-10">
-          <div className="rounded-2xl border border-line bg-surface p-5 sm:p-6">
-            <div className="flex flex-wrap items-center gap-2">
-              <h2 className="text-xs font-semibold uppercase tracking-widest text-muted">
-                {t("localTitle")}
-              </h2>
-              <span className="rounded-full bg-accent-soft px-2.5 py-0.5 text-[11px] font-semibold text-accent">
-                {td(model.deployment)}
-              </span>
-            </div>
-            <p className="mt-3 text-sm leading-relaxed text-muted">
-              {local.tips[typedLocale] ?? local.tips.en}
-            </p>
-            <dl className="mt-5 grid gap-4 sm:grid-cols-2">
-              <div>
-                <dt className="text-xs text-muted">{t("params")}</dt>
-                <dd className="font-medium">{local.parameterCount}</dd>
+          <Card>
+            <CardHeader className="p-5 pb-0 sm:p-6 sm:pb-0">
+              <div className="flex flex-wrap items-center gap-2">
+                <CardTitle className="text-xs font-semibold uppercase tracking-widest text-muted">
+                  {t("localTitle")}
+                </CardTitle>
+                <Badge className="text-[11px]">{td(model.deployment)}</Badge>
               </div>
-              <div>
-                <dt className="text-xs text-muted">{t("quant")}</dt>
-                <dd className="font-medium">{local.quantization}</dd>
-              </div>
-              <div>
-                <dt className="text-xs text-muted">{t("runtimes")}</dt>
-                <dd className="font-medium">
-                  {local.runtimes.map((runtime) => tr(runtime)).join(", ")}
-                </dd>
-              </div>
-              <div>
-                <dt className="text-xs text-muted">{t("ollamaTag")}</dt>
-                <dd className="font-mono text-sm">
-                  {local.ollamaTag ?? "—"}
-                </dd>
-              </div>
-            </dl>
-            <h3 className="mt-6 text-xs font-semibold uppercase tracking-widest text-muted">
-              {t("hardwareGuides")}
-            </h3>
-            <ul className="mt-3 space-y-3">
-              {local.hardware.map((guide) => (
-                <li
-                  key={`${guide.platform}-${guide.tier}-${guide.exampleDevices[0]}`}
-                  className="rounded-xl border border-line bg-background/40 px-4 py-3"
-                >
-                  <div className="flex flex-wrap items-center gap-2 text-sm">
-                    <span className="font-semibold">
-                      {th(`platforms.${guide.platform}`)}
-                    </span>
-                    <span className="rounded-full border border-line px-2 py-0.5 text-[11px] text-muted">
-                      {th(`tiers.${guide.tier}`)}
-                    </span>
-                    {guide.minVramGb != null ? (
-                      <span className="text-xs text-muted">
-                        {t("minVram", { gb: guide.minVramGb })}
+            </CardHeader>
+            <CardContent className="p-5 sm:p-6">
+              <p className="text-sm leading-relaxed text-muted">
+                {local.tips[typedLocale] ?? local.tips.en}
+              </p>
+              <dl className="mt-5 grid gap-4 sm:grid-cols-2">
+                <div>
+                  <dt className="text-xs text-muted">{t("params")}</dt>
+                  <dd className="font-medium">{local.parameterCount}</dd>
+                </div>
+                <div>
+                  <dt className="text-xs text-muted">{t("quant")}</dt>
+                  <dd className="font-medium">{local.quantization}</dd>
+                </div>
+                <div>
+                  <dt className="text-xs text-muted">{t("runtimes")}</dt>
+                  <dd className="font-medium">
+                    {local.runtimes.map((runtime) => tr(runtime)).join(", ")}
+                  </dd>
+                </div>
+                <div>
+                  <dt className="text-xs text-muted">{t("ollamaTag")}</dt>
+                  <dd className="font-mono text-sm">
+                    {local.ollamaTag ?? "—"}
+                  </dd>
+                </div>
+              </dl>
+              <h3 className="mt-6 text-xs font-semibold uppercase tracking-widest text-muted">
+                {t("hardwareGuides")}
+              </h3>
+              <ul className="mt-3 space-y-3">
+                {local.hardware.map((guide) => (
+                  <li
+                    key={`${guide.platform}-${guide.tier}-${guide.exampleDevices[0]}`}
+                    className="rounded-xl border border-line bg-background/40 px-4 py-3"
+                  >
+                    <div className="flex flex-wrap items-center gap-2 text-sm">
+                      <span className="font-semibold">
+                        {th(`platforms.${guide.platform}`)}
                       </span>
-                    ) : null}
-                    {guide.minUnifiedMemoryGb != null ? (
+                      <Badge variant="outline" className="text-[11px]">
+                        {th(`tiers.${guide.tier}`)}
+                      </Badge>
+                      {guide.minVramGb != null ? (
+                        <span className="text-xs text-muted">
+                          {t("minVram", { gb: guide.minVramGb })}
+                        </span>
+                      ) : null}
+                      {guide.minUnifiedMemoryGb != null ? (
+                        <span className="text-xs text-muted">
+                          {t("minUnified", { gb: guide.minUnifiedMemoryGb })}
+                        </span>
+                      ) : null}
                       <span className="text-xs text-muted">
-                        {t("minUnified", { gb: guide.minUnifiedMemoryGb })}
+                        {t("minRam", { gb: guide.minRamGb })}
                       </span>
-                    ) : null}
-                    <span className="text-xs text-muted">
-                      {t("minRam", { gb: guide.minRamGb })}
-                    </span>
-                  </div>
-                  <p className="mt-2 text-sm text-foreground/90">
-                    {guide.exampleDevices.join(" · ")}
-                  </p>
-                  {guide.notes ? (
-                    <p className="mt-1 text-xs text-muted">
-                      {guide.notes[typedLocale] ?? guide.notes.en}
+                    </div>
+                    <p className="mt-2 text-sm text-foreground/90">
+                      {guide.exampleDevices.join(" · ")}
                     </p>
-                  ) : null}
-                </li>
-              ))}
-            </ul>
-            <a
-              href={local.weightsUrl}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="mt-4 inline-flex text-sm text-accent underline-offset-4 hover:underline"
-            >
-              {t("weightsLink")}
-            </a>
-          </div>
+                    {guide.notes ? (
+                      <p className="mt-1 text-xs text-muted">
+                        {guide.notes[typedLocale] ?? guide.notes.en}
+                      </p>
+                    ) : null}
+                  </li>
+                ))}
+              </ul>
+              <a
+                href={local.weightsUrl}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="mt-4 inline-flex text-sm text-accent underline-offset-4 hover:underline"
+              >
+                {t("weightsLink")}
+              </a>
+            </CardContent>
+          </Card>
         </FadeIn>
       ) : null}
 
-      <FadeIn delay={0.28} as="section" className="mt-10 rounded-2xl border border-accent/20 bg-accent-soft p-5 sm:p-6">
-        <h2 className="text-xs font-semibold uppercase tracking-widest text-accent">
-          {t("communityTake")}
-        </h2>
-        <p className="mt-2 leading-relaxed text-foreground/90">
-          {content.communityNotes}
-        </p>
+      <FadeIn delay={0.28} as="section" className="mt-10">
+        <Card className="border-accent/20 bg-accent-soft">
+          <CardHeader className="p-5 pb-0 sm:p-6 sm:pb-0">
+            <CardTitle className="text-xs font-semibold uppercase tracking-widest text-accent">
+              {t("communityTake")}
+            </CardTitle>
+          </CardHeader>
+          <CardContent className="p-5 leading-relaxed text-foreground/90 sm:p-6">
+            {content.communityNotes}
+          </CardContent>
+        </Card>
       </FadeIn>
 
       <FadeIn delay={0.32} as="section" className="mt-10">

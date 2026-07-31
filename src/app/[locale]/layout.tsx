@@ -10,6 +10,7 @@ import { AmbientBackground } from "@/components/ambient-background";
 import { LanguageSwitcher } from "@/components/language-switcher";
 import { PageTransition } from "@/components/page-transition";
 import { ScrollProgress } from "@/components/scroll-progress";
+import { Button } from "@/components/ui/button";
 import { Link } from "@/i18n/navigation";
 import { routing } from "@/i18n/routing";
 import "../globals.css";
@@ -123,30 +124,28 @@ export default async function LocaleLayout({
                 <Wordmark />
               </Link>
               <div className="flex items-center gap-1 text-sm">
-                <Link
-                  href="/models"
-                  className="rounded-full px-3 py-1.5 text-muted transition-colors hover:bg-surface-raised hover:text-foreground"
+                <Button asChild variant="ghost" size="sm">
+                  <Link href="/models">{t("models")}</Link>
+                </Button>
+                <Button asChild variant="ghost" size="sm">
+                  <Link href="/compare">{t("compare")}</Link>
+                </Button>
+                <Button
+                  asChild
+                  variant="ghost"
+                  size="sm"
+                  className="hidden sm:inline-flex"
                 >
-                  {t("models")}
-                </Link>
-                <Link
-                  href="/compare"
-                  className="rounded-full px-3 py-1.5 text-muted transition-colors hover:bg-surface-raised hover:text-foreground"
+                  <Link href="/score">{t("score")}</Link>
+                </Button>
+                <Button
+                  asChild
+                  variant="ghost"
+                  size="sm"
+                  className="hidden md:inline-flex"
                 >
-                  {t("compare")}
-                </Link>
-                <Link
-                  href="/score"
-                  className="hidden rounded-full px-3 py-1.5 text-muted transition-colors hover:bg-surface-raised hover:text-foreground sm:inline-flex"
-                >
-                  {t("score")}
-                </Link>
-                <Link
-                  href="/benchmark"
-                  className="hidden rounded-full px-3 py-1.5 text-muted transition-colors hover:bg-surface-raised hover:text-foreground md:inline-flex"
-                >
-                  {t("benchmark")}
-                </Link>
+                  <Link href="/benchmark">{t("benchmark")}</Link>
+                </Button>
                 <span className="ml-1">
                   <Suspense fallback={null}>
                     <LanguageSwitcher />
@@ -186,6 +185,14 @@ export default async function LocaleLayout({
                   className="underline-offset-4 transition-colors hover:text-accent hover:underline"
                 >
                   {tf("contribute")}
+                </a>
+                <a
+                  href="https://github.com/uiukis"
+                  target="_blank"
+                  rel="author noopener noreferrer"
+                  className="ml-auto text-foreground/70 underline-offset-4 transition-colors hover:text-accent hover:underline"
+                >
+                  {tf("createdBy")} · @uiukis
                 </a>
               </div>
             </div>
