@@ -6,7 +6,6 @@ import {
   type BenchmarkRun,
   type TrialResult,
 } from "../src/data/benchmark/types";
-import { configV1 } from "../src/data/benchmark/config-v1";
 import { getConfigHash, getPromptHash } from "./hash";
 import {
   aggregateModel,
@@ -14,6 +13,7 @@ import {
   recomputeTrialQuality,
   scoreDeterministic,
 } from "./scoring";
+import { detectProfileFromDraft, getSuiteConfig } from "./suite";
 import { tasksV1 } from "../src/data/benchmark/tasks-v1";
 
 function parseArgs(argv: string[]): { runDir: string } {
@@ -58,6 +58,15 @@ async function loadTrials(runDir: string): Promise<TrialResult[]> {
 
 async function main() {
   const { runDir } = parseArgs(process.argv.slice(2));
+  const draftPath = path.join(runDir, "draft.json");
+  const draft = JSON.parse(await readFile(draftPath, "utf8")) as {
+    notes?: string[];
+    models?: Array<{ gatewayModelId?: string; catalogSlug: string }>;
+    settings?: { repetitions?: number };
+    limitations?: string[];
+  };
+  const profile = detectProfileFromDraft(draft);
+  const config = getSuiteConfig(profile);
   let trials = await loadTrials(runDir);
 
   const reviewPath = path.join(runDir, "human-review.json");
@@ -118,14 +127,24 @@ async function main() {
     };
   });
 
-  const models = configV1.models.map((model) => {
+  const modelIds = new Map(
+    (draft.models ?? config.models).map((model) => [
+      model.catalogSlug,
+      "gatewayModelId" in model && model.gatewayModelId
+        ? model.gatewayModelId
+        : config.models.find((entry) => entry.catalogSlug === model.catalogSlug)
+            ?.gatewayModelId ?? model.catalogSlug,
+    ]),
+  );
+
+  const models = config.models.map((model) => {
     const catalog = getModelBySlug(model.catalogSlug);
     const modelTrials = trials.filter(
       (trial) => trial.catalogSlug === model.catalogSlug,
     );
     return aggregateModel(
       model.catalogSlug,
-      model.gatewayModelId,
+      modelIds.get(model.catalogSlug) ?? model.gatewayModelId,
       catalog?.name ?? model.catalogSlug,
       catalog?.provider ?? "Other",
       model.pricing,
@@ -142,19 +161,22 @@ async function main() {
     publishedAt: new Date().toISOString(),
     gitSha: process.env.GITHUB_SHA ?? null,
     promptHash: getPromptHash(),
-    configHash: getConfigHash(),
+    configHash: getConfigHash(config),
     settings: {
-      temperature: configV1.temperature,
-      maxOutputTokens: configV1.maxOutputTokens,
-      repetitions: configV1.repetitions,
-      timeoutMs: configV1.timeoutMs,
+      temperature: config.temperature,
+      maxOutputTokens: config.maxOutputTokens,
+      repetitions: draft.settings?.repetitions ?? config.repetitions,
+      timeoutMs: config.timeoutMs,
     },
     models,
     trials: trials.map((trial) => recomputeTrialQuality(trial)),
     notes: [
-      "Official Semita Mini Benchmark run. Quality, latency and cost are reported separately.",
+      `profile:${profile}`,
+      profile === "local-ollama"
+        ? "Official Semita Mini Benchmark local Ollama run ($0). Quality, latency and cost are reported separately."
+        : "Official Semita Mini Benchmark Gateway run. Quality, latency and cost are reported separately.",
     ],
-    limitations: configV1.limitations,
+    limitations: draft.limitations ?? config.limitations,
   };
 
   const parsed = BenchmarkRunSchema.parse(published);

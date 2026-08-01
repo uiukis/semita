@@ -3,14 +3,21 @@ import path from "node:path";
 import { generateText } from "ai";
 import { getModelBySlug } from "../src/data/models";
 import type { TrialResult } from "../src/data/benchmark/types";
-import { configV1 } from "../src/data/benchmark/config-v1";
+import {
+  assertOllamaReady,
+  generateWithOllama,
+  listOllamaTags,
+  resolveInstalledTag,
+} from "./ollama";
 import { getConfigHash, getPromptHash } from "./hash";
 import {
   combineQualityScore,
   estimateCostUsd,
   scoreDeterministic,
 } from "./scoring";
+import { getSuiteConfig, profileNote, type SuiteProfile } from "./suite";
 import { tasksV1 } from "../src/data/benchmark/tasks-v1";
+import { ollamaTagFromGatewayId } from "../src/data/benchmark/config-local-v1";
 
 async function loadEnvLocal() {
   try {
@@ -38,27 +45,62 @@ async function loadEnvLocal() {
 function parseArgs(argv: string[]): {
   maxUsd: number;
   dryRun: boolean;
+  profile: SuiteProfile;
+  repetitions: number | null;
 } {
-  let maxUsd = configV1.defaultMaxUsd;
+  let profile: SuiteProfile = "gateway";
   let dryRun = false;
+  let maxUsd: number | null = null;
+  let repetitions: number | null = null;
+
   for (let i = 0; i < argv.length; i += 1) {
     const arg = argv[i];
     if (arg === "--dry-run") {
       dryRun = true;
     }
+    if (arg === "--local-ollama") {
+      profile = "local-ollama";
+    }
+    if (arg === "--profile") {
+      const next = argv[i + 1];
+      if (next !== "gateway" && next !== "local-ollama") {
+        throw new Error("--profile must be gateway or local-ollama");
+      }
+      profile = next;
+      i += 1;
+    }
     if (arg === "--max-usd") {
       const next = Number(argv[i + 1]);
-      if (!Number.isFinite(next) || next <= 0) {
-        throw new Error("--max-usd must be a positive number");
+      if (!Number.isFinite(next) || next < 0) {
+        throw new Error("--max-usd must be a number >= 0");
       }
       maxUsd = next;
       i += 1;
     }
+    if (arg === "--reps") {
+      const next = Number(argv[i + 1]);
+      if (!Number.isInteger(next) || next < 1) {
+        throw new Error("--reps must be a positive integer");
+      }
+      repetitions = next;
+      i += 1;
+    }
   }
-  return { maxUsd, dryRun };
+
+  const config = getSuiteConfig(profile);
+  return {
+    profile,
+    dryRun,
+    maxUsd: maxUsd ?? config.defaultMaxUsd,
+    repetitions,
+  };
 }
 
-function buildSchedule() {
+function buildSchedule(
+  profile: SuiteProfile,
+  repetitions: number,
+) {
+  const config = getSuiteConfig(profile);
   const schedule: Array<{
     catalogSlug: string;
     gatewayModelId: string;
@@ -66,9 +108,9 @@ function buildSchedule() {
     repetition: number;
   }> = [];
 
-  for (let repetition = 1; repetition <= configV1.repetitions; repetition += 1) {
+  for (let repetition = 1; repetition <= repetitions; repetition += 1) {
     for (const task of tasksV1) {
-      for (const model of configV1.models) {
+      for (const model of config.models) {
         schedule.push({
           catalogSlug: model.catalogSlug,
           gatewayModelId: model.gatewayModelId,
@@ -81,14 +123,19 @@ function buildSchedule() {
   return schedule;
 }
 
-function estimateWorstCaseCost(maxUsd: number): number {
+function estimateWorstCaseCost(profile: SuiteProfile, maxUsd: number): number {
+  const config = getSuiteConfig(profile);
+  if (profile === "local-ollama") {
+    return 0;
+  }
+
   const promptChars = tasksV1.reduce((sum, task) => sum + task.prompt.length, 0);
-  const approxInputTokens = Math.ceil(promptChars / 4) * configV1.repetitions;
+  const approxInputTokens = Math.ceil(promptChars / 4) * config.repetitions;
   const approxOutputTokens =
-    configV1.maxOutputTokens * tasksV1.length * configV1.repetitions;
+    config.maxOutputTokens * tasksV1.length * config.repetitions;
 
   let total = 0;
-  for (const model of configV1.models) {
+  for (const model of config.models) {
     total += estimateCostUsd(
       approxInputTokens,
       approxOutputTokens,
@@ -106,50 +153,100 @@ function estimateWorstCaseCost(maxUsd: number): number {
 
 async function main() {
   await loadEnvLocal();
-  const { maxUsd, dryRun } = parseArgs(process.argv.slice(2));
+  const parsed = parseArgs(process.argv.slice(2));
+  const config = getSuiteConfig(parsed.profile);
+  const repetitions = parsed.repetitions ?? config.repetitions;
 
-  const hasGatewayAuth = Boolean(
-    process.env.AI_GATEWAY_API_KEY || process.env.VERCEL_OIDC_TOKEN,
-  );
-  if (!hasGatewayAuth && !dryRun) {
-    throw new Error(
-      "AI Gateway auth required: set AI_GATEWAY_API_KEY or run `vercel env pull .env.local --yes` for VERCEL_OIDC_TOKEN (never NEXT_PUBLIC_*).",
+  if (parsed.profile === "gateway") {
+    const hasGatewayAuth = Boolean(
+      process.env.AI_GATEWAY_API_KEY || process.env.VERCEL_OIDC_TOKEN,
     );
+    if (!hasGatewayAuth && !parsed.dryRun) {
+      throw new Error(
+        "Gateway auth required, or use free mode: pnpm benchmark:run --local-ollama",
+      );
+    }
+  } else if (!parsed.dryRun) {
+    await assertOllamaReady(
+      "ollamaBaseUrl" in config ? config.ollamaBaseUrl : undefined,
+    );
+    const installed = await listOllamaTags(
+      "ollamaBaseUrl" in config ? config.ollamaBaseUrl : undefined,
+    );
+    const missing: string[] = [];
+    for (const model of config.models) {
+      const wanted = ollamaTagFromGatewayId(model.gatewayModelId);
+      if (!resolveInstalledTag(wanted, installed)) {
+        missing.push(wanted);
+      }
+    }
+    if (missing.length > 0) {
+      throw new Error(
+        `Missing Ollama models:\n${missing.map((tag) => `  ollama pull ${tag}`).join("\n")}`,
+      );
+    }
   }
 
-  const worstCase = estimateWorstCaseCost(maxUsd);
-  const schedule = buildSchedule();
-  const runId = `v1-${new Date().toISOString().replace(/[:.]/g, "-")}`;
+  const worstCase = estimateWorstCaseCost(parsed.profile, parsed.maxUsd);
+  const schedule = buildSchedule(parsed.profile, repetitions);
+  const runId = `${parsed.profile === "local-ollama" ? "local" : "v1"}-${new Date()
+    .toISOString()
+    .replace(/[:.]/g, "-")}`;
   const outDir = path.join(process.cwd(), ".benchmark-runs", runId);
   await mkdir(outDir, { recursive: true });
 
   console.log(`Run ${runId}`);
+  console.log(`Profile: ${parsed.profile}`);
   console.log(`Calls: ${schedule.length}`);
-  console.log(`Worst-case estimate: $${worstCase.toFixed(4)} (cap $${maxUsd})`);
-  if (dryRun) {
+  console.log(
+    parsed.profile === "local-ollama"
+      ? "Cost: $0 (local Ollama)"
+      : `Worst-case estimate: $${worstCase.toFixed(4)} (cap $${parsed.maxUsd})`,
+  );
+  if (parsed.dryRun) {
     console.log("Dry run only — no model calls.");
     return;
   }
 
   let spent = 0;
   const trials: TrialResult[] = [];
+  const resolvedIds = new Map<string, string>();
+
+  if (parsed.profile === "local-ollama") {
+    const installed = await listOllamaTags(
+      "ollamaBaseUrl" in config ? config.ollamaBaseUrl : undefined,
+    );
+    for (const model of config.models) {
+      const wanted = ollamaTagFromGatewayId(model.gatewayModelId);
+      const resolved = resolveInstalledTag(wanted, installed);
+      if (!resolved) {
+        throw new Error(`Missing Ollama model ${wanted}`);
+      }
+      resolvedIds.set(model.gatewayModelId, `ollama/${resolved}`);
+    }
+  }
 
   for (const item of schedule) {
     const task = tasksV1.find((entry) => entry.id === item.taskId);
-    const model = configV1.models.find(
+    const model = config.models.find(
       (entry) => entry.catalogSlug === item.catalogSlug,
     );
     if (!task || !model) {
       throw new Error("Invalid schedule item");
     }
 
-    const remainingBudget = maxUsd - spent;
-    const nextWorst =
-      estimateCostUsd(800, configV1.maxOutputTokens, model.pricing) * 1.25;
-    if (nextWorst > remainingBudget) {
-      throw new Error(
-        `Aborting before exceeding budget. Spent $${spent.toFixed(4)} / $${maxUsd}`,
-      );
+    const gatewayModelId =
+      resolvedIds.get(item.gatewayModelId) ?? item.gatewayModelId;
+
+    if (parsed.profile === "gateway") {
+      const remainingBudget = parsed.maxUsd - spent;
+      const nextWorst =
+        estimateCostUsd(800, config.maxOutputTokens, model.pricing) * 1.25;
+      if (nextWorst > remainingBudget) {
+        throw new Error(
+          `Aborting before exceeding budget. Spent $${spent.toFixed(4)} / $${parsed.maxUsd}`,
+        );
+      }
     }
 
     const started = Date.now();
@@ -158,30 +255,44 @@ async function main() {
     let outputTokens = 0;
 
     try {
-      const result = await generateText({
-        model: model.gatewayModelId,
-        temperature: configV1.temperature,
-        maxOutputTokens: configV1.maxOutputTokens,
-        prompt: task.prompt,
-        maxRetries: configV1.maxRetries,
-      });
-      text = result.text;
-      inputTokens = result.usage.inputTokens ?? 0;
-      outputTokens = result.usage.outputTokens ?? 0;
+      if (parsed.profile === "local-ollama") {
+        const result = await generateWithOllama({
+          gatewayModelId,
+          prompt: task.prompt,
+          temperature: config.temperature,
+          maxOutputTokens: config.maxOutputTokens,
+          timeoutMs: config.timeoutMs,
+          baseUrl:
+            "ollamaBaseUrl" in config ? config.ollamaBaseUrl : undefined,
+        });
+        text = result.text;
+        inputTokens = result.inputTokens;
+        outputTokens = result.outputTokens;
+      } else {
+        const result = await generateText({
+          model: gatewayModelId,
+          temperature: config.temperature,
+          maxOutputTokens: config.maxOutputTokens,
+          prompt: task.prompt,
+          maxRetries: config.maxRetries,
+        });
+        text = result.text;
+        inputTokens = result.usage.inputTokens ?? 0;
+        outputTokens = result.usage.outputTokens ?? 0;
+      }
     } catch (error) {
       const message = error instanceof Error ? error.message : "Unknown error";
       text = "";
       console.error(
-        `FAIL ${model.gatewayModelId} ${task.id}#${item.repetition}: ${message}`,
+        `FAIL ${gatewayModelId} ${task.id}#${item.repetition}: ${message}`,
       );
     }
 
     const latencyMs = Date.now() - started;
-    const estimatedCostUsd = estimateCostUsd(
-      inputTokens,
-      outputTokens,
-      model.pricing,
-    );
+    const estimatedCostUsd =
+      parsed.profile === "local-ollama"
+        ? 0
+        : estimateCostUsd(inputTokens, outputTokens, model.pricing);
     spent += estimatedCostUsd;
 
     const { score, notes } = scoreDeterministic(task, text);
@@ -190,7 +301,7 @@ async function main() {
       taskId: task.id,
       category: task.category,
       catalogSlug: item.catalogSlug,
-      gatewayModelId: item.gatewayModelId,
+      gatewayModelId,
       repetition: item.repetition,
       responseText: text,
       latencyMs,
@@ -201,9 +312,7 @@ async function main() {
       objectiveNotes: notes,
       humanReviewScore: null,
       humanReviewNotes: null,
-      qualityScore: Number(
-        combineQualityScore(task, score, null).toFixed(4),
-      ),
+      qualityScore: Number(combineQualityScore(task, score, null).toFixed(4)),
       finishedAt: new Date().toISOString(),
     };
     trials.push(trial);
@@ -219,11 +328,13 @@ async function main() {
     );
   }
 
-  const catalogModels = configV1.models.map((model) => {
+  const catalogModels = config.models.map((model) => {
     const catalog = getModelBySlug(model.catalogSlug);
+    const gatewayModelId =
+      resolvedIds.get(model.gatewayModelId) ?? model.gatewayModelId;
     return {
       catalogSlug: model.catalogSlug,
-      gatewayModelId: model.gatewayModelId,
+      gatewayModelId,
       modelName: catalog?.name ?? model.catalogSlug,
       provider: catalog?.provider ?? "Other",
       pricing: model.pricing,
@@ -232,26 +343,30 @@ async function main() {
 
   const draft = {
     runId,
-    benchmarkVersion: configV1.version,
+    benchmarkVersion: config.version,
     status: "pending" as const,
     createdAt: new Date().toISOString(),
     publishedAt: null,
     gitSha: process.env.GITHUB_SHA ?? null,
     promptHash: getPromptHash(),
-    configHash: getConfigHash(),
+    configHash: getConfigHash(config),
     settings: {
-      temperature: configV1.temperature,
-      maxOutputTokens: configV1.maxOutputTokens,
-      repetitions: configV1.repetitions,
-      timeoutMs: configV1.timeoutMs,
+      temperature: config.temperature,
+      maxOutputTokens: config.maxOutputTokens,
+      repetitions,
+      timeoutMs: config.timeoutMs,
     },
     models: catalogModels,
     trials,
     spentUsd: Number(spent.toFixed(6)),
     notes: [
+      profileNote(parsed.profile),
       "Human review still required for writing and pt-br before publish.",
+      parsed.profile === "local-ollama"
+        ? "Free local Ollama suite — not interchangeable with Gateway cloud results."
+        : "Cloud Gateway suite.",
     ],
-    limitations: configV1.limitations,
+    limitations: config.limitations,
   };
 
   await writeFile(

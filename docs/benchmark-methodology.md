@@ -46,30 +46,48 @@ Macro quality is the equal-weight average of the five category averages. Latency
 
 ## Maintainer workflow
 
-1. Auth (either works; never `NEXT_PUBLIC_*`):
-   - Preferred locally: `npx vercel env pull .env.local --yes` → `VERCEL_OIDC_TOKEN`
-   - Or create an AI Gateway API key → `AI_GATEWAY_API_KEY`
-2. Unlock spend: add a credit card on the [Vercel AI Gateway](https://vercel.com/d?to=%2F%5Bteam%5D%2F%7E%2Fai%3Fmodal%3Dadd-credit-card) page (required even for free credits).
-3. Dry-run budget check:
+### Free path (recommended for MVP) — local Ollama · $0
+
+1. Install [Ollama](https://ollama.com) and start it (`ollama serve`).
+2. Pull the local suite tags:
 
 ```bash
-pnpm benchmark:run --dry-run --max-usd 0.5
+ollama pull smollm2:1.7b
+ollama pull phi4-mini:3.8b
+ollama pull qwen3:8b
 ```
 
-4. Execute (keep the cap tight):
+3. Dry-run / execute:
 
 ```bash
-pnpm benchmark:run --max-usd 0.5
+pnpm benchmark:run:local --dry-run
+pnpm benchmark:run:local
 ```
 
-5. Copy `.benchmark-runs/<id>/human-review.template.json` → `human-review.json`, fill scores blindly.
-6. Publish:
+4. Copy `.benchmark-runs/<id>/human-review.template.json` → `human-review.json`, fill scores blindly.
+5. Publish + check:
 
 ```bash
 pnpm benchmark:publish --run .benchmark-runs/<id>
+pnpm benchmark:check
 ```
 
-7. Verify offline:
+Local results are labeled `profile:local-ollama` and are **not** interchangeable with the cloud Gateway suite.
+
+### Paid path — Vercel AI Gateway
+
+1. Auth (never `NEXT_PUBLIC_*`): `npx vercel env pull .env.local --yes` or `AI_GATEWAY_API_KEY`.
+2. Add a credit card on the [AI Gateway](https://vercel.com/d?to=%2F%5Bteam%5D%2F%7E%2Fai%3Fmodal%3Dadd-credit-card) page.
+3. Dry-run / execute with a tight cap:
+
+```bash
+pnpm benchmark:run --dry-run --max-usd 0.5
+pnpm benchmark:run --max-usd 0.5
+```
+
+4. Human review → publish → `pnpm benchmark:check` as above.
+
+Verify offline:
 
 ```bash
 pnpm benchmark:check

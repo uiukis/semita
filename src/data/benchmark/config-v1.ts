@@ -8,6 +8,7 @@ export type BenchmarkModelConfig = {
 
 export const configV1 = {
   version: "v1" as const,
+  profile: "gateway" as const,
   temperature: 0,
   maxOutputTokens: 512,
   repetitions: 2,

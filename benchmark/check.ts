@@ -5,6 +5,7 @@ import {
   BenchmarkRunSchema,
   type BenchmarkRun,
 } from "../src/data/benchmark/types";
+import { configLocalV1 } from "../src/data/benchmark/config-local-v1";
 import { configV1 } from "../src/data/benchmark/config-v1";
 import { getConfigHash, getPromptHash } from "./hash";
 import {
@@ -12,6 +13,7 @@ import {
   recomputeTrialQuality,
   scoreDeterministic,
 } from "./scoring";
+import { detectProfileFromDraft, getSuiteConfig } from "./suite";
 import { tasksV1 } from "../src/data/benchmark/tasks-v1";
 
 const SECRETISH = /(api[_-]?key|sk-|bearer\s+[a-z0-9]|authorization)/i;
@@ -46,12 +48,17 @@ function validateRun(run: BenchmarkRun) {
   if (run.promptHash !== getPromptHash()) {
     throw new Error(`promptHash mismatch for ${run.runId}`);
   }
-  if (run.configHash !== getConfigHash()) {
-    throw new Error(`configHash mismatch for ${run.runId}`);
+
+  const profile = detectProfileFromDraft(run);
+  const config = getSuiteConfig(profile);
+  if (run.configHash !== getConfigHash(config)) {
+    throw new Error(`configHash mismatch for ${run.runId} (${profile})`);
   }
 
   const expectedCalls =
-    configV1.models.length * tasksV1.length * configV1.repetitions;
+    config.models.length *
+    tasksV1.length *
+    (run.settings.repetitions || config.repetitions);
   if (run.trials.length !== expectedCalls) {
     throw new Error(
       `${run.runId}: expected ${expectedCalls} trials, got ${run.trials.length}`,
@@ -147,13 +154,17 @@ async function main() {
     throw new Error("Expected 10 tasks in v1");
   }
 
-  z.object({
-    version: z.literal("v1"),
-    models: z.array(z.object({ catalogSlug: z.string(), gatewayModelId: z.string() })),
-  }).parse({
-    version: configV1.version,
-    models: configV1.models,
-  });
+  for (const suite of [configV1, configLocalV1]) {
+    z.object({
+      version: z.literal("v1"),
+      models: z.array(
+        z.object({ catalogSlug: z.string(), gatewayModelId: z.string() }),
+      ),
+    }).parse({
+      version: suite.version,
+      models: suite.models,
+    });
+  }
 
   const runs = await loadPublishedRuns();
   for (const run of runs) {

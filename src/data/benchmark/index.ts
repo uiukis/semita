@@ -1,3 +1,4 @@
+import { configLocalV1 } from "./config-local-v1";
 import { configV1 } from "./config-v1";
 import { tasksV1 } from "./tasks-v1";
 import type { ModelAggregate } from "./types";
@@ -11,6 +12,10 @@ export function getBenchmarkTasks() {
 }
 
 export function getBenchmarkConfig() {
+  const run = getLatestBenchmarkRun();
+  if (run?.notes.some((note) => note.includes("profile:local-ollama"))) {
+    return configLocalV1;
+  }
   return configV1;
 }
 
@@ -19,11 +24,14 @@ export function getLatestBenchmarkRun() {
 }
 
 export function getBenchmarkModelTargets() {
-  return configV1.models;
+  return getBenchmarkConfig().models;
 }
 
 export function isBenchmarkSuiteModel(catalogSlug: string): boolean {
-  return configV1.models.some((model) => model.catalogSlug === catalogSlug);
+  return (
+    configV1.models.some((model) => model.catalogSlug === catalogSlug) ||
+    configLocalV1.models.some((model) => model.catalogSlug === catalogSlug)
+  );
 }
 
 export function getLatestBenchmarkAggregate(

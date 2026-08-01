@@ -8,6 +8,7 @@
     "start": "next start -p 3100",
     "lint": "eslint",
     "benchmark:run": "tsx benchmark/run.ts",
+    "benchmark:run:local": "tsx benchmark/run.ts --local-ollama",
     "benchmark:publish": "tsx benchmark/publish.ts",
     "benchmark:check": "tsx benchmark/check.ts",
     "catalog:check": "tsx scripts/catalog-check.ts",

@@ -52,13 +52,19 @@ Details: [docs/keeping-data-fresh.md](docs/keeping-data-fresh.md).
 - Maintainer-only runner (AI Gateway key in `.env.local`):
 
 ```bash
-pnpm benchmark:run --dry-run --max-usd 2
-pnpm benchmark:run --max-usd 2
+# Free ($0) — local Ollama suite
+pnpm benchmark:run:local --dry-run
+pnpm benchmark:run:local
+
+# Optional paid — Vercel AI Gateway (needs card for credits)
+pnpm benchmark:run --dry-run --max-usd 0.5
+pnpm benchmark:run --max-usd 0.5
+
 pnpm benchmark:publish --run .benchmark-runs/<id>
 pnpm benchmark:check
 ```
 
-The site never executes models. Only published JSON under `src/data/benchmark/results/` is rendered.
+The site never executes models. Only published JSON under `src/data/benchmark/results/` is rendered. See [docs/benchmark-methodology.md](docs/benchmark-methodology.md).
 
 ## Data honesty (MVP)
 
@@ -84,4 +90,4 @@ Point your DNS at Vercel when ready (A/CNAME for the `semita` project). Until th
 3. **Learn** (started) — [/guide](https://semita-nu.vercel.app/guide) beginner → advanced
 4. **Community validates** — truthfulness voting after critical mass
 
-**Blocked for first Mini Benchmark publish:** Vercel AI Gateway needs a credit card on file to unlock free credits (auth can be OIDC via `vercel env pull`). Then dry-run → run → human review → publish — never invent results.
+**First Mini Benchmark publish:** prefer `pnpm benchmark:run:local` (Ollama, $0). Gateway cloud suite is optional and needs a Vercel card. Never invent results.

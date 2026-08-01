@@ -2,6 +2,7 @@ import { createHash } from "node:crypto";
 import type { DeterministicTask } from "../src/data/benchmark/types";
 import { tasksV1 } from "../src/data/benchmark/tasks-v1";
 import { configV1 } from "../src/data/benchmark/config-v1";
+import type { SuiteConfig } from "./suite";
 
 export function hashPayload(value: unknown): string {
   return createHash("sha256").update(JSON.stringify(value)).digest("hex");
@@ -26,11 +27,10 @@ export function getPromptHash(tasks: DeterministicTask[] = tasksV1): string {
   );
 }
 
-export function getConfigHash(
-  config: typeof configV1 = configV1,
-): string {
+export function getConfigHash(config: SuiteConfig = configV1): string {
   return hashPayload({
     version: config.version,
+    profile: config.profile,
     temperature: config.temperature,
     maxOutputTokens: config.maxOutputTokens,
     repetitions: config.repetitions,
