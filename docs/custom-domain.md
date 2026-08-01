@@ -1,8 +1,10 @@
 # Custom domain
 
-Production currently ships on `https://semita-nu.vercel.app`.
+Production URL (current): **https://semita-nu.vercel.app**
 
-Also required for Mini Benchmark calls: a credit card on the [AI Gateway](https://vercel.com/d?to=%2F%5Bteam%5D%2F%7E%2Fai%3Fmodal%3Dadd-credit-card) page (auth can be OIDC via `vercel env pull`; the card unlocks free credits).
+No custom domain purchase planned for now — keep `NEXT_PUBLIC_SITE_URL=https://semita-nu.vercel.app` in Vercel Production.
+
+When you do want a domain later, `getsemita.com` / `usesemita.com` were available (~$11/yr) at last check.
 
 ## Availability check (2026-07-31)
 

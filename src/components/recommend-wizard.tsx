@@ -12,7 +12,11 @@ import {
   CardTitle,
 } from "@/components/ui/card";
 import { Link } from "@/i18n/navigation";
-import { isBenchmarkSuiteModel } from "@/data/benchmark";
+import {
+  getLatestBenchmarkAggregate,
+  isBenchmarkSuiteModel,
+  isLocalOllamaBenchmarkRun,
+} from "@/data/benchmark";
 import {
   modelsHrefFromAnswers,
   recommendModels,
@@ -248,10 +252,20 @@ export function RecommendWizard() {
                       <CardTitle className="text-lg">{row.model.name}</CardTitle>
                       <CardDescription>
                         {row.model.provider} · {row.model.communityScore} ★
-                        {isBenchmarkSuiteModel(row.model.slug)
-                          ? ` · ${t("miniBenchSuite")}`
-                          : ""}
                       </CardDescription>
+                      {isBenchmarkSuiteModel(row.model.slug) ? (
+                        <div className="mt-2 flex flex-wrap gap-1.5">
+                          <Badge variant="outline" className="text-[11px]">
+                            {t("miniBenchSuite")}
+                          </Badge>
+                          {isLocalOllamaBenchmarkRun() &&
+                          getLatestBenchmarkAggregate(row.model.slug) ? (
+                            <Badge variant="secondary" className="text-[11px]">
+                              {t("miniBenchLocalBadge")}
+                            </Badge>
+                          ) : null}
+                        </div>
+                      ) : null}
                     </div>
                     <Button asChild size="sm">
                       <Link href={`/models/${row.model.slug}`}>{t("openModel")}</Link>

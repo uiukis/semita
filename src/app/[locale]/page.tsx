@@ -110,8 +110,14 @@ export default async function Home({
 
         <FadeIn delay={0.24} className="relative z-10 flex flex-wrap gap-3">
           <MotionLink
-            href="/models"
+            href="/recommend"
             className={cn(buttonVariants({ size: "lg" }), "btn-shimmer")}
+          >
+            {t("pathStartCta")}
+          </MotionLink>
+          <MotionLink
+            href="/models"
+            className={buttonVariants({ variant: "outline", size: "lg" })}
           >
             {t("exploreCta")}
           </MotionLink>
@@ -219,31 +225,56 @@ export default async function Home({
 
       <FadeIn className="pb-20">
         <Card className="border-accent/25 bg-accent-soft/40 p-6 sm:p-8">
-          <div className="flex flex-col gap-6 sm:flex-row sm:items-center sm:justify-between">
-            <div className="max-w-xl">
-              <p className="text-xs font-semibold uppercase tracking-widest text-accent">
-                Phase 1 · Choose
-              </p>
-              <h2 className="mt-2 text-xl font-semibold sm:text-2xl">
-                {t("exploreCta")}
-              </h2>
-              <p className="mt-2 text-sm text-muted">{t("subtitle")}</p>
-            </div>
-            <div className="flex flex-wrap gap-2">
-              <MotionLink
-                href="/models"
-                className={cn(buttonVariants({ size: "default" }), "btn-shimmer")}
+          <p className="text-xs font-semibold uppercase tracking-widest text-accent">
+            {t("pathEyebrow")}
+          </p>
+          <h2 className="mt-2 text-xl font-semibold sm:text-2xl">
+            {t("pathTitle")}
+          </h2>
+          <p className="mt-2 max-w-2xl text-sm text-muted">{t("pathSubtitle")}</p>
+          <ol className="mt-8 grid gap-4 sm:grid-cols-3">
+            {[
+              {
+                step: "1",
+                title: t("pathQuizTitle"),
+                body: t("pathQuizBody"),
+                href: "/recommend" as const,
+                cta: t("pathQuizCta"),
+              },
+              {
+                step: "2",
+                title: t("pathHardwareTitle"),
+                body: t("pathHardwareBody"),
+                href: "/hardware" as const,
+                cta: t("pathHardwareCta"),
+              },
+              {
+                step: "3",
+                title: t("pathBenchTitle"),
+                body: t("pathBenchBody"),
+                href: "/benchmark" as const,
+                cta: t("pathBenchCta"),
+              },
+            ].map((item) => (
+              <li
+                key={item.step}
+                className="rounded-lg border border-line/70 bg-background/40 p-4"
               >
-                {t("exploreCta")} →
-              </MotionLink>
-              <MotionLink
-                href="/guide"
-                className={cn(buttonVariants({ size: "default", variant: "outline" }))}
-              >
-                {t("guideCta")} →
-              </MotionLink>
-            </div>
-          </div>
+                <p className="font-mono text-xs text-accent">{item.step}</p>
+                <h3 className="mt-2 text-base font-semibold">{item.title}</h3>
+                <p className="mt-1 text-sm text-muted">{item.body}</p>
+                <MotionLink
+                  href={item.href}
+                  className={cn(
+                    buttonVariants({ size: "sm", variant: "outline" }),
+                    "mt-4",
+                  )}
+                >
+                  {item.cta} →
+                </MotionLink>
+              </li>
+            ))}
+          </ol>
         </Card>
       </FadeIn>
     </div>

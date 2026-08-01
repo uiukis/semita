@@ -23,6 +23,14 @@ export function getLatestBenchmarkRun() {
   return hasPublishedBenchmarkRun ? latestBenchmarkRun : null;
 }
 
+export function isLocalOllamaBenchmarkRun(
+  run = getLatestBenchmarkRun(),
+): boolean {
+  return Boolean(
+    run?.notes.some((note) => note.includes("profile:local-ollama")),
+  );
+}
+
 export function getBenchmarkModelTargets() {
   return getBenchmarkConfig().models;
 }

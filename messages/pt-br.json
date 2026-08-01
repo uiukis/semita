@@ -70,7 +70,20 @@
       "validateName": "Comunidade valida",
       "validateBody": "Um sistema de votação de veracidade para cada artigo e conteúdo — ativado só quando houver massa crítica de usuários ativos.",
       "applyLink": "Ver receitas de aplicação"
-    }
+    },
+    "pathStartCta": "Começar: qual modelo pra mim?",
+    "pathEyebrow": "Caminho da primeira visita",
+    "pathTitle": "Quiz → hardware → Mini Bench",
+    "pathSubtitle": "Três paradas curtas para escolher um modelo, ver se cabe na máquina e olhar o benchmark local honesto.",
+    "pathQuizTitle": "Quiz",
+    "pathQuizBody": "Quatro perguntas. Receba uma lista curta do catálogo.",
+    "pathQuizCta": "Abrir recomendador",
+    "pathHardwareTitle": "Hardware",
+    "pathHardwareBody": "Receitas Mac / NVIDIA / CPU com modelos locais filtrados.",
+    "pathHardwareCta": "Abrir receitas",
+    "pathBenchTitle": "Mini Bench",
+    "pathBenchBody": "Rodada local Ollama publicada — qualidade, latência e custo separados (R$0).",
+    "pathBenchCta": "Ver resultados"
   },
   "guide": {
     "eyebrow": "Fase 3 · Aprender",
@@ -268,7 +281,8 @@
     "miniBenchLatency": "Latência mediana",
     "miniBenchCost": "Custo est. da rodada",
     "miniBenchPending": "Este modelo está na suíte. Os resultados aparecem depois da primeira rodada oficial publicada.",
-    "miniBenchLink": "Ver metodologia / resultados"
+    "miniBenchLink": "Ver metodologia / resultados",
+    "miniBenchLocalBadge": "Ollama local · R$0"
   },
   "compare": {
     "title": "Comparar modelos",
@@ -290,7 +304,8 @@
     "miniBenchCost": "Custo est. Mini Bench",
     "miniBenchPending": "Rodada pendente",
     "miniBenchNotInSuite": "Fora da suíte",
-    "miniBenchLink": "Sobre o Semita Mini Benchmark"
+    "miniBenchLink": "Sobre o Semita Mini Benchmark",
+    "miniBenchLocalBadge": "Ollama local · R$0"
   },
   "score": {
     "eyebrow": "Transparência",
@@ -345,7 +360,8 @@
       "extraction": "Extração",
       "writing": "Escrita",
       "pt-br": "PT-BR"
-    }
+    },
+    "localBadge": "Última rodada: Ollama local · R$0 — não é suíte Gateway cloud"
   },
   "useCases": {
     "coding": "Programação",
@@ -441,7 +457,8 @@
     "hardwareLink": "Receitas de hardware",
     "guideLink": "Guia de aprendizado",
     "catalogLink": "Catálogo completo",
-    "miniBenchSuite": "na suíte Mini Bench"
+    "miniBenchSuite": "na suíte Mini Bench",
+    "miniBenchLocalBadge": "Ollama local · R$0"
   },
   "hardwarePage": {
     "eyebrow": "Encaixe local",
@@ -496,7 +513,8 @@
       "workflow": "Workflow",
       "mcp": "Padrão MCP",
       "runtime": "Runtime"
-    }
+    },
+    "installSkill": "Docs de install"
   },
   "suggest": {
     "eyebrow": "Comunidade",

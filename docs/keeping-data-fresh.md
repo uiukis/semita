@@ -5,6 +5,14 @@ Semita’s catalog lives in Git:
 - Cloud / API models → [`src/data/models.ts`](../src/data/models.ts) (`cloudModels`)
 - Local / Ollama models → [`src/data/local-models.ts`](../src/data/local-models.ts)
 
+## Monthly ritual (calendar reminder)
+
+1. `pnpm catalog:check` — note missing Ollama families + stale local/cloud (>60d).
+2. Refresh 3–5 high-signal cloud prices/context from official sources; bump `lastUpdated`.
+3. Optionally scaffold locals with `pnpm catalog:add --tag …` (EN + PT-BR content required).
+4. `pnpm lint && pnpm build` → focused PR.
+5. Skim [/contribute](https://semita-nu.vercel.app/contribute) issues before inventing work.
+
 ## Weekly: discover new Ollama models
 
 ```bash

@@ -21,6 +21,7 @@ import {
   getBenchmarkConfig,
   getBenchmarkTasks,
   getLatestBenchmarkRun,
+  isLocalOllamaBenchmarkRun,
 } from "@/data/benchmark";
 import type { TaskCategory } from "@/data/benchmark/types";
 import type { Locale } from "@/data/types";
@@ -62,6 +63,7 @@ export default async function BenchmarkPage({
   const tasks = getBenchmarkTasks();
   const config = getBenchmarkConfig();
   const run = getLatestBenchmarkRun();
+  const isLocalBench = isLocalOllamaBenchmarkRun(run);
 
   const categories: TaskCategory[] = [
     "coding",
@@ -87,6 +89,11 @@ export default async function BenchmarkPage({
         <p className="mt-4 max-w-3xl text-base leading-relaxed text-muted sm:text-lg">
           {t("subtitle")}
         </p>
+        {run && isLocalBench ? (
+          <Badge variant="secondary" className="mt-4 text-[11px]">
+            {t("localBadge")}
+          </Badge>
+        ) : null}
       </FadeIn>
 
       <FadeIn delay={0.08} className="mt-8">

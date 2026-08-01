@@ -70,7 +70,20 @@
       "validateName": "Community validates",
       "validateBody": "A truthfulness voting system for every article and entry — enabled only once there is a critical mass of active users.",
       "applyLink": "Browse apply recipes"
-    }
+    },
+    "pathStartCta": "Start: which model for me?",
+    "pathEyebrow": "First visit path",
+    "pathTitle": "Quiz → hardware → Mini Bench",
+    "pathSubtitle": "Three short stops to pick a model, check if it fits your machine, and see the honest local benchmark.",
+    "pathQuizTitle": "Quiz",
+    "pathQuizBody": "Four questions. Get a shortlist from the catalog.",
+    "pathQuizCta": "Open recommender",
+    "pathHardwareTitle": "Hardware",
+    "pathHardwareBody": "Mac / NVIDIA / CPU recipes with filtered local models.",
+    "pathHardwareCta": "Open recipes",
+    "pathBenchTitle": "Mini Bench",
+    "pathBenchBody": "Published local Ollama run — quality, latency, cost separate ($0).",
+    "pathBenchCta": "See results"
   },
   "guide": {
     "eyebrow": "Phase 3 · Learn",
@@ -268,7 +281,8 @@
     "miniBenchLatency": "Median latency",
     "miniBenchCost": "Est. run cost",
     "miniBenchPending": "This model is in the suite. Results appear after the first official maintainer run is published.",
-    "miniBenchLink": "See methodology / results"
+    "miniBenchLink": "See methodology / results",
+    "miniBenchLocalBadge": "Local Ollama · $0"
   },
   "compare": {
     "title": "Compare models",
@@ -290,7 +304,8 @@
     "miniBenchCost": "Mini Bench est. cost",
     "miniBenchPending": "Pending run",
     "miniBenchNotInSuite": "Not in suite",
-    "miniBenchLink": "About Semita Mini Benchmark"
+    "miniBenchLink": "About Semita Mini Benchmark",
+    "miniBenchLocalBadge": "Local Ollama · $0"
   },
   "score": {
     "eyebrow": "Transparency",
@@ -345,7 +360,8 @@
       "extraction": "Extraction",
       "writing": "Writing",
       "pt-br": "PT-BR"
-    }
+    },
+    "localBadge": "Latest run: Local Ollama · $0 — not a cloud Gateway suite"
   },
   "useCases": {
     "coding": "Coding",
@@ -441,7 +457,8 @@
     "hardwareLink": "Hardware recipes",
     "guideLink": "Learning guide",
     "catalogLink": "Full catalog",
-    "miniBenchSuite": "in Mini Bench suite"
+    "miniBenchSuite": "in Mini Bench suite",
+    "miniBenchLocalBadge": "Local Ollama · $0"
   },
   "hardwarePage": {
     "eyebrow": "Local fit",
@@ -496,7 +513,8 @@
       "workflow": "Workflow",
       "mcp": "MCP pattern",
       "runtime": "Runtime"
-    }
+    },
+    "installSkill": "Install docs"
   },
   "suggest": {
     "eyebrow": "Community",

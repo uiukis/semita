@@ -5,6 +5,7 @@ export type SkillEntry = {
   kind: "workflow" | "mcp" | "runtime";
   audience: "builder" | "writer" | "lead" | "private" | "student";
   href: string;
+  installUrl?: string;
   modelSlugs: string[];
   content: Record<
     Locale,
@@ -12,6 +13,7 @@ export type SkillEntry = {
       title: string;
       summary: string;
       when: string;
+      install?: string;
     }
   >;
 };
@@ -43,6 +45,7 @@ export const skillEntries: SkillEntry[] = [
     kind: "runtime",
     audience: "private",
     href: "/hardware",
+    installUrl: "https://ollama.com/download",
     modelSlugs: ["gemma3-12b", "qwen3-8b", "phi4-mini"],
     content: {
       en: {
@@ -50,12 +53,14 @@ export const skillEntries: SkillEntry[] = [
         summary:
           "Pull a Semita ollamaTag, match hardware tier, keep sensitive drafts offline.",
         when: "Privacy-first chat and notes on your laptop.",
+        install: "Install Ollama, then pull tags from model pages.",
       },
       "pt-br": {
         title: "Runtime local Ollama",
         summary:
           "Puxe a ollamaTag do Semita, combine o tier de hardware, mantenha rascunhos sensíveis offline.",
         when: "Chat e notas com privacidade no notebook.",
+        install: "Instale o Ollama e puxe as tags das páginas dos modelos.",
       },
     },
   },
@@ -63,41 +68,98 @@ export const skillEntries: SkillEntry[] = [
     id: "filesystem-mcp",
     kind: "mcp",
     audience: "builder",
-    href: "/apply",
+    href: "/models?use=coding&sort=recommended",
+    installUrl:
+      "https://github.com/modelcontextprotocol/servers/tree/main/src/filesystem",
     modelSlugs: ["gpt-4.1", "claude-sonnet-5"],
     content: {
       en: {
-        title: "Filesystem MCP (pattern)",
+        title: "Filesystem MCP",
         summary:
-          "Let an agent read/write project files through a controlled MCP instead of pasting whole repos.",
-        when: "Repo-aware assistants with explicit allowlists.",
+          "Official MCP server for controlled read/write — prefer allowlists over pasting whole repos.",
+        when: "Repo-aware assistants with explicit paths.",
+        install: "Add @modelcontextprotocol/server-filesystem to your MCP client config.",
       },
       "pt-br": {
-        title: "MCP de filesystem (padrão)",
+        title: "MCP de filesystem",
         summary:
-          "Deixe um agent ler/escrever arquivos via MCP controlado em vez de colar o repo inteiro.",
-        when: "Assistentes cientes do repo com allowlists explícitas.",
+          "Server MCP oficial de leitura/escrita controlada — prefira allowlists a colar o repo inteiro.",
+        when: "Assistentes cientes do repo com caminhos explícitos.",
+        install: "Adicione @modelcontextprotocol/server-filesystem na config do cliente MCP.",
       },
     },
   },
   {
-    id: "browser-mcp",
+    id: "github-mcp",
     kind: "mcp",
     audience: "builder",
-    href: "/models?use=vision&sort=recommended",
+    href: "/models?use=coding&sort=recommended",
+    installUrl:
+      "https://github.com/modelcontextprotocol/servers/tree/main/src/github",
+    modelSlugs: ["gpt-5", "claude-sonnet-5"],
+    content: {
+      en: {
+        title: "GitHub MCP",
+        summary:
+          "Issues, PRs and repo metadata through MCP — keep tokens out of chat prompts.",
+        when: "Agents that open PRs or triage issues.",
+        install: "Configure @modelcontextprotocol/server-github with a fine-scoped PAT.",
+      },
+      "pt-br": {
+        title: "MCP do GitHub",
+        summary:
+          "Issues, PRs e metadados do repo via MCP — mantenha tokens fora do prompt.",
+        when: "Agents que abrem PRs ou fazem triagem de issues.",
+        install: "Configure @modelcontextprotocol/server-github com um PAT de escopo fino.",
+      },
+    },
+  },
+  {
+    id: "memory-mcp",
+    kind: "mcp",
+    audience: "lead",
+    href: "/apply",
+    installUrl:
+      "https://github.com/modelcontextprotocol/servers/tree/main/src/memory",
     modelSlugs: ["gpt-4.1", "gemini-2-5-flash"],
     content: {
       en: {
-        title: "Browser / screenshot MCP (pattern)",
+        title: "Memory MCP",
         summary:
-          "Capture UI state for vision models — schema-first extraction beats “describe this”.",
-        when: "QA, design QA and doc extraction from live pages.",
+          "Persist small knowledge graphs for recurring projects — still verify before you ship.",
+        when: "Long-running ops / research threads.",
+        install: "Add @modelcontextprotocol/server-memory to the MCP client.",
       },
       "pt-br": {
-        title: "MCP de browser / screenshot (padrão)",
+        title: "MCP de memória",
         summary:
-          "Capture estado de UI para modelos de visão — extração com schema bate “descreva isto”.",
-        when: "QA, design QA e extração de docs em páginas ao vivo.",
+          "Persista grafos pequenos de conhecimento em projetos recorrentes — ainda assim verifique antes de publicar.",
+        when: "Threads longas de ops / pesquisa.",
+        install: "Adicione @modelcontextprotocol/server-memory no cliente MCP.",
+      },
+    },
+  },
+  {
+    id: "playwright-mcp",
+    kind: "mcp",
+    audience: "builder",
+    href: "/models?use=vision&sort=recommended",
+    installUrl: "https://github.com/microsoft/playwright-mcp",
+    modelSlugs: ["gpt-4.1", "gemini-2-5-flash"],
+    content: {
+      en: {
+        title: "Playwright MCP",
+        summary:
+          "Browse and snapshot pages for vision / QA agents — schema-first beats “describe this”.",
+        when: "UI QA, design checks and live-page extraction.",
+        install: "Follow the Playwright MCP install guide for your client.",
+      },
+      "pt-br": {
+        title: "MCP Playwright",
+        summary:
+          "Navegue e capture páginas para agents de visão / QA — schema primeiro bate “descreva isto”.",
+        when: "QA de UI, checagens de design e extração em páginas ao vivo.",
+        install: "Siga o guia de install do Playwright MCP no seu cliente.",
       },
     },
   },

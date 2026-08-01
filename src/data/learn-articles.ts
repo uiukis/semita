@@ -187,6 +187,40 @@ export const learnArticles: LearnArticle[] = [
       },
     },
   },
+  {
+    slug: "local-mini-bench",
+    level: "intermediate",
+    leverages: true,
+    relatedHref: "/benchmark",
+    content: {
+      en: {
+        title: "Reading the local Mini Benchmark",
+        summary:
+          "Semita’s first published run is Ollama on a maintainer machine — $0, honest, not a cloud leaderboard.",
+        body: [
+          "The badge “Local Ollama · $0” means models ran via Ollama tags, not Vercel AI Gateway.",
+          "Quality, latency and cost stay separate. A faster tiny model can beat a larger one on this small suite.",
+          "Use it to shortlist local defaults (SmolLM2 / Phi-4 mini / Qwen3 8B), then verify on your own tasks.",
+          "Cloud Gateway suite remains optional later — never mix the two profiles as if they were the same exam.",
+        ],
+        takeaway:
+          "Treat Mini Bench as a transparent smoke test. Your workload is still the final judge.",
+      },
+      "pt-br": {
+        title: "Como ler o Mini Benchmark local",
+        summary:
+          "A primeira rodada publicada do Semita é Ollama na máquina do maintainer — R$0, honesta, não é leaderboard cloud.",
+        body: [
+          "O selo “Ollama local · R$0” significa tags Ollama, não Vercel AI Gateway.",
+          "Qualidade, latência e custo ficam separados. Um modelo tiny mais rápido pode ganhar de um maior nesta suíte pequena.",
+          "Use para shortlist de defaults locais (SmolLM2 / Phi-4 mini / Qwen3 8B) e valide nas suas tarefas.",
+          "A suíte Gateway cloud continua opcional depois — nunca misture os dois perfis como se fossem a mesma prova.",
+        ],
+        takeaway:
+          "Trate o Mini Bench como smoke test transparente. Sua carga de trabalho ainda é o juiz final.",
+      },
+    },
+  },
 ];
 
 export function getLearnArticle(slug: string): LearnArticle | undefined {

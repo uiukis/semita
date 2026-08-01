@@ -4,6 +4,7 @@ import { getTranslations, setRequestLocale } from "next-intl/server";
 import { CompareSelector } from "@/components/compare-selector";
 import { FadeIn, ScaleIn } from "@/components/motion";
 import { ShareCompareButton } from "@/components/share-compare-button";
+import { Badge } from "@/components/ui/badge";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import {
   Table,
@@ -17,6 +18,7 @@ import {
   getLatestBenchmarkAggregate,
   getLatestBenchmarkRun,
   isBenchmarkSuiteModel,
+  isLocalOllamaBenchmarkRun,
 } from "@/data/benchmark";
 import { getAllModels, getModelBySlug } from "@/data/models";
 import type { LlmModel, Locale } from "@/data/types";
@@ -59,6 +61,7 @@ export default async function ComparePage({
     .filter((model): model is LlmModel => Boolean(model));
 
   const hasBenchRun = Boolean(getLatestBenchmarkRun());
+  const isLocalBench = isLocalOllamaBenchmarkRun();
   const pct = (value: number) =>
     new Intl.NumberFormat(locale === "pt-br" ? "pt-BR" : "en-US", {
       style: "percent",
@@ -142,14 +145,19 @@ export default async function ComparePage({
             {t("title")}
           </h1>
           <p className="mt-2 max-w-2xl text-muted">{t("subtitle")}</p>
-          <p className="mt-2 text-xs text-muted">
+          <div className="mt-3 flex flex-wrap items-center gap-2 text-xs text-muted">
+            {hasBenchRun && isLocalBench ? (
+              <Badge variant="secondary" className="text-[11px]">
+                {t("miniBenchLocalBadge")}
+              </Badge>
+            ) : null}
             <Link
               href="/benchmark"
               className="underline-offset-4 hover:text-accent hover:underline"
             >
               {t("miniBenchLink")}
             </Link>
-          </p>
+          </div>
         </div>
         {selected.length > 0 ? <ShareCompareButton /> : null}
       </FadeIn>

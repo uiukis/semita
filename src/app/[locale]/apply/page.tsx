@@ -72,9 +72,25 @@ export default async function ApplyPage({
                 </CardHeader>
                 <CardContent className="space-y-2 p-4 pt-0">
                   <p className="text-xs text-muted">{content.when}</p>
-                  <Button asChild size="sm" variant="outline">
-                    <Link href={skill.href}>{t("openSkill")}</Link>
-                  </Button>
+                  {"install" in content && content.install ? (
+                    <p className="text-xs text-foreground/80">{content.install}</p>
+                  ) : null}
+                  <div className="flex flex-wrap gap-2">
+                    <Button asChild size="sm" variant="outline">
+                      <Link href={skill.href}>{t("openSkill")}</Link>
+                    </Button>
+                    {skill.installUrl ? (
+                      <Button asChild size="sm" variant="ghost">
+                        <a
+                          href={skill.installUrl}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                        >
+                          {t("installSkill")}
+                        </a>
+                      </Button>
+                    ) : null}
+                  </div>
                 </CardContent>
               </Card>
             );

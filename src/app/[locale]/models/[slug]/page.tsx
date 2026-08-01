@@ -14,6 +14,7 @@ import {
 import {
   getLatestBenchmarkAggregate,
   isBenchmarkSuiteModel,
+  isLocalOllamaBenchmarkRun,
 } from "@/data/benchmark";
 import { getAllModels, getModelBySlug, getModelContent } from "@/data/models";
 import type { Locale } from "@/data/types";
@@ -86,6 +87,7 @@ export default async function ModelDetailPage({ params }: { params: Params }) {
   const local = model.local;
   const bench = getLatestBenchmarkAggregate(model.slug);
   const inSuite = isBenchmarkSuiteModel(model.slug);
+  const isLocalBench = isLocalOllamaBenchmarkRun();
   const siteUrl =
     process.env.NEXT_PUBLIC_SITE_URL?.replace(/\/$/, "") ??
     "http://localhost:3100";
@@ -376,7 +378,14 @@ export default async function ModelDetailPage({ params }: { params: Params }) {
         <FadeIn delay={0.26} as="section" className="mt-10">
           <Card>
             <CardHeader className="p-5 pb-0 sm:p-6 sm:pb-0">
-              <CardTitle className="text-base">{t("miniBenchTitle")}</CardTitle>
+              <div className="flex flex-wrap items-center gap-2">
+                <CardTitle className="text-base">{t("miniBenchTitle")}</CardTitle>
+                {bench && isLocalBench ? (
+                  <Badge variant="secondary" className="text-[11px]">
+                    {t("miniBenchLocalBadge")}
+                  </Badge>
+                ) : null}
+              </div>
             </CardHeader>
             <CardContent className="space-y-3 p-5 sm:p-6">
               {bench ? (
