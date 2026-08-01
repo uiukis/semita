@@ -83,7 +83,8 @@
     "pathHardwareCta": "Open recipes",
     "pathBenchTitle": "Mini Bench",
     "pathBenchBody": "Published local Ollama run — quality, latency, cost separate ($0).",
-    "pathBenchCta": "See results"
+    "pathBenchCta": "See results",
+    "benchCta": "See Mini Bench"
   },
   "guide": {
     "eyebrow": "Phase 3 · Learn",
@@ -226,7 +227,10 @@
     "filterPlatform": "Filter by platform",
     "sortBy": "Sort by",
     "catalogUpdated": "Catalog last refreshed {date}",
-    "suggestUpdate": "Suggest a model or data fix"
+    "suggestUpdate": "Suggest a model or data fix",
+    "filterSuite": "Filter by benchmark suite",
+    "allSuites": "Any suite",
+    "suiteMini": "In Mini Bench suite"
   },
   "notFound": {
     "title": "This path does not exist",

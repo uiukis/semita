@@ -122,6 +122,12 @@ export default async function Home({
             {t("exploreCta")}
           </MotionLink>
           <MotionLink
+            href="/benchmark"
+            className={buttonVariants({ variant: "outline", size: "lg" })}
+          >
+            {t("benchCta")}
+          </MotionLink>
+          <MotionLink
             href="/compare"
             className={buttonVariants({ variant: "outline", size: "lg" })}
           >

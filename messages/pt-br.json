@@ -83,7 +83,8 @@
     "pathHardwareCta": "Abrir receitas",
     "pathBenchTitle": "Mini Bench",
     "pathBenchBody": "Rodada local Ollama publicada — qualidade, latência e custo separados (R$0).",
-    "pathBenchCta": "Ver resultados"
+    "pathBenchCta": "Ver resultados",
+    "benchCta": "Ver Mini Bench"
   },
   "guide": {
     "eyebrow": "Fase 3 · Aprender",
@@ -226,7 +227,10 @@
     "filterPlatform": "Filtrar por plataforma",
     "sortBy": "Ordenar por",
     "catalogUpdated": "Catálogo atualizado em {date}",
-    "suggestUpdate": "Sugerir modelo ou correção"
+    "suggestUpdate": "Sugerir modelo ou correção",
+    "filterSuite": "Filtrar por suíte de benchmark",
+    "allSuites": "Qualquer suíte",
+    "suiteMini": "Na suíte Mini Bench"
   },
   "notFound": {
     "title": "Esse caminho não existe",

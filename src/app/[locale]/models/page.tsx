@@ -5,6 +5,7 @@ import { FilterBar } from "@/components/filter-bar";
 import { ModelCard } from "@/components/model-card";
 import { FadeIn, Stagger } from "@/components/motion";
 import { Card, CardContent } from "@/components/ui/card";
+import { isBenchmarkSuiteModel } from "@/data/benchmark";
 import {
   getAllModels,
   getCatalogLastUpdated,
@@ -44,6 +45,7 @@ type SearchParams = Promise<{
   host?: string;
   tier?: string;
   platform?: string;
+  suite?: string;
 }>;
 
 function sortModels(items: LlmModel[], sort: string): LlmModel[] {
@@ -74,7 +76,8 @@ export default async function ModelsPage({
   const { locale } = await params;
   setRequestLocale(locale);
   const t = await getTranslations("models");
-  const { provider, use, sort, q, host, tier, platform } = await searchParams;
+  const { provider, use, sort, q, host, tier, platform, suite } =
+    await searchParams;
 
   let filtered = getAllModels();
   if (provider) {
@@ -101,6 +104,9 @@ export default async function ModelsPage({
     filtered = filtered.filter((model) =>
       modelMatchesPlatform(model, platform as HardwarePlatform),
     );
+  }
+  if (suite === "mini") {
+    filtered = filtered.filter((model) => isBenchmarkSuiteModel(model.slug));
   }
   if (q?.trim()) {
     const needle = q.trim().toLowerCase();

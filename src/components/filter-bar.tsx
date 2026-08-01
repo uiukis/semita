@@ -108,6 +108,7 @@ export function FilterBar({
   const currentHost = searchParams.get("host") ?? "";
   const currentTier = searchParams.get("tier") ?? "";
   const currentPlatform = searchParams.get("platform") ?? "";
+  const currentSuite = searchParams.get("suite") ?? "";
   const [query, setQuery] = useState(currentQuery);
 
   const sortLabels: Record<SortOption, string> = {
@@ -148,7 +149,8 @@ export function FilterBar({
     currentQuery ||
     currentHost ||
     currentTier ||
-    currentPlatform;
+    currentPlatform ||
+    currentSuite;
 
   const hostOptions: Array<DeploymentMode | ""> = ["", "local", "api", "both"];
   const tierOptions: Array<HardwareTier | ""> = ["", "entry", "mid", "heavy"];
@@ -224,6 +226,14 @@ export function FilterBar({
             label: tu(useCase),
           }))}
           onValueChange={(value) => updateParam("use", value)}
+        />
+
+        <FilterSelect
+          ariaLabel={t("filterSuite")}
+          value={currentSuite}
+          placeholder={t("allSuites")}
+          options={[{ value: "mini", label: t("suiteMini") }]}
+          onValueChange={(value) => updateParam("suite", value)}
         />
 
         <FilterSelect
