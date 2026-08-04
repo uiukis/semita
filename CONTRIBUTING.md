@@ -27,9 +27,10 @@ pnpm build
 
 ## Semita Mini Benchmark
 
-- Read [docs/benchmark-methodology.md](docs/benchmark-methodology.md).
+- **Dev tutorial (local Ollama · $0):** [docs/run-local-mini-bench.md](docs/run-local-mini-bench.md)
+- Methodology: [docs/benchmark-methodology.md](docs/benchmark-methodology.md)
 - Propose task/rubric changes in PRs — do not invent unpublished result JSON.
-- Maintainers run `pnpm benchmark:run` with a private `AI_GATEWAY_API_KEY`.
+- Prefer `pnpm benchmark:run:local` (free). Gateway cloud suite is optional and needs a Vercel card.
 
 ## Catalog freshness (Ollama)
 
