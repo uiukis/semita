@@ -163,8 +163,11 @@ export default async function ModelsPage({
         </FadeIn>
       ) : (
         <Stagger
+          key={[provider, use, sort, q, host, tier, platform, suite]
+            .filter(Boolean)
+            .join("|")}
           className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3"
-          stagger={0.06}
+          stagger={0.07}
         >
           {filtered.map((model) => (
             <ModelCard

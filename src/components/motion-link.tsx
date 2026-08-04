@@ -27,7 +27,7 @@ export function MotionLink({
   }
 
   return (
-    <motion.div whileHover={{ y: -2 }} whileTap={{ scale: 0.98 }} className="inline-flex">
+    <motion.div whileHover={{ y: -3, scale: 1.01 }} whileTap={{ scale: 0.98 }} className="inline-flex">
       <Link href={href} className={className} {...rest}>
         {children}
       </Link>
@@ -58,9 +58,9 @@ export function MotionCardLink({
 
   return (
     <motion.div
-      whileHover={{ y: -6, scale: 1.012 }}
-      whileTap={{ scale: 0.992 }}
-      transition={{ type: "spring", stiffness: 380, damping: 28 }}
+      whileHover={{ y: -8, scale: 1.018 }}
+      whileTap={{ scale: 0.99 }}
+      transition={{ type: "spring", stiffness: 360, damping: 24 }}
       className="h-full"
     >
       <Link href={href} className={className} style={style}>

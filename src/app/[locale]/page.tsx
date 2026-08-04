@@ -238,7 +238,7 @@ export default async function Home({
             {t("pathTitle")}
           </h2>
           <p className="mt-2 max-w-2xl text-sm text-muted">{t("pathSubtitle")}</p>
-          <ol className="mt-8 grid gap-4 sm:grid-cols-3">
+          <Stagger className="mt-8 grid gap-4 sm:grid-cols-3" stagger={0.12}>
             {[
               {
                 step: "1",
@@ -262,25 +262,24 @@ export default async function Home({
                 cta: t("pathBenchCta"),
               },
             ].map((item) => (
-              <li
-                key={item.step}
-                className="rounded-lg border border-line/70 bg-background/40 p-4"
-              >
-                <p className="font-mono text-xs text-accent">{item.step}</p>
-                <h3 className="mt-2 text-base font-semibold">{item.title}</h3>
-                <p className="mt-1 text-sm text-muted">{item.body}</p>
-                <MotionLink
-                  href={item.href}
-                  className={cn(
-                    buttonVariants({ size: "sm", variant: "outline" }),
-                    "mt-4",
-                  )}
-                >
-                  {item.cta} →
-                </MotionLink>
-              </li>
+              <StaggerItem key={item.step} className="h-full">
+                <div className="card-lift h-full rounded-lg border border-line/70 bg-background/40 p-4">
+                  <p className="font-mono text-xs text-accent">{item.step}</p>
+                  <h3 className="mt-2 text-base font-semibold">{item.title}</h3>
+                  <p className="mt-1 text-sm text-muted">{item.body}</p>
+                  <MotionLink
+                    href={item.href}
+                    className={cn(
+                      buttonVariants({ size: "sm", variant: "outline" }),
+                      "mt-4",
+                    )}
+                  >
+                    {item.cta} →
+                  </MotionLink>
+                </div>
+              </StaggerItem>
             ))}
-          </ol>
+          </Stagger>
         </Card>
       </FadeIn>
     </div>

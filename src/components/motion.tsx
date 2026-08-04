@@ -3,6 +3,8 @@
 import { motion, useReducedMotion, type HTMLMotionProps } from "motion/react";
 import type { ElementType, ReactNode } from "react";
 
+const EASE = [0.16, 1, 0.3, 1] as const;
+
 type FadeInProps = {
   children: ReactNode;
   className?: string;
@@ -16,7 +18,7 @@ export function FadeIn({
   children,
   className,
   delay = 0,
-  y = 20,
+  y = 28,
   once = true,
   as = "div",
   ...rest
@@ -31,13 +33,13 @@ export function FadeIn({
   return (
     <Tag
       className={className}
-      initial={{ opacity: 0, y }}
-      whileInView={{ opacity: 1, y: 0 }}
-      viewport={{ once, margin: "-40px" }}
+      initial={{ opacity: 0, y, filter: "blur(6px)" }}
+      whileInView={{ opacity: 1, y: 0, filter: "blur(0px)" }}
+      viewport={{ once, amount: 0.2, margin: "0px 0px -8% 0px" }}
       transition={{
-        duration: 0.55,
+        duration: 0.7,
         delay,
-        ease: [0.16, 1, 0.3, 1],
+        ease: EASE,
       }}
       {...rest}
     >
@@ -49,7 +51,7 @@ export function FadeIn({
 export function Stagger({
   children,
   className,
-  stagger = 0.08,
+  stagger = 0.1,
 }: {
   children: ReactNode;
   className?: string;
@@ -66,11 +68,11 @@ export function Stagger({
       className={className}
       initial="hidden"
       whileInView="show"
-      viewport={{ once: true, margin: "-40px" }}
+      viewport={{ once: true, amount: 0.15, margin: "0px 0px -6% 0px" }}
       variants={{
         hidden: {},
         show: {
-          transition: { staggerChildren: stagger },
+          transition: { staggerChildren: stagger, delayChildren: 0.06 },
         },
       }}
     >
@@ -96,11 +98,12 @@ export function StaggerItem({
     <motion.div
       className={className}
       variants={{
-        hidden: { opacity: 0, y: 18 },
+        hidden: { opacity: 0, y: 26, filter: "blur(5px)" },
         show: {
           opacity: 1,
           y: 0,
-          transition: { duration: 0.5, ease: [0.16, 1, 0.3, 1] },
+          filter: "blur(0px)",
+          transition: { duration: 0.55, ease: EASE },
         },
       }}
     >
@@ -127,14 +130,43 @@ export function ScaleIn({
   return (
     <motion.div
       className={className}
-      initial={{ opacity: 0, scale: 0.96 }}
-      whileInView={{ opacity: 1, scale: 1 }}
-      viewport={{ once: true, margin: "-20px" }}
+      initial={{ opacity: 0, scale: 0.94, filter: "blur(4px)" }}
+      whileInView={{ opacity: 1, scale: 1, filter: "blur(0px)" }}
+      viewport={{ once: true, amount: 0.2 }}
       transition={{
-        duration: 0.45,
+        duration: 0.55,
         delay,
-        ease: [0.16, 1, 0.3, 1],
+        ease: EASE,
       }}
+    >
+      {children}
+    </motion.div>
+  );
+}
+
+export function StepSwap({
+  stepKey,
+  children,
+  className,
+}: {
+  stepKey: string | number;
+  children: ReactNode;
+  className?: string;
+}) {
+  const reduce = useReducedMotion();
+
+  if (reduce) {
+    return <div className={className}>{children}</div>;
+  }
+
+  return (
+    <motion.div
+      key={stepKey}
+      className={className}
+      initial={{ opacity: 0, x: 18, filter: "blur(4px)" }}
+      animate={{ opacity: 1, x: 0, filter: "blur(0px)" }}
+      exit={{ opacity: 0, x: -14, filter: "blur(4px)" }}
+      transition={{ duration: 0.35, ease: EASE }}
     >
       {children}
     </motion.div>

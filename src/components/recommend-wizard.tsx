@@ -1,7 +1,9 @@
 "use client";
 
 import { useMemo, useState } from "react";
+import { AnimatePresence, motion, useReducedMotion } from "motion/react";
 import { useTranslations } from "next-intl";
+import { StepSwap } from "@/components/motion";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import {
@@ -49,15 +51,26 @@ function OptionButton({
   label: string;
   onClick: () => void;
 }) {
-  return (
+  const reduce = useReducedMotion();
+  const button = (
     <Button
       type="button"
       variant={active ? "default" : "outline"}
-      className="h-auto justify-start whitespace-normal px-4 py-3 text-left"
+      className="h-auto w-full justify-start whitespace-normal px-4 py-3 text-left transition-shadow duration-300 hover:shadow-md hover:shadow-black/20"
       onClick={onClick}
     >
       {label}
     </Button>
+  );
+
+  if (reduce) {
+    return button;
+  }
+
+  return (
+    <motion.div whileHover={{ scale: 1.015, x: 2 }} whileTap={{ scale: 0.985 }}>
+      {button}
+    </motion.div>
   );
 }
 
@@ -93,7 +106,9 @@ export function RecommendWizard() {
         ))}
       </div>
 
-      {step === 0 ? (
+      <AnimatePresence mode="wait">
+        <StepSwap stepKey={step} className="min-h-[12rem]">
+          {step === 0 ? (
         <Card>
           <CardHeader>
             <CardTitle>{t("qUse")}</CardTitle>
@@ -113,9 +128,9 @@ export function RecommendWizard() {
             ))}
           </CardContent>
         </Card>
-      ) : null}
+          ) : null}
 
-      {step === 1 ? (
+          {step === 1 ? (
         <Card>
           <CardHeader>
             <CardTitle>{t("qHost")}</CardTitle>
@@ -283,7 +298,9 @@ export function RecommendWizard() {
             </div>
           )}
         </div>
-      ) : null}
+          ) : null}
+        </StepSwap>
+      </AnimatePresence>
     </div>
   );
 }

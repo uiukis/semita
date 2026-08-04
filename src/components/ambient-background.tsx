@@ -11,51 +11,51 @@ export function AmbientBackground() {
       className="pointer-events-none fixed inset-0 -z-10 overflow-hidden"
     >
       <motion.div
-        className="absolute -left-[20%] -top-[25%] h-[70rem] w-[70rem] rounded-full bg-accent/[0.07] blur-[140px]"
+        className="absolute -left-[20%] -top-[25%] h-[70rem] w-[70rem] rounded-full bg-accent/[0.11] blur-[140px]"
         animate={
           reduce
             ? undefined
             : {
-                x: [0, 70, 15, 0],
-                y: [0, 35, 80, 0],
-                scale: [1, 1.08, 0.96, 1],
+                x: [0, 90, 20, 0],
+                y: [0, 45, 95, 0],
+                scale: [1, 1.12, 0.94, 1],
               }
         }
         transition={{
-          duration: 24,
+          duration: 18,
           repeat: Infinity,
           ease: "easeInOut",
         }}
       />
       <motion.div
-        className="absolute -right-[25%] top-[30%] h-[62rem] w-[62rem] rounded-full bg-emerald-300/[0.045] blur-[150px]"
+        className="absolute -right-[25%] top-[30%] h-[62rem] w-[62rem] rounded-full bg-emerald-300/[0.08] blur-[150px]"
         animate={
           reduce
             ? undefined
             : {
-                x: [0, -65, -20, 0],
-                y: [0, -50, 60, 0],
-                scale: [0.95, 1.05, 1, 0.95],
+                x: [0, -80, -25, 0],
+                y: [0, -60, 70, 0],
+                scale: [0.94, 1.08, 1, 0.94],
               }
         }
         transition={{
-          duration: 29,
+          duration: 22,
           repeat: Infinity,
           ease: "easeInOut",
         }}
       />
       <motion.div
-        className="absolute bottom-[-35%] left-[20%] h-[55rem] w-[55rem] rounded-full bg-accent/[0.035] blur-[160px]"
+        className="absolute bottom-[-35%] left-[20%] h-[55rem] w-[55rem] rounded-full bg-accent/[0.07] blur-[160px]"
         animate={
           reduce
             ? undefined
             : {
-                x: [0, 80, -30, 0],
-                y: [0, -70, -20, 0],
+                x: [0, 95, -40, 0],
+                y: [0, -85, -25, 0],
               }
         }
         transition={{
-          duration: 32,
+          duration: 26,
           repeat: Infinity,
           ease: "easeInOut",
         }}

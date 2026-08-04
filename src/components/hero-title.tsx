@@ -59,7 +59,7 @@ export function HeroTitle({
       animate="show"
       variants={{
         hidden: {},
-        show: { transition: { staggerChildren: 0.05, delayChildren: 0.15 } },
+        show: { transition: { staggerChildren: 0.07, delayChildren: 0.12 } },
       }}
     >
       {words.map((word, index) => (
@@ -70,12 +70,13 @@ export function HeroTitle({
             word.accent ? "text-gradient-animated" : "",
           ].join(" ")}
           variants={{
-            hidden: { opacity: 0, y: "0.55em", rotateX: 45 },
+            hidden: { opacity: 0, y: "0.7em", rotateX: 55, filter: "blur(4px)" },
             show: {
               opacity: 1,
               y: 0,
               rotateX: 0,
-              transition: { type: "spring", stiffness: 320, damping: 26 },
+              filter: "blur(0px)",
+              transition: { type: "spring", stiffness: 280, damping: 22 },
             },
           }}
         >

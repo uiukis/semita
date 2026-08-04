@@ -23,15 +23,15 @@ export function TiltCard({
   const px = useMotionValue(0);
   const py = useMotionValue(0);
 
-  const rotateX = useSpring(useTransform(my, [0, 1], [5, -5]), {
-    stiffness: 240,
-    damping: 22,
+  const rotateX = useSpring(useTransform(my, [0, 1], [8, -8]), {
+    stiffness: 260,
+    damping: 20,
   });
-  const rotateY = useSpring(useTransform(mx, [0, 1], [-5, 5]), {
-    stiffness: 240,
-    damping: 22,
+  const rotateY = useSpring(useTransform(mx, [0, 1], [-8, 8]), {
+    stiffness: 260,
+    damping: 20,
   });
-  const spotlight = useMotionTemplate`radial-gradient(220px circle at ${px}px ${py}px, rgba(74, 222, 128, 0.1), transparent 70%)`;
+  const spotlight = useMotionTemplate`radial-gradient(260px circle at ${px}px ${py}px, rgba(74, 222, 128, 0.14), transparent 70%)`;
 
   if (reduce) {
     return <div className={className}>{children}</div>;
