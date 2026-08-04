@@ -33,11 +33,11 @@ export function FadeIn({
   return (
     <Tag
       className={className}
-      initial={{ opacity: 0, y, filter: "blur(6px)" }}
-      whileInView={{ opacity: 1, y: 0, filter: "blur(0px)" }}
-      viewport={{ once, amount: 0.2, margin: "0px 0px -8% 0px" }}
+      initial={{ opacity: 0, y }}
+      whileInView={{ opacity: 1, y: 0 }}
+      viewport={{ once, amount: 0.15, margin: "0px 0px -5% 0px" }}
       transition={{
-        duration: 0.7,
+        duration: 0.55,
         delay,
         ease: EASE,
       }}
@@ -67,12 +67,11 @@ export function Stagger({
     <motion.div
       className={className}
       initial="hidden"
-      whileInView="show"
-      viewport={{ once: true, amount: 0.15, margin: "0px 0px -6% 0px" }}
+      animate="show"
       variants={{
         hidden: {},
         show: {
-          transition: { staggerChildren: stagger, delayChildren: 0.06 },
+          transition: { staggerChildren: stagger, delayChildren: 0.04 },
         },
       }}
     >
@@ -98,12 +97,11 @@ export function StaggerItem({
     <motion.div
       className={className}
       variants={{
-        hidden: { opacity: 0, y: 26, filter: "blur(5px)" },
+        hidden: { opacity: 0, y: 18 },
         show: {
           opacity: 1,
           y: 0,
-          filter: "blur(0px)",
-          transition: { duration: 0.55, ease: EASE },
+          transition: { duration: 0.45, ease: EASE },
         },
       }}
     >
@@ -130,11 +128,11 @@ export function ScaleIn({
   return (
     <motion.div
       className={className}
-      initial={{ opacity: 0, scale: 0.94, filter: "blur(4px)" }}
-      whileInView={{ opacity: 1, scale: 1, filter: "blur(0px)" }}
+      initial={{ opacity: 0, scale: 0.96 }}
+      whileInView={{ opacity: 1, scale: 1 }}
       viewport={{ once: true, amount: 0.2 }}
       transition={{
-        duration: 0.55,
+        duration: 0.45,
         delay,
         ease: EASE,
       }}
@@ -163,10 +161,10 @@ export function StepSwap({
     <motion.div
       key={stepKey}
       className={className}
-      initial={{ opacity: 0, x: 18, filter: "blur(4px)" }}
-      animate={{ opacity: 1, x: 0, filter: "blur(0px)" }}
-      exit={{ opacity: 0, x: -14, filter: "blur(4px)" }}
-      transition={{ duration: 0.35, ease: EASE }}
+      initial={{ opacity: 0, x: 14 }}
+      animate={{ opacity: 1, x: 0 }}
+      exit={{ opacity: 0, x: -10 }}
+      transition={{ duration: 0.3, ease: EASE }}
     >
       {children}
     </motion.div>

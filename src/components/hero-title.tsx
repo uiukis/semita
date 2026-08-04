@@ -70,12 +70,11 @@ export function HeroTitle({
             word.accent ? "text-gradient-animated" : "",
           ].join(" ")}
           variants={{
-            hidden: { opacity: 0, y: "0.7em", rotateX: 55, filter: "blur(4px)" },
+            hidden: { opacity: 0, y: "0.55em", rotateX: 40 },
             show: {
               opacity: 1,
               y: 0,
               rotateX: 0,
-              filter: "blur(0px)",
               transition: { type: "spring", stiffness: 280, damping: 22 },
             },
           }}
