@@ -721,13 +721,72 @@
   ],
   "notes": [
     "profile:local-ollama",
-    "Official Semita Mini Benchmark local Ollama run ($0). Quality, latency and cost are reported separately."
+    "Official Semita Mini Benchmark local Ollama run ($0) on Wilker Quirino's MacBook Pro M2 Pro 16GB. Quality, latency and cost are reported separately."
   ],
   "limitations": [
     "Local Ollama suite: $0 API spend. Quality is not comparable 1:1 to the cloud Gateway suite.",
     "Small sample: 10 prompts × 1 repetition. Not a scientific leaderboard.",
-    "Latency is wall-clock on the maintainer machine running Ollama.",
+    "Latency is wall-clock on Wilker Quirino's MacBook Pro 14\" (Apple M2 Pro, 16GB RAM) running Ollama.",
     "Writing and pt-BR scores include blinded human review for the official run.",
     "Results apply only to the pinned Ollama tags pulled at run time."
+  ],
+  "environment": {
+    "runnerName": "Wilker Quirino",
+    "runnerHandle": "@uiukis",
+    "machineLabel": "MacBook Pro 14\" (Mac14,9)",
+    "chip": "Apple M2 Pro (12-core CPU · 19-core GPU)",
+    "ramGb": 16,
+    "accelerator": "Apple Silicon / Metal",
+    "runtime": "Ollama (local)",
+    "os": "macOS"
+  },
+  "observations": [
+    {
+      "kind": "stood-out",
+      "modelSlug": "smollm2-1-7b",
+      "title": {
+        "en": "SmolLM2 felt usable on this Mac",
+        "pt-br": "SmolLM2 ficou usável neste Mac"
+      },
+      "body": {
+        "en": "Best overall quality in the suite (~54%) and by far the snappiest median latency (~5.8s). Extraction was the clear strength; reasoning tasks still failed hard.",
+        "pt-br": "Melhor qualidade geral da suíte (~54%) e de longe a latência mediana mais ágil (~5,8s). Extração foi o ponto forte; raciocínio ainda falhou feio."
+      }
+    },
+    {
+      "kind": "struggled",
+      "modelSlug": "qwen3-8b",
+      "title": {
+        "en": "Qwen3 8B dragged / timed out",
+        "pt-br": "Qwen3 8B arrastou / estourou timeout"
+      },
+      "body": {
+        "en": "Median ~103s and peaks near ~6.5 min on 16GB M2 Pro. One PT-BR trial returned empty after the 120s timeout — too heavy for comfortable interactive use on this machine.",
+        "pt-br": "Mediana ~103s e picos perto de ~6,5 min no M2 Pro 16GB. Um trial PT-BR voltou vazio após o timeout de 120s — pesado demais para uso interativo confortável nesta máquina."
+      }
+    },
+    {
+      "kind": "struggled",
+      "modelSlug": "phi4-mini",
+      "title": {
+        "en": "Phi-4 Mini had brutal latency spikes",
+        "pt-br": "Phi-4 Mini teve picos brutais de latência"
+      },
+      "body": {
+        "en": "Quality sat in the middle, but wall-clock max hit ~330s. Fine as an offline experiment; not something you'd want waiting on every prompt on this laptop.",
+        "pt-br": "Qualidade ficou no meio, mas o máximo de wall-clock bateu ~330s. Ok como experimento offline; não é o que você quer esperar a cada prompt neste notebook."
+      }
+    },
+    {
+      "kind": "note",
+      "title": {
+        "en": "What this run means",
+        "pt-br": "O que esta rodada significa"
+      },
+      "body": {
+        "en": "Scores are from one maintainer lab pass on this exact Mac + Ollama tags — not a cloud leaderboard and not a guarantee for every Apple Silicon config.",
+        "pt-br": "Os scores vêm de uma passagem de lab do maintainer neste Mac + tags Ollama exatas — não é leaderboard de nuvem nem garantia para toda config Apple Silicon."
+      }
+    }
   ]
 }

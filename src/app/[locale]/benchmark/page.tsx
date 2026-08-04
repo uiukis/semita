@@ -143,19 +143,131 @@ export default async function BenchmarkPage({
               <div>
                 <h2 className="text-xl font-semibold">{t("resultsTitle")}</h2>
                 <p className="mt-1 text-sm text-muted">
-                  {t("resultsMeta", {
-                    runId: run.runId,
-                    date: run.publishedAt
-                      ? new Intl.DateTimeFormat(
-                          locale === "pt-br" ? "pt-BR" : "en-US",
-                          { dateStyle: "medium" },
-                        ).format(new Date(run.publishedAt))
-                      : "—",
-                  })}
+                  {run.environment
+                    ? t("resultsMetaWithRunner", {
+                        runner: run.environment.runnerHandle
+                          ? `${run.environment.runnerName} (${run.environment.runnerHandle})`
+                          : run.environment.runnerName,
+                        date: run.publishedAt
+                          ? new Intl.DateTimeFormat(
+                              locale === "pt-br" ? "pt-BR" : "en-US",
+                              { dateStyle: "medium" },
+                            ).format(new Date(run.publishedAt))
+                          : "—",
+                      })
+                    : t("resultsMeta", {
+                        date: run.publishedAt
+                          ? new Intl.DateTimeFormat(
+                              locale === "pt-br" ? "pt-BR" : "en-US",
+                              { dateStyle: "medium" },
+                            ).format(new Date(run.publishedAt))
+                          : "—",
+                      })}
                 </p>
               </div>
             </div>
           </FadeIn>
+
+          {run.environment || (run.observations && run.observations.length > 0) ? (
+            <FadeIn delay={0.13} className="mt-6">
+              <Card className="border-line/80">
+                <CardHeader className="p-5 pb-0 sm:p-6 sm:pb-0">
+                  <CardTitle className="text-lg">{t("labTitle")}</CardTitle>
+                </CardHeader>
+                <CardContent className="space-y-5 p-5 sm:p-6">
+                  {run.environment ? (
+                    <dl className="grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
+                      <div>
+                        <dt className="text-xs text-muted">{t("labMachine")}</dt>
+                        <dd className="mt-0.5 text-sm font-medium">
+                          {run.environment.machineLabel}
+                        </dd>
+                      </div>
+                      <div>
+                        <dt className="text-xs text-muted">{t("labChip")}</dt>
+                        <dd className="mt-0.5 text-sm font-medium">
+                          {run.environment.chip}
+                        </dd>
+                      </div>
+                      <div>
+                        <dt className="text-xs text-muted">{t("labRam")}</dt>
+                        <dd className="mt-0.5 text-sm font-medium">
+                          {run.environment.ramGb} GB
+                        </dd>
+                      </div>
+                      <div>
+                        <dt className="text-xs text-muted">{t("labAccelerator")}</dt>
+                        <dd className="mt-0.5 text-sm font-medium">
+                          {run.environment.accelerator}
+                        </dd>
+                      </div>
+                      <div>
+                        <dt className="text-xs text-muted">{t("labRuntime")}</dt>
+                        <dd className="mt-0.5 text-sm font-medium">
+                          {run.environment.runtime}
+                        </dd>
+                      </div>
+                      {run.environment.os ? (
+                        <div>
+                          <dt className="text-xs text-muted">{t("labOs")}</dt>
+                          <dd className="mt-0.5 text-sm font-medium">
+                            {run.environment.os}
+                          </dd>
+                        </div>
+                      ) : null}
+                    </dl>
+                  ) : null}
+
+                  {run.observations && run.observations.length > 0 ? (
+                    <div>
+                      <p className="text-sm font-medium">{t("labObservations")}</p>
+                      <ul className="mt-3 space-y-3">
+                        {run.observations.map((observation) => {
+                          const kindLabel =
+                            observation.kind === "stood-out"
+                              ? t("obsStoodOut")
+                              : observation.kind === "struggled"
+                                ? t("obsStruggled")
+                                : t("obsNote");
+                          const title =
+                            observation.title[typedLocale] ??
+                            observation.title.en;
+                          const body =
+                            observation.body[typedLocale] ??
+                            observation.body.en;
+                          return (
+                            <li
+                              key={`${observation.kind}-${title}`}
+                              className="rounded-lg border border-line/60 bg-background/40 p-3"
+                            >
+                              <div className="flex flex-wrap items-center gap-2">
+                                <Badge
+                                  variant={
+                                    observation.kind === "stood-out"
+                                      ? "default"
+                                      : observation.kind === "struggled"
+                                        ? "outline"
+                                        : "secondary"
+                                  }
+                                  className="text-[11px]"
+                                >
+                                  {kindLabel}
+                                </Badge>
+                                <p className="text-sm font-medium">{title}</p>
+                              </div>
+                              <p className="mt-1.5 text-sm leading-relaxed text-muted">
+                                {body}
+                              </p>
+                            </li>
+                          );
+                        })}
+                      </ul>
+                    </div>
+                  ) : null}
+                </CardContent>
+              </Card>
+            </FadeIn>
+          ) : null}
 
           <Stagger className="mt-6 grid gap-4 lg:grid-cols-3" stagger={0.06}>
             {ranked.map((model, index) => (

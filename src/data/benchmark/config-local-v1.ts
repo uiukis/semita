@@ -14,7 +14,7 @@ export const configLocalV1 = {
   temperature: 0,
   maxOutputTokens: 512,
   repetitions: 1,
-  timeoutMs: 180_000,
+  timeoutMs: 120_000,
   concurrency: 1,
   maxRetries: 1,
   defaultMaxUsd: 0,
@@ -39,7 +39,7 @@ export const configLocalV1 = {
   limitations: [
     "Local Ollama suite: $0 API spend. Quality is not comparable 1:1 to the cloud Gateway suite.",
     "Small sample: 10 prompts × 1 repetition. Not a scientific leaderboard.",
-    "Latency is wall-clock on the maintainer machine running Ollama.",
+    "Latency is wall-clock on Wilker Quirino's MacBook Pro 14\" (Apple M2 Pro, 16GB RAM) running Ollama.",
     "Writing and pt-BR scores include blinded human review for the official run.",
     "Results apply only to the pinned Ollama tags pulled at run time.",
   ],

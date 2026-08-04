@@ -56,6 +56,29 @@ export const ModelAggregateSchema = z.object({
   pricing: PricingSnapshotSchema,
 });
 
+export const LocalizedTextSchema = z.object({
+  en: z.string().min(1),
+  "pt-br": z.string().min(1),
+});
+
+export const BenchmarkEnvironmentSchema = z.object({
+  runnerName: z.string().min(1),
+  runnerHandle: z.string().min(1).optional(),
+  machineLabel: z.string().min(1),
+  chip: z.string().min(1),
+  ramGb: z.number().positive(),
+  accelerator: z.string().min(1),
+  runtime: z.string().min(1),
+  os: z.string().min(1).optional(),
+});
+
+export const BenchmarkObservationSchema = z.object({
+  kind: z.enum(["stood-out", "struggled", "note"]),
+  modelSlug: z.string().min(1).optional(),
+  title: LocalizedTextSchema,
+  body: LocalizedTextSchema,
+});
+
 export const BenchmarkRunSchema = z.object({
   runId: z.string().min(1),
   benchmarkVersion: z.literal(BENCHMARK_VERSION),
@@ -75,11 +98,15 @@ export const BenchmarkRunSchema = z.object({
   trials: z.array(TrialResultSchema),
   notes: z.array(z.string()),
   limitations: z.array(z.string()),
+  environment: BenchmarkEnvironmentSchema.optional(),
+  observations: z.array(BenchmarkObservationSchema).optional(),
 });
 
 export type PricingSnapshot = z.infer<typeof PricingSnapshotSchema>;
 export type TrialResult = z.infer<typeof TrialResultSchema>;
 export type ModelAggregate = z.infer<typeof ModelAggregateSchema>;
+export type BenchmarkEnvironment = z.infer<typeof BenchmarkEnvironmentSchema>;
+export type BenchmarkObservation = z.infer<typeof BenchmarkObservationSchema>;
 export type BenchmarkRun = z.infer<typeof BenchmarkRunSchema>;
 
 export type DeterministicTask = {
