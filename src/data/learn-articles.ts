@@ -202,6 +202,7 @@ export const learnArticles: LearnArticle[] = [
           "Quality, latency and cost stay separate. A faster tiny model can beat a larger one on this small suite.",
           "Use it to shortlist local defaults (SmolLM2 / Phi-4 mini / Qwen3 8B), then verify on your own tasks.",
           "Cloud Gateway suite remains optional later — never mix the two profiles as if they were the same exam.",
+          "Want to reproduce? Follow the maintainer tutorial: docs/run-local-mini-bench.md in the repo.",
         ],
         takeaway:
           "Treat Mini Bench as a transparent smoke test. Your workload is still the final judge.",
@@ -215,6 +216,7 @@ export const learnArticles: LearnArticle[] = [
           "Qualidade, latência e custo ficam separados. Um modelo tiny mais rápido pode ganhar de um maior nesta suíte pequena.",
           "Use para shortlist de defaults locais (SmolLM2 / Phi-4 mini / Qwen3 8B) e valide nas suas tarefas.",
           "A suíte Gateway cloud continua opcional depois — nunca misture os dois perfis como se fossem a mesma prova.",
+          "Quer reproduzir? Siga o tutorial de maintainer: docs/run-local-mini-bench.md no repo.",
         ],
         takeaway:
           "Trate o Mini Bench como smoke test transparente. Sua carga de trabalho ainda é o juiz final.",

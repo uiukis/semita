@@ -109,6 +109,14 @@ export default async function BenchmarkPage({
               >
                 {t("methodologyLink")}
               </a>
+              <a
+                href="https://github.com/uiukis/semita/blob/main/docs/run-local-mini-bench.md"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="underline-offset-4 transition-colors hover:text-accent hover:underline"
+              >
+                {t("runTutorialLink")}
+              </a>
               <Link
                 href="/score"
                 className="underline-offset-4 transition-colors hover:text-accent hover:underline"

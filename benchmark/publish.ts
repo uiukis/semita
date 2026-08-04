@@ -179,6 +179,34 @@ async function main() {
     limitations: draft.limitations ?? config.limitations,
   };
 
+  try {
+    const environment = JSON.parse(
+      await readFile(path.join(runDir, "environment.json"), "utf8"),
+    ) as BenchmarkRun["environment"];
+    if (environment) {
+      published.environment = environment;
+      if (profile === "local-ollama" && environment.runnerName) {
+        published.notes = [
+          `profile:${profile}`,
+          `Official Semita Mini Benchmark local Ollama run ($0) on ${environment.runnerName}'s ${environment.machineLabel}. Quality, latency and cost are reported separately.`,
+        ];
+      }
+    }
+  } catch {
+    // optional
+  }
+
+  try {
+    const observations = JSON.parse(
+      await readFile(path.join(runDir, "observations.json"), "utf8"),
+    ) as BenchmarkRun["observations"];
+    if (observations?.length) {
+      published.observations = observations;
+    }
+  } catch {
+    // optional
+  }
+
   const parsed = BenchmarkRunSchema.parse(published);
   const resultsDir = path.join(
     process.cwd(),

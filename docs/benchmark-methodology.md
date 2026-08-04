@@ -48,6 +48,10 @@ Macro quality is the equal-weight average of the five category averages. Latency
 
 ### Free path (recommended for MVP) — local Ollama · $0
 
+**Full step-by-step for developers:** [run-local-mini-bench.md](./run-local-mini-bench.md)
+
+Short version:
+
 1. Install [Ollama](https://ollama.com) and start it (`ollama serve`).
 2. Pull the local suite tags:
 
@@ -65,7 +69,8 @@ pnpm benchmark:run:local
 ```
 
 4. Copy `.benchmark-runs/<id>/human-review.template.json` → `human-review.json`, fill scores blindly.
-5. Publish + check:
+5. Optional but recommended: add `environment.json` + `observations.json` in the run folder (machine + lab notes).
+6. Publish + check:
 
 ```bash
 pnpm benchmark:publish --run .benchmark-runs/<id>

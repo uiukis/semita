@@ -9,7 +9,7 @@ MVP focus: **Choose** — compare LLMs by cost per token, context window, local 
 - Languages: English and Portuguese on the same URLs (cookie-based)
 - License: [MIT](LICENSE)
 - Paths: [/recommend](https://semita-nu.vercel.app/recommend) · [/hardware](https://semita-nu.vercel.app/hardware) · [/apply](https://semita-nu.vercel.app/apply) · [/learn](https://semita-nu.vercel.app/learn) · [/guide](https://semita-nu.vercel.app/guide) · [/contribute](https://semita-nu.vercel.app/contribute)
-- Contribute: [CONTRIBUTING.md](CONTRIBUTING.md) · [docs/adding-a-model.md](docs/adding-a-model.md) · [docs/keeping-data-fresh.md](docs/keeping-data-fresh.md) · [docs/benchmark-methodology.md](docs/benchmark-methodology.md) · [docs/custom-domain.md](docs/custom-domain.md)
+- Contribute: [CONTRIBUTING.md](CONTRIBUTING.md) · [docs/adding-a-model.md](docs/adding-a-model.md) · [docs/keeping-data-fresh.md](docs/keeping-data-fresh.md) · [docs/run-local-mini-bench.md](docs/run-local-mini-bench.md) · [docs/benchmark-methodology.md](docs/benchmark-methodology.md) · [docs/custom-domain.md](docs/custom-domain.md)
 
 ## Stack
 
@@ -48,8 +48,9 @@ Details: [docs/keeping-data-fresh.md](docs/keeping-data-fresh.md).
 ## Semita Mini Benchmark
 
 - Public page: [/benchmark](https://semita-nu.vercel.app/benchmark)
+- **Dev tutorial (local Ollama · $0):** [docs/run-local-mini-bench.md](docs/run-local-mini-bench.md)
 - Methodology: [docs/benchmark-methodology.md](docs/benchmark-methodology.md)
-- Maintainer-only runner (AI Gateway key in `.env.local`):
+- Maintainer-only runner:
 
 ```bash
 # Free ($0) — local Ollama suite
@@ -64,7 +65,7 @@ pnpm benchmark:publish --run .benchmark-runs/<id>
 pnpm benchmark:check
 ```
 
-The site never executes models. Only published JSON under `src/data/benchmark/results/` is rendered. See [docs/benchmark-methodology.md](docs/benchmark-methodology.md).
+The site never executes models. Only published JSON under `src/data/benchmark/results/` is rendered. Follow [docs/run-local-mini-bench.md](docs/run-local-mini-bench.md) for machine metadata + lab observations.
 
 ## Data honesty (MVP)
 

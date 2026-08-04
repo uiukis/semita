@@ -346,6 +346,7 @@
     "subtitle": "A small, transparent task suite run by maintainers — same prompts, pinned model IDs, snapshotted prices. Quality, latency and cost stay separate so trade-offs stay visible.",
     "honesty": "This is not a live public runner and not a scientific leaderboard. Results are versioned in Git after a private maintainer run. Until the first official round is published, this page shows the methodology and pending state only.",
     "methodologyLink": "Full methodology",
+    "runTutorialLink": "Dev tutorial: run locally ($0)",
     "scoreLink": "Editorial Semita score",
     "pendingTitle": "First official run pending",
     "pendingBody": "The suite is ready. Results will appear here after a maintainer configures AI Gateway and publishes a reviewed run — no invented demo numbers.",
