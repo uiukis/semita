@@ -84,7 +84,10 @@
     "pathBenchTitle": "Mini Bench",
     "pathBenchBody": "Published local Ollama run — quality, latency, cost separate ($0).",
     "pathBenchCta": "See results",
-    "benchCta": "See Mini Bench"
+    "benchCta": "See Mini Bench",
+    "recentTitle": "Fresh in the catalog",
+    "recentSubtitle": "Models last touched in Semita — newest catalog updates first.",
+    "recentCta": "See all by recency"
   },
   "guide": {
     "eyebrow": "Phase 3 · Learn",
@@ -218,8 +221,10 @@
     "sortRecommended": "Recommended",
     "sortCheapest": "Cheapest / local first",
     "sortContext": "Largest context",
+    "sortRecent": "Recently updated",
     "clearFilters": "Clear filters",
     "empty": "No models match these filters.",
+    "emptyHint": "Clear filters or try a broader search.",
     "filterProvider": "Filter by provider",
     "filterUseCase": "Filter by use case",
     "filterHost": "Filter by hosting",

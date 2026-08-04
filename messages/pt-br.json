@@ -84,7 +84,10 @@
     "pathBenchTitle": "Mini Bench",
     "pathBenchBody": "Rodada local Ollama publicada — qualidade, latência e custo separados (R$0).",
     "pathBenchCta": "Ver resultados",
-    "benchCta": "Ver Mini Bench"
+    "benchCta": "Ver Mini Bench",
+    "recentTitle": "Frescos no catálogo",
+    "recentSubtitle": "Modelos tocados por último no Semita — atualizações mais novas primeiro.",
+    "recentCta": "Ver todos por recência"
   },
   "guide": {
     "eyebrow": "Fase 3 · Aprender",
@@ -218,8 +221,10 @@
     "sortRecommended": "Recomendado",
     "sortCheapest": "Mais barato / local primeiro",
     "sortContext": "Maior contexto",
+    "sortRecent": "Atualizados recentemente",
     "clearFilters": "Limpar filtros",
     "empty": "Nenhum modelo corresponde a esses filtros.",
+    "emptyHint": "Limpe os filtros ou tente uma busca mais ampla.",
     "filterProvider": "Filtrar por provedor",
     "filterUseCase": "Filtrar por caso de uso",
     "filterHost": "Filtrar por hospedagem",

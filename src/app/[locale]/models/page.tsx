@@ -2,8 +2,10 @@ import type { Metadata } from "next";
 import { Suspense } from "react";
 import { getTranslations, setRequestLocale } from "next-intl/server";
 import { FilterBar } from "@/components/filter-bar";
+import { LottiePlayer } from "@/components/lottie-player";
 import { ModelCard } from "@/components/model-card";
 import { FadeIn, Stagger } from "@/components/motion";
+import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { isBenchmarkSuiteModel } from "@/data/benchmark";
 import {
@@ -62,6 +64,14 @@ function sortModels(items: LlmModel[], sort: string): LlmModel[] {
   }
   if (sort === "context") {
     return sorted.sort((a, b) => b.contextWindow - a.contextWindow);
+  }
+  if (sort === "recent") {
+    return sorted.sort((a, b) => {
+      if (a.lastUpdated !== b.lastUpdated) {
+        return b.lastUpdated.localeCompare(a.lastUpdated);
+      }
+      return b.communityScore - a.communityScore;
+    });
   }
   return sorted.sort((a, b) => b.communityScore - a.communityScore);
 }
@@ -156,8 +166,17 @@ export default async function ModelsPage({
       {filtered.length === 0 ? (
         <FadeIn>
           <Card className="border-dashed bg-transparent">
-            <CardContent className="p-10 text-center text-muted">
-              {t("empty")}
+            <CardContent className="flex flex-col items-center gap-4 p-10 text-center">
+              <LottiePlayer
+                src="/lottie/empty-filters.json"
+                className="h-36 w-36"
+                label={t("empty")}
+              />
+              <p className="text-muted">{t("empty")}</p>
+              <p className="max-w-sm text-sm text-muted/80">{t("emptyHint")}</p>
+              <Button asChild variant="outline" size="sm">
+                <Link href="/models">{t("clearFilters")}</Link>
+              </Button>
             </CardContent>
           </Card>
         </FadeIn>

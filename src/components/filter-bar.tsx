@@ -21,7 +21,7 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 
-type SortOption = "recommended" | "cheapest" | "context";
+type SortOption = "recommended" | "cheapest" | "context" | "recent";
 
 const ALL_OPTIONS_VALUE = "__all__";
 
@@ -115,6 +115,7 @@ export function FilterBar({
     recommended: t("sortRecommended"),
     cheapest: t("sortCheapest"),
     context: t("sortContext"),
+    recent: t("sortRecent"),
   };
 
   function updateParam(key: string, value: string) {

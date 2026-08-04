@@ -656,6 +656,17 @@ export function getCatalogLastUpdated(): string {
   "");
 }
 
+export function getRecentModels(limit = 6): LlmModel[] {
+  return [...models]
+    .sort((a, b) => {
+      if (a.lastUpdated !== b.lastUpdated) {
+        return b.lastUpdated.localeCompare(a.lastUpdated);
+      }
+      return b.communityScore - a.communityScore;
+    })
+    .slice(0, limit);
+}
+
 export function getModelBySlug(slug: string): LlmModel | undefined {
   return models.find((model) => model.slug === slug);
 }

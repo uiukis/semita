@@ -1,6 +1,8 @@
 import { getTranslations, setRequestLocale } from "next-intl/server";
 import { CountUp } from "@/components/count-up";
 import { HeroTitle } from "@/components/hero-title";
+import { LottiePlayer } from "@/components/lottie-player";
+import { ModelCard } from "@/components/model-card";
 import { FadeIn, Stagger, StaggerItem } from "@/components/motion";
 import { MotionLink } from "@/components/motion-link";
 import { TiltCard } from "@/components/tilt-card";
@@ -15,7 +17,8 @@ import {
   CardTitle,
 } from "@/components/ui/card";
 import { Link } from "@/i18n/navigation";
-import { getAllModels, getProviders } from "@/data/models";
+import { getAllModels, getProviders, getRecentModels } from "@/data/models";
+import type { Locale } from "@/data/types";
 import { cn } from "@/lib/utils";
 
 export default async function Home({
@@ -29,6 +32,7 @@ export default async function Home({
 
   const models = getAllModels();
   const providers = getProviders();
+  const recent = getRecentModels(6);
 
   const features = [
     { title: t("features.costTitle"), body: t("features.costBody") },
@@ -85,6 +89,10 @@ export default async function Home({
     <div className="mx-auto w-full max-w-6xl px-4 sm:px-6">
       <section className="relative flex flex-col items-start gap-7 overflow-hidden py-20 sm:py-28 lg:py-36">
         <TrailBackdrop />
+        <LottiePlayer
+          src="/lottie/path-spark.json"
+          className="pointer-events-none absolute right-[-1rem] top-8 z-[1] h-36 w-36 opacity-70 sm:right-4 sm:top-16 sm:h-44 sm:w-44 lg:right-10 lg:h-52 lg:w-52"
+        />
 
         <FadeIn delay={0} className="relative z-10">
           <Badge variant="outline" className="gap-2 px-3.5 py-1.5">
@@ -170,6 +178,35 @@ export default async function Home({
           </StaggerItem>
         ))}
       </Stagger>
+
+      <section className="pb-24">
+        <FadeIn className="mb-8 flex flex-wrap items-end justify-between gap-4">
+          <div className="max-w-2xl">
+            <h2 className="text-2xl font-semibold tracking-tight sm:text-3xl">
+              {t("recentTitle")}
+            </h2>
+            <p className="mt-2 text-muted">{t("recentSubtitle")}</p>
+          </div>
+          <MotionLink
+            href="/models?sort=recent"
+            className={cn(buttonVariants({ variant: "outline", size: "sm" }))}
+          >
+            {t("recentCta")} →
+          </MotionLink>
+        </FadeIn>
+        <Stagger
+          className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3"
+          stagger={0.07}
+        >
+          {recent.map((model) => (
+            <ModelCard
+              key={model.slug}
+              model={model}
+              locale={locale as Locale}
+            />
+          ))}
+        </Stagger>
+      </section>
 
       <section className="pb-24">
         <FadeIn className="mb-10 max-w-2xl">
