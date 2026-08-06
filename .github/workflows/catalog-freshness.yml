@@ -1,0 +1,44 @@
+name: Catalog freshness
+
+# Free report-only check against ollama.com/library.
+# Does not fail on missing models (no --fail-on-missing).
+
+on:
+  schedule:
+    # Mondays 12:00 UTC
+    - cron: "0 12 * * 1"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  catalog-check:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: pnpm/action-setup@v4
+        with:
+          version: 10
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: pnpm
+      - run: pnpm install --frozen-lockfile
+      - name: Diff Semita catalog vs Ollama library
+        run: pnpm catalog:check
+      - name: Summarize for Actions UI
+        if: always()
+        run: |
+          {
+            echo "## Catalog freshness"
+            echo ""
+            echo "Report-only job (does not fail on missing families)."
+            echo "Full log is in the previous step. Scaffold gaps with:"
+            echo ""
+            echo '```bash'
+            echo "pnpm catalog:add --tag <name>[:size]"
+            echo '```'
+            echo ""
+            echo "Docs: docs/keeping-data-fresh.md"
+          } >> "$GITHUB_STEP_SUMMARY"

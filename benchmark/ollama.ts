@@ -19,7 +19,7 @@ export async function assertOllamaReady(baseUrl = configLocalV1.ollamaBaseUrl) {
     }
   } catch {
     throw new Error(
-      `Ollama not reachable at ${baseUrl}. Install from https://ollama.com and run: ollama serve`,
+      `Ollama not reachable at ${baseUrl}. Install from https://ollama.com/download (macOS / Windows / Linux), then start the app or run: ollama serve`,
     );
   }
 }

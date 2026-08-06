@@ -43,7 +43,7 @@ pnpm catalog:check
 pnpm catalog:add --tag gemma3:12b
 ```
 
-Details: [docs/keeping-data-fresh.md](docs/keeping-data-fresh.md).
+Details: [docs/keeping-data-fresh.md](docs/keeping-data-fresh.md). A free weekly GitHub Action ([Catalog freshness](.github/workflows/catalog-freshness.yml)) posts the same report automatically (report-only).
 
 ## Semita Mini Benchmark
 

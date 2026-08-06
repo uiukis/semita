@@ -48,7 +48,7 @@ Macro quality is the equal-weight average of the five category averages. Latency
 
 ### Free path (recommended for MVP) — local Ollama · $0
 
-**Full step-by-step for developers:** [run-local-mini-bench.md](./run-local-mini-bench.md)
+**Full step-by-step for developers (macOS / Windows / Linux):** [run-local-mini-bench.md](./run-local-mini-bench.md)
 
 Short version:
 

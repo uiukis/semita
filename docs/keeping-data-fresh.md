@@ -15,6 +15,10 @@ Semita’s catalog lives in Git:
 
 ## Weekly: discover new Ollama models
 
+**Automated (free):** GitHub Action [Catalog freshness](../.github/workflows/catalog-freshness.yml) runs every Monday (and on `workflow_dispatch`). Report-only — it never fails the job just because families are missing.
+
+**Manual:**
+
 ```bash
 pnpm catalog:check
 ```
@@ -35,7 +39,7 @@ pnpm catalog:add --tag gemma3:12b
 
 Paste into `local-models.ts`, fill TODOs (EN + PT-BR), set an honest `communityScore`, then `pnpm lint && pnpm build`.
 
-Optional CI gate later: `pnpm catalog:check --fail-on-missing` (not enabled by default).
+Optional stricter gate (not used in CI/cron): `pnpm catalog:check --fail-on-missing`.
 
 ## Monthly checklist (pricing + sources)
 

@@ -25,13 +25,6 @@ pnpm benchmark:check
 pnpm build
 ```
 
-## Semita Mini Benchmark
-
-- **Dev tutorial (local Ollama · $0):** [docs/run-local-mini-bench.md](docs/run-local-mini-bench.md)
-- Methodology: [docs/benchmark-methodology.md](docs/benchmark-methodology.md)
-- Propose task/rubric changes in PRs — do not invent unpublished result JSON.
-- Prefer `pnpm benchmark:run:local` (free). Gateway cloud suite is optional and needs a Vercel card.
-
 ## Catalog freshness (Ollama)
 
 ```bash
@@ -39,7 +32,14 @@ pnpm catalog:check              # diff Semita vs ollama.com/library
 pnpm catalog:add --tag gemma3:12b   # print a local-model stub
 ```
 
-See [docs/keeping-data-fresh.md](docs/keeping-data-fresh.md).
+See [docs/keeping-data-fresh.md](docs/keeping-data-fresh.md). Weekly GitHub Action **Catalog freshness** runs the same check (report-only, no fail on missing).
+
+## Semita Mini Benchmark
+
+- **Dev tutorial (macOS / Windows / Linux · local Ollama · $0):** [docs/run-local-mini-bench.md](docs/run-local-mini-bench.md)
+- Methodology: [docs/benchmark-methodology.md](docs/benchmark-methodology.md)
+- Propose task/rubric changes in PRs — do not invent unpublished result JSON.
+- Prefer `pnpm benchmark:run:local` (free). Gateway cloud suite is optional and needs a Vercel card.
 
 ## Adding or updating a model
 
